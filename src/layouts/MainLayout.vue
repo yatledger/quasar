@@ -1,5 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { userStore } from 'stores/user'
+import db from '../lib/db'
 import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
@@ -15,6 +17,16 @@ const leftDrawerOpen = ref(false)
 const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
+
+const user = userStore()
+onMounted(async () => {
+  const seed = await db.get('settings', 'seed')
+  if (seed !== undefined || typeof seed !== 'undefined') {
+    console.log(seed)
+    user.sk = 'keys.secretKey'
+    user.pk = 'pk.value'
+  }
+})
 
 </script>
 
@@ -60,6 +72,7 @@ const toggleLeftDrawer = () => {
     </q-drawer>
 
     <q-page-container>
+      <p v-if="user.pk">qwe</p>
       <router-view />
     </q-page-container>
   </q-layout>

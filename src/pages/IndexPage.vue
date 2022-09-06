@@ -49,8 +49,6 @@ const pwdRef = ref(null)
 const pk = ref('')
 const isPwd = ref(true)
 
-console.log(db.get('settings', 'seed'))
-
 const mn = generateMnemonic(russian).normalize('NFKD')
 const seed = pbkdf2(sha512, mn, '', { c: 2048, dkLen: 32 })
 const keys = sign.keyPair.fromSeed(seed)
