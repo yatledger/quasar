@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { userStore } from 'stores/user'
-import db from '../lib/db'
+import db from 'boot/db'
 import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [

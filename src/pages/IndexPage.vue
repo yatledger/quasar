@@ -1,9 +1,9 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { userStore } from '../stores/user'
+import { userStore } from 'stores/user'
 import { sign, secretbox } from 'tweetnacl'
-import russian from '../lib/wordlists/russian'
-import db from '../lib/db'
+import russian from 'boot/wordlists/russian'
+import db from 'boot/db'
 import { generateMnemonic } from '@scure/bip39'
 import { pbkdf2 } from '@noble/hashes/pbkdf2'
 import { sha512 } from '@noble/hashes/sha512'
