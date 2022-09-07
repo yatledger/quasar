@@ -43,12 +43,7 @@ onMounted(async () => {
         />
 
         <q-toolbar-title>{{ $t('title') }}</q-toolbar-title>
-
-        <div>
-          <select v-model="$i18n.locale">
-            <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">{{ locale }}</option>
-          </select>
-        </div>
+        <q-select class="q-ml-sm" v-model="$i18n.locale" :options=$i18n.availableLocales />
       </q-toolbar>
     </q-header>
 
@@ -71,9 +66,7 @@ onMounted(async () => {
         />
       </q-list>
     </q-drawer>
-
     <q-page-container>
-      <p v-if="user.pk">qwe</p>
       <router-view />
     </q-page-container>
   </q-layout>
