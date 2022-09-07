@@ -3,6 +3,13 @@ import signin from 'components/SignIn.vue'
 import { ref } from 'vue'
 import { userStore } from 'stores/user'
 import db from 'boot/db'
+import { useQuasar } from 'quasar'
+
+const $q = useQuasar()
+const dark = ref($q.dark.isActive)
+const darkToggle = () => {
+  $q.dark.toggle()
+}
 
 const leftDrawerOpen = ref(false)
 const enter = ref(false)
@@ -41,6 +48,8 @@ const clear = () => {
 
         <q-btn icon="login" v-if="user.crypt && !user.sk"  @click="enter = true" color="secondary"></q-btn>
         <q-btn icon="logout" class="q-ml-sm" v-if="user.sk" @click="exit" color="secondary"></q-btn>
+        <!--TODO: mode in db-->
+        <q-toggle v-model="dark" color="black" @click="darkToggle" />
         <!--TODO: locale in db-->
         <q-select class="q-ml-sm" v-model="$i18n.locale" :options=$i18n.availableLocales />
       </q-toolbar>
