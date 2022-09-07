@@ -96,10 +96,11 @@ const disabled = computed(() => pwd.value.length < 7)
 <template>
   <q-page class="flex flex-center">
     <div class="collumn q-pa-md text-center" v-if="!user.seed">
-      <p class="text-left text-body1">{{ $t("sign.t1") }}</p>
-      <p class="text-h4">{{ mn }}</p>
-      <p class="text-left text-body1">{{ $t("sign.t2") }}:</p>
-      <p class="text-subtitle1">{{ pk }}</p>
+      <p class="text-justify text-body1">{{ $t("sign.t1") }}</p>
+      <!--TODO: copy-->
+      <p><q-card class="text-h4"><q-card-section>{{ mn }}</q-card-section></q-card></p>
+      <p class="text-justify text-body1">{{ $t("sign.t2") }}:</p>
+      <p><q-card class="text-subtitle1 inline-block q-pa-sm">{{ pk }}</q-card></p>
       <p class="text-left text-body1">{{ $t("sign.t3") }}</p>
       <q-input
         ref="pwdRef"
