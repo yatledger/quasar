@@ -1,5 +1,4 @@
 <script setup>
-import signin from 'components/SignIn.vue'
 import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { userStore } from 'stores/user'
@@ -76,10 +75,11 @@ const signup = async () => {
   }
   const encoder = new TextEncoder()
   const k = pbkdf2(sha512, pwd.value, '', { c: 2048, dkLen: 32 })
-  const seed = secretbox(encoder.encode(mn.value), new Uint8Array(24), k)
-  db.set('settings', 'seed', b58.binary_to_base58(seed))
+  const seed = b58.binary_to_base58(secretbox(encoder.encode(mn.value), new Uint8Array(24), k))
+  db.set('settings', 'seed', seed)
   user.sk = keys.secretKey
   user.pk = pk.value
+  user.crypt = seed
   user.seed = mn.value
   router.push('/')
 }
@@ -95,9 +95,6 @@ const disabled = computed(() => pwd.value.length < 7)
 
 <template>
   <q-page class="flex flex-center">
-    <div class="collumn q-pa-md text-center" v-if="user.seed">
-      <signin />
-    </div>
     <div class="collumn q-pa-md text-center" v-if="!user.seed">
       <p class="text-left text-body1">{{ $t("sign.t1") }}</p>
       <p class="text-h4">{{ mn }}</p>

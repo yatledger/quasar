@@ -1,31 +1,23 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import signin from 'components/SignIn.vue'
+import { ref } from 'vue'
 import { userStore } from 'stores/user'
 import db from 'boot/db'
-import EssentialLink from 'components/EssentialLink.vue'
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  }
-]
+
 const leftDrawerOpen = ref(false)
+const enter = ref(false)
+
+const user = userStore()
 
 const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 
-const user = userStore()
-onMounted(async () => {
-  const seed = await db.get('settings', 'seed')
-  if (seed !== undefined || typeof seed !== 'undefined') {
-    user.seed = seed
-  }
-})
-
 const exit = () => {
+  user.$reset()
+}
+
+const clear = () => {
   db.delete('settings', 'seed')
   user.$reset()
 }
@@ -47,8 +39,9 @@ const exit = () => {
 
         <q-toolbar-title>{{ $t('title') }}</q-toolbar-title>
 
-        <q-btn icon="login" v-if="!user.sk" to="enter" color="secondary"></q-btn>
-        <q-btn icon="logout" class="q-ml-sm" v-if="user.seed" @click="exit" color="secondary"></q-btn>
+        <q-btn icon="login" v-if="user.crypt && !user.sk"  @click="enter = true" color="secondary"></q-btn>
+        <q-btn icon="logout" class="q-ml-sm" v-if="user.sk" @click="exit" color="secondary"></q-btn>
+        <!--TODO: locale in db-->
         <q-select class="q-ml-sm" v-model="$i18n.locale" :options=$i18n.availableLocales />
       </q-toolbar>
     </q-header>
@@ -59,19 +52,34 @@ const exit = () => {
       bordered
     >
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
+        <q-item-label header>{{ $t('menu.title') }}:</q-item-label>
+        <q-item clickable tag="a" to="/">
+          <q-item-section avatar><q-icon name="home" /></q-item-section>
+          <q-item-section>
+            <q-item-label>{{ $t('menu.home') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.homeDesc') }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-separator />
+        <q-item v-if="!user.crypt" clickable tag="a" to="/sign">
+          <q-item-section avatar><q-icon name="perm_identity" /></q-item-section>
+          <q-item-section>
+            <q-item-label>{{ $t('menu.sign') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.signDesc') }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item v-if="user.crypt" @click="clear" clickable tag="span">
+          <q-item-section avatar><q-icon name="delete" /></q-item-section>
+          <q-item-section>
+            <q-item-label>{{ $t('menu.clear') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.clearDesc') }}</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
+    <q-dialog v-model="enter" persistent>
+      <signin />
+    </q-dialog>
     <q-page-container>
       <router-view />
     </q-page-container>

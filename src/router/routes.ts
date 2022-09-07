@@ -2,11 +2,11 @@ import { RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
+    path: '/', // TODO: active-link not for all
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'enter', component: () => import('pages/EnterPage.vue') },
+      { path: 'sign', component: () => import('pages/SignUp.vue') },
       { path: 'remember', component: () => import('pages/RestoreFromMnemonic.vue') }
     ]
   },

@@ -22,10 +22,11 @@ module.exports = {
   // Rules order is important, please avoid shuffling them
   extends: [
     // Base ESLint recommended rules
-    // 'eslint:recommended',
+    'eslint:recommended',
 
     // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#usage
     // ESLint typescript rules
+    "plugin:@typescript-eslint/eslint-recommended",
     'plugin:@typescript-eslint/recommended',
 
     // Uncomment any of the lines below to choose desired strictness,
@@ -98,6 +99,7 @@ module.exports = {
     // The core 'no-unused-vars' rules (in the eslint:recommended ruleset)
     // does not work with type definitions
     'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'error',
 
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
