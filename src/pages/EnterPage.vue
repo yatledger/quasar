@@ -1,4 +1,5 @@
 <script setup>
+import signin from 'components/SignIn.vue'
 import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { userStore } from 'stores/user'
@@ -73,7 +74,6 @@ const signup = async () => {
   if (pwdRef.value.hasError) {
     return
   }
-  // const decoder = new TextDecoder()
   const encoder = new TextEncoder()
   const k = pbkdf2(sha512, pwd.value, '', { c: 2048, dkLen: 32 })
   const seed = secretbox(encoder.encode(mn.value), new Uint8Array(24), k)
@@ -81,18 +81,6 @@ const signup = async () => {
   user.sk = keys.secretKey
   user.pk = pk.value
   user.seed = mn.value
-  router.push('/')
-}
-
-const signin = async () => {
-  const decoder = new TextDecoder()
-  const k = pbkdf2(sha512, pwd.value, '', { c: 2048, dkLen: 32 })
-  mn.value = secretbox.open(b58.base58_to_binary(user.seed), new Uint8Array(24), k)
-  seed = pbkdf2(sha512, mn.value, '', { c: 2048, dkLen: 32 })
-  keys = sign.keyPair.fromSeed(seed)
-  user.sk = keys.secretKey
-  user.pk = b58.binary_to_base58(keys.publicKey)
-  user.seed = decoder.decode(mn.value)
   router.push('/')
 }
 
@@ -108,24 +96,7 @@ const disabled = computed(() => pwd.value.length < 7)
 <template>
   <q-page class="flex flex-center">
     <div class="collumn q-pa-md text-center" v-if="user.seed">
-      <q-input
-        v-model="pwd"
-        filled
-        counter
-        :type="isPwd ? 'password' : 'text'"
-        :placeholder="$t('enter.remember')"
-        :hint="$t('enter.hint')"
-        :label="$t('password')"
-      >
-        <template v-slot:append>
-          <q-icon
-            :name="isPwd ? 'visibility_off' : 'visibility'"
-            class="cursor-pointer"
-            @click="isPwd = !isPwd"
-          />
-        </template>
-      </q-input>
-      <div class="q-mt-md"><q-btn push :disable="disabled" color="primary" size="xl" @click="signin" :label="$t('next')" /></div>
+      <signin />
     </div>
     <div class="collumn q-pa-md text-center" v-if="!user.seed">
       <p class="text-left text-body1">{{ $t("sign.t1") }}</p>
