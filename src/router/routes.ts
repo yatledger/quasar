@@ -6,7 +6,8 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'enter', component: () => import('pages/EnterPage.vue') }
+      { path: 'enter', component: () => import('pages/EnterPage.vue') },
+      { path: 'remember', component: () => import('pages/RestoreFromMnemonic.vue') }
     ]
   },
 

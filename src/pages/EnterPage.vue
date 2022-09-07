@@ -128,7 +128,7 @@ const disabled = computed(() => pwd.value.length < 7)
         </template>
       </q-input>
       <div class="q-mt-md"><q-btn push :disable="disabled" color="primary" size="xl" @click="signup" :label="$t('next')" /></div>
-      <p class="text-subtitle1 q-mt-sm"><a href="#">{{ $t("sign.know") }}</a></p>
+      <p class="text-subtitle1 q-mt-sm"><router-link to="remember">{{ $t("sign.know") }}</router-link></p>
     </div>
   </q-page>
 </template>
