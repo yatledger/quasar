@@ -1,6 +1,12 @@
 import { store } from 'quasar/wrappers'
-import { createPinia } from 'pinia'
+import { createPinia, Store } from 'pinia'
 import { Router } from 'vue-router'
+import cloneDeep from 'lodash.clonedeep'
+
+const resetStore = ({ store }: { store: Store }) => {
+  const initialState = cloneDeep(store.$state)
+  store.$reset = () => store.$patch(cloneDeep(initialState))
+}
 
 /*
  * When adding new properties to stores, you should also
@@ -24,7 +30,7 @@ declare module 'pinia' {
 
 export default store((/* { ssrContext } */) => {
   const pinia = createPinia()
-
+  pinia.use(resetStore)
   // You can add Pinia plugins here
   // pinia.use(SomePiniaPlugin)
 
