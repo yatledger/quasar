@@ -2,7 +2,8 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const userStore = defineStore('user', () => {
-  const sk = ref('')
+  const sk = ref(null)
   const pk = ref('')
-  return { sk, pk }
+  const seed = ref(null)
+  return { sk, pk, seed }
 })

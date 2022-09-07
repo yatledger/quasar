@@ -21,11 +21,14 @@ const user = userStore()
 onMounted(async () => {
   const seed = await db.get('settings', 'seed')
   if (seed !== undefined || typeof seed !== 'undefined') {
-    console.log(seed)
-    user.sk = 'keys.secretKey'
-    user.pk = 'pk.value'
+    user.seed = seed
   }
 })
+
+const exit = () => {
+  db.delete('settings', 'seed')
+  user.$reset()
+}
 
 </script>
 
@@ -43,6 +46,9 @@ onMounted(async () => {
         />
 
         <q-toolbar-title>{{ $t('title') }}</q-toolbar-title>
+
+        <q-btn icon="login" v-if="!user.sk" to="enter" color="secondary"></q-btn>
+        <q-btn icon="logout" class="q-ml-sm" v-if="user.seed" @click="exit" color="secondary"></q-btn>
         <q-select class="q-ml-sm" v-model="$i18n.locale" :options=$i18n.availableLocales />
       </q-toolbar>
     </q-header>
