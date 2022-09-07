@@ -3,12 +3,14 @@
     "dbaeumer.vscode-eslint",
     "editorconfig.editorconfig",
     "vue.volar",
-    "wayou.vscode-todo-highlight"
+    "wayou.vscode-todo-highlight",
+    "eamodio.gitlens",
+    "Gruntfuggly.todo-tree"
   ],
   "unwantedRecommendations": [
     "octref.vetur",
     "hookyqr.beautify",
     "dbaeumer.jshint",
-    "ms-vscode.vscode-typescript-tslint-plugin"
+    "ms-vscode.vscode-typescript-tslint-plugin",
   ]
 }
