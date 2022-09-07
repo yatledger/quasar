@@ -3,7 +3,6 @@ import { ref, onMounted } from 'vue'
 import { userStore } from 'stores/user'
 import db from 'boot/db'
 import EssentialLink from 'components/EssentialLink.vue'
-
 const linksList = [
   {
     title: 'Docs',
@@ -47,7 +46,11 @@ onMounted(async () => {
           Quasar App
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>
+          <select v-model="$i18n.locale">
+            <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">{{ locale }}</option>
+          </select>
+        </div>
       </q-toolbar>
     </q-header>
 

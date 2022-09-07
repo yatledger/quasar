@@ -1,18 +1,21 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { userStore } from 'stores/user'
 import { sign, secretbox } from 'tweetnacl'
 import russian from 'boot/wordlists/russian'
+import { wordlist as english } from '@scure/bip39/wordlists/english'
 import db from 'boot/db'
 import { generateMnemonic } from '@scure/bip39'
 import { pbkdf2 } from '@noble/hashes/pbkdf2'
 import { sha512 } from '@noble/hashes/sha512'
 import * as b58 from 'base58-js'
 import { passwordStrength } from 'check-password-strength'
-// import { wordlist } from '@scure/bip39/wordlists/english'
+import { useI18n } from 'vue-i18n'
+
 // https://words.filippo.io/mkcert-valid-https-certificates-for-localhost/
 // https://github.com/FiloSottile/mkcert
 
+const { t, locale } = useI18n()
 console.log(db)
 const user = userStore()
 console.log(user)
@@ -20,26 +23,32 @@ console.log(user)
 const pwdOptions = [
   {
     id: 0,
-    value: 'Слишком простой',
+    value: t('sign.pwd0'),
     minDiversity: 0,
     minLength: 0
   },
   {
     id: 1,
-    value: 'Простой',
+    value: t('sign.pwd1'),
     minDiversity: 1,
     minLength: 7
   },
   {
     id: 2,
-    value: 'Средний пароль',
+    value: t('sign.pwd2'),
     minDiversity: 2,
     minLength: 7
   },
   {
     id: 3,
-    value: 'Надёжный пароль',
+    value: t('sign.pwd3'),
     minDiversity: 3,
+    minLength: 7
+  },
+  {
+    id: 4,
+    value: t('sign.pwd4'),
+    minDiversity: 4,
     minLength: 8
   }
 ]
@@ -49,10 +58,17 @@ const pwdRef = ref(null)
 const pk = ref('')
 const isPwd = ref(true)
 
-const mn = generateMnemonic(russian).normalize('NFKD')
-const seed = pbkdf2(sha512, mn, '', { c: 2048, dkLen: 32 })
-const keys = sign.keyPair.fromSeed(seed)
-pk.value = b58.binary_to_base58(keys.publicKey)
+const mn = ref('')
+let seed = ''
+let keys = ''
+
+const gen = (l) => {
+  const wordlist = l === 'ru' ? russian : english
+  mn.value = generateMnemonic(wordlist).normalize('NFKD')
+  seed = pbkdf2(sha512, mn.value, '', { c: 2048, dkLen: 32 })
+  keys = sign.keyPair.fromSeed(seed)
+  pk.value = b58.binary_to_base58(keys.publicKey)
+}
 
 const next = async () => {
   pwdRef.value.validate()
@@ -71,13 +87,10 @@ const next = async () => {
   console.log(decoder.decode(dec))
 }
 
-const hint = computed(() => {
-  if (pwd.value) {
-    return passwordStrength(pwd.value, pwdOptions).value
-  } else {
-    return 'Чтобы защитить подпись'
-  }
-})
+gen(locale.value)
+watch(ref(locale), () => gen(locale.value))
+
+const hint = computed(() => pwd.value ? passwordStrength(pwd.value, pwdOptions).value : false)
 
 const disabled = computed(() => pwd.value.length < 7)
 
@@ -86,24 +99,24 @@ const disabled = computed(() => pwd.value.length < 7)
 <template>
   <q-page class="flex flex-center">
     <div class="collumn q-pa-md text-center">
-      <p class="text-left text-body1">Привет! Добро пожаловать в Ятѣ, систему обмена ценностями. Я уже придумал тебе уникальную мнемоническую фразу - считай её своей цифровой подписью, необходимой для удостоверения себя. Она у меня не хранится и потому не подлежит восстановлению. Теперь её знаешь только ты, поэтому аккуратно запиши её на бумаге или хотябы скопируй () и вставь куда-то.</p>
+      <p class="text-left text-body1">{{ $t("sign.t1") }}</p>
       <p class="text-h4">{{ mn }}</p>
-      <p class="text-left text-body1">А для взаимодействия со мной и остальными участниками у тебя уже есть свой публичный адрес, который вывелся напрямую из цифровой подписи:</p>
+      <p class="text-left text-body1">{{ $t("sign.t2") }}:</p>
       <p class="text-subtitle1">{{ pk }}</p>
-      <p class="text-left text-body1">Осталось только ввести и запомнить надёжный</p>
+      <p class="text-left text-body1">{{ $t("sign.t3") }}</p>
       <q-input
         ref="pwdRef"
         v-model="pwd"
         filled
         counter
         :type="isPwd ? 'password' : 'text'"
-        placeholder="Цифры, буквы, знаки"
-        :hint=hint
-        label="Пароль"
+        :placeholder="$t('characters')"
+        :hint="hint ? hint : $t('sign.protect')"
+        :label="$t('password')"
         lazy-rules
         :rules="[
-          val => !!val || 'Лучше введите пароль!',
-          val => val.length > 6 || 'Лучше ведите больше 6 символов',
+          val => !!val || $t('sign.pwdMust'),
+          val => val.length > 6 || $t('sign.pwdMore'),
         ]"
       >
         <template v-slot:append>
@@ -114,8 +127,8 @@ const disabled = computed(() => pwd.value.length < 7)
           />
         </template>
       </q-input>
-      <q-btn push :disable="disabled" color="primary" size="xl" @click="next" label="Продолжить" /><br />
-      <a href="#">Я помню свою фразу!</a>
+      <q-btn push :disable="disabled" color="primary" size="xl" @click="next" :label="$t('next')" /><br />
+      <a href="#">{{ $t("sign.know") }}</a>
     </div>
   </q-page>
 </template>
