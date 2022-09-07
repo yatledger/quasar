@@ -42,9 +42,7 @@ onMounted(async () => {
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+        <q-toolbar-title>{{ $t('title') }}</q-toolbar-title>
 
         <div>
           <select v-model="$i18n.locale">
