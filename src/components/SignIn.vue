@@ -30,6 +30,7 @@ const disabled = computed(() => pwd.value.length < 1)
 <template>
   <q-card>
     <q-card-section>
+      <!--TODO: enter key-->
       <q-input
         v-model="pwd"
         dense

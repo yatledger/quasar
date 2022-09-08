@@ -15,7 +15,7 @@ const resetStore = ({ store }: { store: Store }) => {
  */
 declare module 'pinia' {
   export interface PiniaCustomProperties {
-    readonly router: Router;
+    readonly router: Router
   }
 }
 
