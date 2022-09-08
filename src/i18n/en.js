@@ -7,7 +7,9 @@ export default {
     sign: 'Connect',
     signDesc: 'Get the key',
     clear: 'Clear',
-    clearDesc: 'Remove traces on the device'
+    clearDesc: 'Remove traces on the device',
+    code: 'Github',
+    coderDesc: 'Repository'
   },
   sign: {
     t1: 'Hi! Welcome to Yat, the value exchange system. I have already come up with a unique mnemonic phrase for you - consider it your digital signature, necessary to identify yourself. I do not have it stored and therefore cannot be restored. Now only you know it, so write it down carefully on paper or at least copy it by clicking on it and put it somewhere.',
