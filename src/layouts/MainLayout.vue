@@ -21,7 +21,9 @@ const toggleLeftDrawer = () => {
 }
 
 const exit = () => {
-  user.$reset()
+  user.pk = ''
+  user.sk = ''
+  user.seed = ''
 }
 
 const clear = () => {
