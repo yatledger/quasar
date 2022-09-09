@@ -72,7 +72,7 @@ const clear = () => {
           </q-item-section>
         </q-item>
         <q-separator />
-        <q-item clickable tag="a" href="https://github.com/yatproject">
+        <q-item clickable tag="a" href="https://github.com/yatledger">
           <q-item-section avatar><q-icon name="code" /></q-item-section>
           <q-item-section>
             <q-item-label>{{ $t('menu.code') }}</q-item-label>
