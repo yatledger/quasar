@@ -1,6 +1,7 @@
 const esModules = ['quasar', 'quasar/lang', 'lodash-es'].join('|')
 
 /* eslint-env node */
+// node --inspect-brk node_modules/.bin/jest --runInBand
 module.exports = {
   globals: {
     __DEV__: true,

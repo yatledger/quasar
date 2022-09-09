@@ -16,11 +16,20 @@ const isPwd = ref(true)
 const signin = async () => {
   const decoder = new TextDecoder()
   const encoder = new TextEncoder()
-  const k = pbkdf2(sha512, Uint8Array.from(encoder.encode(pwd.value)), Uint8Array.from([]), { c: 2048, dkLen: 32 })
+  const pwd8: Uint8Array = Uint8Array.from(encoder.encode(pwd.value))
+  const salt: Uint8Array = Uint8Array.from([])
+  // FIXME: pwd2 & pwd8 are similar
+  /*
+  не ясно почему pbkdf2 не принимает pwd2 в тестах
+  const pwd2: Uint8Array = encoder.encode(pwd.value)
+  console.log(pwd8, typeof pwd8, pwd8.buffer)
+  console.log(pwd2, typeof pwd2, pwd2.buffer)
+  */
+  const k = pbkdf2(sha512, pwd8, salt, { c: 2048, dkLen: 32 })
   // @ts-expect-error: Bad secretbox types
   const mn = decoder.decode(secretbox.open(base58.decode(user.crypt), new Uint8Array(24), k))
   console.log(mn)
-  const seed = pbkdf2(sha512, Uint8Array.from(encoder.encode(mn)), Uint8Array.from([]), { c: 2048, dkLen: 32 })
+  const seed = pbkdf2(sha512, Uint8Array.from(encoder.encode(mn)), salt, { c: 2048, dkLen: 32 })
   const keys = sign.keyPair.fromSeed(seed)
   user.sk = keys.secretKey
   user.pk = base58.encode(keys.publicKey)
