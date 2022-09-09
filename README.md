@@ -1,11 +1,20 @@
-# Yat.Money (yat)
+# ѣ project (Yat)
 
-Yat.Wallet
+Yat is an open, unchangeable and provable ledger; a system that allows you to transparently monitor the movements of funds within yourself.
 
-## Install the dependencies
+Yat is not a ruble, not a cryptocurrency and not a payment system - it is an exchange of values, rights and obligations.
+
+Yat are smart contracts that are concluded as simply as a handshake.
+
+It is based on a directed acyclic graph (DAG) - a chain of transactions, where each next one confirms the legitimacy of the previous one. This is achieved thanks to the hashing system - the generation of unique digital fingerprints of data and their connection into a single oriented structure. The slightest attempts to manipulate its history will immediately and avalanche-like lead to the unreliability of the entire chain. Such a feature makes such actions meaningless, because anyone can algorithmically check the open history and make sure of its integrity.
+
+### Install Quasar
 ```bash
-yarn
-# or
+npm i -g @quasar/cli
+```
+
+### Install the dependencies
+```bash
 npm install
 ```
 
@@ -13,8 +22,14 @@ npm install
 ```bash
 quasar dev
 ```
+
+### Build the app for production
+```bash
+quasar build -m pwa
+```
+---
 ### Be SSL
-See [mkcert: valid HTTPS certificates for localhost](https://words.filippo.io/mkcert-valid-https-certificates-for-localhost/).
+Read [mkcert: valid HTTPS certificates for localhost](https://words.filippo.io/mkcert-valid-https-certificates-for-localhost/).
 
 Use the pre-built binaries:
 ```bash
@@ -23,18 +38,11 @@ chmod +x mkcert-v*-linux-amd64
 sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert
 ```
 
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+### Useful links:
+- [Quasar Framework](https://quasar.dev/)
+- [Vue.js Guide](https://vuejs.org/guide/)
+- [Pinia: Store that you will enjoy using](https://pinia.vuejs.org/)
+- [Villus: minimal GraphQL client](https://pinia.vuejs.org/)
+- [Vue Test Utils](https://vuejs.org/)
+- [TweetNaCl.js - JavaScript crypto library](https://tweetnacl.js.org/)
+- [wemake-vue-template](https://github.com/wemake-services/wemake-vue-template)
