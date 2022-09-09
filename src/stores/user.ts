@@ -4,7 +4,7 @@ import db from 'boot/db'
 
 // TODO: !!STATE!!
 export const userStore = defineStore('user', () => {
-  const crypt = ref(null)
+  const crypt = ref('')
   /* const raw = async () => {
     const result = await db.get('settings', 'seed')
     return result
@@ -17,9 +17,9 @@ export const userStore = defineStore('user', () => {
   })()
   // console.log(raw.then(value => { return value }))
   // computed(() => data.value)
-  const sk = ref(null)
+  const sk = ref(new Uint8Array())
   const pk = ref('')
-  const seed = ref(null)
+  const seed = ref('')
 
   return { sk, pk, seed, crypt }
 })

@@ -8,7 +8,7 @@ const enter = ref(true)
 </script>
 
 <template>
-  <q-dialog style="opacity: 0.75" v-if="user.crypt && !user.sk" v-model="enter">
+  <q-dialog style="opacity: 0.75" v-if="user.crypt && user.sk.length === 0" v-model="enter">
     <signin />
   </q-dialog>
   <q-page class="flex flex-center">

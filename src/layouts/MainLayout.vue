@@ -48,8 +48,8 @@ const clear = () => {
 
         <q-toolbar-title>{{ $t('title') }}</q-toolbar-title>
 
-        <q-btn icon="login" v-if="user.crypt && !user.sk"  @click="enter = true" color="secondary"></q-btn>
-        <q-btn icon="logout" class="q-ml-sm" v-if="user.sk" @click="exit" color="secondary"></q-btn>
+        <q-btn icon="login" v-if="user.crypt && user.sk.length === 0" @click="enter = true" color="secondary"></q-btn>
+        <q-btn icon="logout" class="q-ml-sm" v-if="user.sk.length > 0" @click="exit" color="secondary"></q-btn>
         <!--TODO: mode in db-->
         <q-toggle v-model="dark" color="black" @click="darkToggle" />
         <!--TODO: locale in db-->
