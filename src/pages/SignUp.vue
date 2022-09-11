@@ -3,7 +3,7 @@ import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { userStore } from 'stores/user'
 import { sign, secretbox } from 'tweetnacl'
-import russian from 'boot/wordlists/russian'
+import russian from 'boot/wordlists/russian.json'
 import { wordlist as english } from '@scure/bip39/wordlists/english'
 import db from 'boot/db'
 import { generateMnemonic } from '@scure/bip39'
@@ -62,6 +62,7 @@ let keys = ''
 
 const gen = (l) => {
   const wordlist = l === 'ru' ? russian : english
+  console.log(wordlist)
   mn.value = generateMnemonic(wordlist).normalize('NFKD')
   seed = pbkdf2(sha512, mn.value, '', { c: 2048, dkLen: 32 })
   keys = sign.keyPair.fromSeed(seed)
@@ -95,12 +96,12 @@ const disabled = computed(() => pwd.value.length < 7)
 
 <template>
   <q-page class="flex flex-center">
-    <div class="collumn q-pa-md text-center" v-if="!user.seed">
+    <div class="collumn q-pa-sm text-center" v-if="!user.seed">
       <p class="text-justify text-body1">{{ $t("sign.t1") }}</p>
       <!--TODO: copy-->
       <p><q-card class="text-h4"><q-card-section>{{ mn }}</q-card-section></q-card></p>
       <p class="text-justify text-body1">{{ $t("sign.t2") }}:</p>
-      <p><q-card class="text-subtitle1 inline-block q-pa-sm">{{ pk }}</q-card></p>
+      <p><q-card class="inline-block q-pa-xs">{{ pk }}</q-card></p>
       <p class="text-left text-body1">{{ $t("sign.t3") }}</p>
       <q-input
         ref="pwdRef"
