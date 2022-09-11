@@ -12,7 +12,7 @@ npm install
 
 ## Start the app in development mode
 ```bash
-quasar dev
+quasar dev -m pwa
 ```
 
 ## Build the app for production

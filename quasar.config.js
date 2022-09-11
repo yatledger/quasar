@@ -95,7 +95,10 @@ module.exports = configure(function (/* ctx */) {
         key: fs.readFileSync('keys/localhost-key.pem'),
         cert: fs.readFileSync('keys/localhost.pem')
       },
-      open: false // opens browser window automatically
+      host: '0.0.0.0', // TODO: Opening Dev Server to the Public
+      /* https://quasar.dev/quasar-cli-vite/opening-dev-server-to-public */
+      open: false, // opens browser window automatically
+      vueDevtools: true
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
