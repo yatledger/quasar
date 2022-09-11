@@ -12,7 +12,7 @@ import { sha512 } from '@noble/hashes/sha512'
 import * as b58 from 'base58-js'
 import { passwordStrength } from 'check-password-strength'
 import { useI18n } from 'vue-i18n'
-import { Notify } from 'quasar'
+import { Notify, copyToClipboard } from 'quasar'
 
 const { t, locale } = useI18n()
 console.log(db)
@@ -93,8 +93,14 @@ const hint = computed(() => pwd.value ? passwordStrength(pwd.value, pwdOptions).
 
 const disabled = computed(() => pwd.value.length < 7)
 
-const copyMN = () => {
-  Notify.create('Danger, Will Robinson! Danger!')
+const copy = (txt) => {
+  copyToClipboard(txt)
+    .then(() => {
+      Notify.create(t('sign.copy'))
+    })
+    .catch(() => {
+    // fail
+    })
 }
 
 </script>
@@ -104,7 +110,7 @@ const copyMN = () => {
     <div class="collumn q-pa-sm text-center" v-if="!user.seed">
       <p class="text-justify text-body1">{{ $t("sign.t1") }}</p>
       <!--TODO: copy-->
-      <p><q-card class="text-h4" @click="copyMN"><q-card-section>{{ mn }}</q-card-section></q-card></p>
+      <p><q-card class="text-h4" @click="copy(mn)"><q-card-section>{{ mn }}</q-card-section></q-card></p>
       <p class="text-justify text-body1">{{ $t("sign.t2") }}:</p>
       <p><q-card class="inline-block q-pa-xs">{{ pk }}</q-card></p>
       <p class="text-left text-body1">{{ $t("sign.t3") }}</p>
