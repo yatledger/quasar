@@ -102,5 +102,8 @@ const clear = () => {
     <q-page-container>
       <router-view />
     </q-page-container>
+    <q-footer elevated  class="flex flex-center">
+      <q-btn icon="qr_code_scanner"></q-btn>
+    </q-footer>
   </q-layout>
 </template>
