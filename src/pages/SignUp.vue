@@ -9,7 +9,7 @@ import db from 'boot/db'
 import { generateMnemonic } from '@scure/bip39'
 import { pbkdf2 } from '@noble/hashes/pbkdf2'
 import { sha512 } from '@noble/hashes/sha512'
-import * as b58 from 'base58-js'
+import { base58 } from '@scure/base'
 import { passwordStrength } from 'check-password-strength'
 import { useI18n } from 'vue-i18n'
 import { Notify, copyToClipboard } from 'quasar'
@@ -67,7 +67,7 @@ const gen = (l) => {
   mn.value = generateMnemonic(wordlist).normalize('NFKD')
   seed = pbkdf2(sha512, mn.value, '', { c: 2048, dkLen: 32 })
   keys = sign.keyPair.fromSeed(seed)
-  pk.value = b58.binary_to_base58(keys.publicKey)
+  pk.value = base58.encode(keys.publicKey)
 }
 
 const signup = async () => {
@@ -77,7 +77,7 @@ const signup = async () => {
   }
   const encoder = new TextEncoder()
   const k = pbkdf2(sha512, pwd.value, '', { c: 2048, dkLen: 32 })
-  const seed = b58.binary_to_base58(secretbox(encoder.encode(mn.value), new Uint8Array(24), k))
+  const seed = base58.encode(secretbox(encoder.encode(mn.value), new Uint8Array(24), k))
   db.set('settings', 'seed', seed)
   user.sk = keys.secretKey
   user.pk = pk.value
