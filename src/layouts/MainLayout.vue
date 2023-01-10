@@ -37,14 +37,7 @@ const clear = () => {
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>{{ $t('title') }}</q-toolbar-title>
 
@@ -57,11 +50,7 @@ const clear = () => {
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
         <q-item-label header>{{ $t('menu.title') }}:</q-item-label>
         <q-item clickable tag="a" to="/">
@@ -102,8 +91,10 @@ const clear = () => {
     <q-page-container>
       <router-view />
     </q-page-container>
-    <q-footer elevated  class="flex flex-center">
-      <q-btn icon="qr_code_scanner"></q-btn>
+    <q-footer elevated>
+      <q-toolbar class="flex flex-center q-pa-sm">
+        <q-btn round size="lg" icon="qr_code_scanner"></q-btn>
+      </q-toolbar>
     </q-footer>
   </q-layout>
 </template>

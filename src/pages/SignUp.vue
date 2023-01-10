@@ -99,7 +99,7 @@ const copy = (txt) => {
       Notify.create(t('sign.copy'))
     })
     .catch(() => {
-    // fail
+      // fail
     })
 }
 
@@ -112,32 +112,20 @@ const copy = (txt) => {
       <!--TODO: copy-->
       <p><q-card class="text-h4" @click="copy(mn)"><q-card-section>{{ mn }}</q-card-section></q-card></p>
       <p class="text-justify text-body1">{{ $t("sign.t2") }}:</p>
-      <p><q-card class="inline-block q-pa-xs">{{ pk }}</q-card></p>
+      <p><q-card class="inline-block q-pa-xs text-caption">{{ pk }}</q-card></p>
       <p class="text-left text-body1">{{ $t("sign.t3") }}</p>
-      <q-input
-        ref="pwdRef"
-        v-model="pwd"
-        filled
-        counter
-        :type="isPwd ? 'password' : 'text'"
-        :placeholder="$t('characters')"
-        :hint="hint ? hint : $t('sign.protect')"
-        :label="$t('password')"
-        lazy-rules
+      <q-input ref="pwdRef" v-model="pwd" filled counter :type="isPwd ? 'password' : 'text'"
+        :placeholder="$t('characters')" :hint="hint ? hint : $t('sign.protect')" :label="$t('password')" lazy-rules
         :rules="[
           val => !!val || $t('sign.pwdMust'),
           val => val.length > 6 || $t('sign.pwdMore'),
-        ]"
-      >
+        ]">
         <template v-slot:append>
-          <q-icon
-            :name="isPwd ? 'visibility_off' : 'visibility'"
-            class="cursor-pointer"
-            @click="isPwd = !isPwd"
-          />
+          <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
         </template>
       </q-input>
-      <div class="q-mt-md"><q-btn push :disable="disabled" color="primary" size="xl" @click="signup" :label="$t('next')" /></div>
+      <div class="q-mt-md"><q-btn push :disable="disabled" color="primary" size="xl" @click="signup"
+          :label="$t('next')" /></div>
       <p class="text-subtitle1 q-mt-sm"><router-link to="remember">{{ $t("sign.know") }}</router-link></p>
     </div>
   </q-page>
