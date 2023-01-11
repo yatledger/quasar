@@ -15,7 +15,7 @@ const enter = ref(true)
   <ul class="cb-slideshow">
     <li><span>Image 01</span>
       <div>
-        <h3>открытость</h3>
+        <h3>{{ $t('slider.w1') }}</h3>
         <p>&copy; <a
             href="https://unsplash.com/@chuttersnap?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">ChutterSnap</a>
         </p>
@@ -23,7 +23,7 @@ const enter = ref(true)
     </li>
     <li><span>Image 02</span>
       <div>
-        <h3>неизменяемость</h3>
+        <h3>{{ $t('slider.w2') }}</h3>
         <p>&copy; <a
             href="https://unsplash.com/@theshubhamdhage?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Shubham
             Dhage</a></p>
@@ -31,7 +31,7 @@ const enter = ref(true)
     </li>
     <li><span>Image 03</span>
       <div>
-        <h3>доказуемость</h3>
+        <h3>{{ $t('slider.w3') }}</h3>
         <p>&copy; <a
             href="https://unsplash.com/ja/@clintadair?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Clint
             Adair</a></p>
@@ -39,7 +39,7 @@ const enter = ref(true)
     </li>
     <li><span>Image 04</span>
       <div>
-        <h3>безопасность</h3>
+        <h3>{{ $t('slider.w4') }}</h3>
         <p>&copy; <a
             href="https://unsplash.com/@urielsc26?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Uriel
             SC</a></p>
@@ -47,7 +47,7 @@ const enter = ref(true)
     </li>
     <li><span>Image 05</span>
       <div>
-        <h3>надёжность</h3>
+        <h3>{{ $t('slider.w5') }}</h3>
         <p>&copy; <a
             href="https://unsplash.com/@fabioha?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">fabio</a>
         </p>
