@@ -1,3 +1,4 @@
 <template>
   QR
+  Test
 </template>
