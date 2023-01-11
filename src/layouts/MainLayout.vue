@@ -1,10 +1,12 @@
 <script setup>
 import signin from 'components/SignIn.vue'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { userStore } from 'stores/user'
 import db from 'boot/db'
 import { useQuasar } from 'quasar'
 
+const router = useRouter()
 const $q = useQuasar()
 const dark = ref($q.dark.isActive)
 const darkToggle = () => {
@@ -31,6 +33,9 @@ const clear = () => {
   user.$reset()
 }
 
+const qrCodeRt = () => {
+  router.push('qr')
+}
 </script>
 
 <template>
@@ -93,7 +98,7 @@ const clear = () => {
     </q-page-container>
     <q-footer elevated>
       <q-toolbar class="flex flex-center q-pa-sm">
-        <q-btn round size="lg" icon="qr_code_scanner"></q-btn>
+        <q-btn round size="lg" icon="qr_code_scanner" @click="qrCodeRt"></q-btn>
       </q-toolbar>
     </q-footer>
   </q-layout>
