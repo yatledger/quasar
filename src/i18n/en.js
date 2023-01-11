@@ -36,5 +36,12 @@ export default {
   cancel: 'Cancel',
   ok: 'Ok',
   characters: 'Numbers, letters, special characters',
-  next: 'Continue'
+  next: 'Continue',
+  slider: {
+    w1: 'openness',
+    w2: 'immutability',
+    w3: 'provability',
+    w4: 'security',
+    w5: 'reliability'
+  }
 }
