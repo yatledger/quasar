@@ -5,6 +5,7 @@ import { userStore } from 'stores/user'
 import { sign, secretbox } from 'tweetnacl'
 import russian from 'boot/wordlists/russian.json'
 import { wordlist as english } from '@scure/bip39/wordlists/english'
+import { wordlist as chinese } from '@scure/bip39/wordlists/simplified-chinese'
 import db from 'boot/db'
 import { generateMnemonic } from '@scure/bip39'
 import { pbkdf2 } from '@noble/hashes/pbkdf2'
@@ -62,7 +63,18 @@ let seed = ''
 let keys = ''
 
 const gen = (l) => {
-  const wordlist = l === 'ru' ? russian : english
+  let wordlist
+  // const wordlist = l === 'ru' ? russian : english
+  switch (l) {
+    case 'ru':
+      wordlist = russian
+      break
+    case 'cn':
+      wordlist = chinese
+      break
+    default:
+      wordlist = english
+  }
   console.log(wordlist)
   mn.value = generateMnemonic(wordlist).normalize('NFKD')
   seed = pbkdf2(sha512, mn.value, '', { c: 2048, dkLen: 32 })
