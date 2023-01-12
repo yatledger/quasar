@@ -10,7 +10,7 @@ import routes from './routes'
  * async/await or return a Promise which resolves
  * with the Router instance.
  */
-
+// eslint-disable-next-line space-before-function-paren
 export default route(function (/* { store, ssrContext } */) {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
