@@ -20,6 +20,7 @@ export const userStore = defineStore('user', () => {
   const sk = ref(new Uint8Array())
   const pk = ref('')
   const seed = ref('')
+  console.log(pk)
 
   return { sk, pk, seed, crypt }
 })
