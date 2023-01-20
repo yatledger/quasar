@@ -8,8 +8,8 @@ const routes: RouteRecordRaw[] = [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: 'sign', component: () => import('pages/SignUp.vue') },
       { path: 'remember', component: () => import('pages/RestoreFromMnemonic.vue') },
-      { path: 'qr', component: () => import('src/pages/UserQR.vue') }
-      // { path: 'userqr', component: () => import('src/pages/UserQR.vue') }
+      { path: 'qr', component: () => import('src/pages/ScanQr.vue') },
+      { path: 'userqr', component: () => import('src/pages/UserQR.vue') }
     ]
   },
 

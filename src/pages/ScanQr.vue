@@ -3,7 +3,7 @@
     <h1>Отсканировать QR-код</h1>
     <p class="text-red">{{ error }}</p>
     {{ result }}
-    <qrcode-stream @decode="onDecode" @init="onInit" />
+    <qrcode-stream class="qr_scan" @decode="onDecode" @init="onInit" />
   </div>
 </template>
 
@@ -57,3 +57,7 @@ export default {
 
 }
 </script>
+
+<style>
+
+</style>

@@ -8,11 +8,6 @@
     }"></vue-qrcode>
     <img class="qrcode__image" src="../../public/icons/icon-qr.png" />
   </figure>
-  <div class="welcome">
-    <p class="wel_text">
-      Это ваш QR-код
-    </p>
-  </div>
 </template>
 
 <script setup>
