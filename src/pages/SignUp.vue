@@ -93,6 +93,7 @@ const signup = async () => {
   db.set('settings', 'seed', seed)
   user.sk = keys.secretKey
   user.pk = pk.value
+  console.log(pk.value)
   user.crypt = seed
   user.seed = mn.value
   router.push('/')

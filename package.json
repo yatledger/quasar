@@ -18,18 +18,20 @@
     "concurrently:dev:jest": "concurrently \"quasar dev\" \"jest --watch\""
   },
   "dependencies": {
+    "@chenfengyuan/vue-qrcode": "^2.0.0",
     "@quasar/extras": "^1.0.0",
     "@scure/base": "^1.1.1",
     "@scure/bip39": "^1.1.0",
     "check-password-strength": "^2.0.7",
     "graphql": "^16.6.0",
-    "idb": "^7.0.2",
+    "idb": "^7.1.1",
     "lodash.clonedeep": "^4.5.0",
-    "pinia": "^2.0.11",
+    "pinia": "^2.0.29",
+    "qrcode": "^1.5.1",
     "quasar": "^2.6.0",
     "tweetnacl": "^1.0.3",
     "villus": "^2.0.0",
-    "vue": "^3.0.0",
+    "vue": "^3.2.45",
     "vue-i18n": "^9.0.0",
     "vue-router": "^4.0.0",
     "vue3-qrcode-reader": "^0.0.1"
