@@ -61,7 +61,7 @@ const balance = ref(0)
         <img :alt="$t('title')" src="/logo.png" class="logo" style="width: 50%" />
         <h1>{{ balance }} ѣ</h1>
         <div class="row flex-center" style="width: 100%">
-          <q-btn push color="primary" size="l" @click="signup" label="Попросить" />
+          <q-btn push color="primary" size="l" to="/ask" label="Попросить" />
           <q-btn push color="primary" size="l" @click="signup" label="Получить" />
           <q-btn push color="primary" size="l" @click="signup" label="Потратить" />
         </div>
