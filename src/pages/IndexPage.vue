@@ -5,6 +5,7 @@ import { userStore } from 'stores/user'
 
 const user = userStore()
 const enter = ref(true)
+const balance = ref(0)
 </script>
 
 <template>
@@ -55,10 +56,41 @@ const enter = ref(true)
     </li>
   </ul>
   <q-page class="flex flex-center">
-    <img :alt="$t('title')" src="/logo.svg" class="logo">
+    <div class="collumn text-center">
+      <div v-if="user.sk.length > 0" style="width: 75vw">
+        <img :alt="$t('title')" src="/logo.png" class="logo" style="width: 50%" />
+        <h1>{{ balance }} ѣ</h1>
+        <div class="row flex-center" style="width: 100%">
+          <q-btn push color="primary" size="l" to="/ask" label="Попросить" />
+          <q-btn push color="primary" size="l" @click="signup" label="Получить" />
+          <q-btn push color="primary" size="l" @click="signup" label="Потратить" />
+        </div>
+        <q-input v-model="name" label="Имя" placeholder="На балансе должно быть более 100ѣ"
+          variant="underlined"></q-input>
+        <q-input :rules="rules" v-model="file" show-size accept="image/png, image/jpeg" placeholder="Pick a cover"
+          prepend-icon="mdi-camera" label="Добавьте обложку" hint="На балансе должно быть более 500ѣ"
+          @change="i2b"></q-input>
+        <q-input type="textarea" label="Описание" v-model="desc" no-resize
+          hint="Для хранения описания держите на балансе более 250ѣ"></q-input>
+        <div class="q-mt-md"><q-btn push :disable="disabled" color="primary" size="xl" @click="signup"
+            label="Отправить" /></div>
+      </div>
+      <div v-else>
+        <img :alt="$t('title')" src="/logo.svg" class="logo" />
+      </div>
+    </div>
   </q-page>
 </template>
 <style scoped lang="scss">
+h1 {
+  font-family: 'Roboto Slab', serif;
+  font-size: 100px;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 1vh
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Sofia+Sans&display=swap');
 
 .logo {

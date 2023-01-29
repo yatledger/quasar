@@ -81,6 +81,13 @@ const clear = () => {
             <q-item-label caption>{{ $t('menu.clearDesc') }}</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item v-if="user.crypt" clickable tag="span" to="userqr">
+          <q-item-section avatar><q-icon name="delete" /></q-item-section>
+          <q-item-section>
+            <q-item-label>{{ $t('menu.userQr') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.userQrDesc') }}</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
     <q-dialog v-model="enter" persistent>
