@@ -6,6 +6,7 @@ import { userStore } from 'stores/user'
 const user = userStore()
 const enter = ref(true)
 const balance = ref(0)
+const userLink = 'yat.li/user/' + user.pk
 </script>
 
 <template>
@@ -60,6 +61,7 @@ const balance = ref(0)
       <div v-if="user.sk.length > 0" style="width: 75vw">
         <img :alt="$t('title')" src="/logo.png" class="logo" style="width: 50%" />
         <h1>{{ balance }} ѣ</h1>
+        <p>{{ userLink }}</p>
         <div class="row flex-center" style="width: 100%">
           <q-btn push color="primary" size="l" to="/ask" label="Попросить" />
           <q-btn push color="primary" size="l" @click="signup" label="Получить" />
