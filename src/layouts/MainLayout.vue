@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import { userStore } from 'stores/user'
 import db from 'boot/db'
 import { useQuasar } from 'quasar'
+
 const $q = useQuasar()
 const dark = ref($q.dark.isActive)
 const darkToggle = () => {
@@ -98,7 +99,11 @@ const clear = () => {
     </q-page-container>
     <q-footer elevated>
       <q-toolbar class="flex flex-center q-pa-sm">
+        <q-btn round size="lg" icon="account_box" to="#contacts"></q-btn>
+        <q-btn round size="lg" icon="sync_alt" to="#tx"></q-btn>
         <q-btn round size="lg" icon="qr_code_scanner" to="/qr"></q-btn>
+        <q-btn round size="lg" icon="language" to="#history"></q-btn>
+        <q-btn round size="lg" icon="manage_accounts" to="#settings"></q-btn>
       </q-toolbar>
     </q-footer>
   </q-layout>
