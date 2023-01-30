@@ -7,6 +7,10 @@ const user = userStore()
 const enter = ref(true)
 const balance = ref(0)
 const userLink = 'yat.li/user/' + user.pk
+
+const send = () => {
+  return true
+}
 </script>
 
 <template>
@@ -62,17 +66,15 @@ const userLink = 'yat.li/user/' + user.pk
         <h1 class="h-balance">{{ balance }} ѣ</h1>
         <div class="row flex-center q-gutter-sm" style="width: 100%">
           <q-btn push color="primary" size="l" to="/ask" label="Попросить" />
-          <q-btn push color="primary" size="l" @click="signup" label="Получить" />
-          <q-btn push color="primary" size="l" @click="signup" label="Потратить" />
+          <q-btn push color="primary" size="l" to="/earn" label="Получить" />
+          <q-btn push color="primary" size="l" to="/spend" label="Потратить" />
         </div>
         <figure class="qrcode">
-          <vue-qrcode
-            :value="userLink"
-            :options="{
-              width: 250,
-              color: {
-                dark: '#3e007a',
-                light: '#ffffff',
+          <vue-qrcode :value="userLink" :options="{
+            width: 250,
+            color: {
+              dark: '#3e007a',
+              light: '#ffffff',
             },
           }">
           </vue-qrcode>
@@ -83,15 +85,11 @@ const userLink = 'yat.li/user/' + user.pk
           <q-btn round color="primary" icon="content_copy" size="l" />
           <q-btn round color="primary" icon="chat_bubble" size="l" />
         </div>
-        <q-input dark v-model="name" label="Имя" placeholder="На балансе должно быть более 100ѣ"
-          variant="underlined"></q-input>
-        <q-input dark :rules="rules" v-model="file" show-size accept="image/png, image/jpeg" placeholder="Pick a cover"
-          prepend-icon="mdi-camera" label="Добавьте обложку" hint="На балансе должно быть более 500ѣ"
-          @change="i2b"></q-input>
-        <q-input dark type="textarea" label="Описание" v-model="desc" no-resize
+        <q-input label="Имя" placeholder="На балансе должно быть более 100ѣ" variant="underlined"></q-input>
+        <q-input placeholder="Pick a cover" label="Добавьте обложку" hint="На балансе должно быть более 500ѣ"></q-input>
+        <q-input type="textarea" label="Описание" no-resize
           hint="Для хранения описания держите на балансе более 250ѣ"></q-input>
-        <div class="q-mt-md q-mb-lg"><q-btn push :disable="disabled" color="primary" size="xl" @click="signup"
-            label="Отправить" /></div>
+        <div class="q-mt-md q-mb-lg"><q-btn color="primary" size="xl" @click="send" label="Отправить" /></div>
       </div>
       <div v-else>
         <img :alt="$t('title')" src="/logo.svg" class="logo" />
@@ -130,6 +128,7 @@ h1 {
 .h-balance {
   color: #ffffff;
 }
+
 .qrcode__image {
   height: 48px;
   width: 48px;
