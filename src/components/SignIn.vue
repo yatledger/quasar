@@ -34,6 +34,8 @@ const signin = async () => {
   user.sk = keys.secretKey
   user.pk = base58.encode(keys.publicKey)
   user.seed = mn
+  console.log(base58.encode(seed))
+  console.log(user.pk)
   router.push('/')
 }
 const disabled = computed(() => pwd.value.length < 1)
@@ -43,25 +45,11 @@ const disabled = computed(() => pwd.value.length < 1)
   <q-card>
     <q-card-section>
       <!--TODO: enter key-->
-      <q-input
-        ref="in"
-        v-model="pwd"
-        dense
-        filled
-        counter
-        autofocus
-        @keyup.enter="signin"
-        :type="isPwd ? 'password' : 'text'"
-        :placeholder="$t('enter.remember')"
-        :hint="$t('enter.hint')"
-        :label="$t('password')"
-      >
+      <q-input ref="in" v-model="pwd" dense filled counter autofocus @keyup.enter="signin"
+        :type="isPwd ? 'password' : 'text'" :placeholder="$t('enter.remember')" :hint="$t('enter.hint')"
+        :label="$t('password')">
         <template v-slot:append>
-          <q-icon
-            :name="isPwd ? 'visibility_off' : 'visibility'"
-            class="cursor-pointer"
-            @click="isPwd = !isPwd"
-          />
+          <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
         </template>
       </q-input>
     </q-card-section>

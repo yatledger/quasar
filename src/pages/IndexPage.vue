@@ -2,10 +2,15 @@
 import signin from 'components/SignIn.vue'
 import { ref } from 'vue'
 import { userStore } from 'stores/user'
-
+import VueQrcode from '@chenfengyuan/vue-qrcode'
 const user = userStore()
 const enter = ref(true)
 const balance = ref(0)
+const userLink = 'yat.li/user/' + user.pk
+
+const send = () => {
+  return true
+}
 </script>
 
 <template>
@@ -15,7 +20,7 @@ const balance = ref(0)
   <!--https://tympanus.net/codrops/2012/01/02/fullscreen-background-image-slideshow-with-css3/-->
   <ul class="cb-slideshow">
     <li><span>Image 01</span>
-      <div>
+      <div v-if="user.sk.length === 0">
         <h3>{{ $t('slider.w1') }}</h3>
         <p>&copy; <a
             href="https://unsplash.com/@chuttersnap?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">ChutterSnap</a>
@@ -23,7 +28,7 @@ const balance = ref(0)
       </div>
     </li>
     <li><span>Image 02</span>
-      <div>
+      <div v-if="user.sk.length === 0">
         <h3>{{ $t('slider.w2') }}</h3>
         <p>&copy; <a
             href="https://unsplash.com/@theshubhamdhage?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Shubham
@@ -31,7 +36,7 @@ const balance = ref(0)
       </div>
     </li>
     <li><span>Image 03</span>
-      <div>
+      <div v-if="user.sk.length === 0">
         <h3>{{ $t('slider.w3') }}</h3>
         <p>&copy; <a
             href="https://unsplash.com/ja/@clintadair?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Clint
@@ -39,7 +44,7 @@ const balance = ref(0)
       </div>
     </li>
     <li><span>Image 04</span>
-      <div>
+      <div v-if="user.sk.length === 0">
         <h3>{{ $t('slider.w4') }}</h3>
         <p>&copy; <a
             href="https://unsplash.com/@urielsc26?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Uriel
@@ -47,7 +52,7 @@ const balance = ref(0)
       </div>
     </li>
     <li><span>Image 05</span>
-      <div>
+      <div v-if="user.sk.length === 0">
         <h3>{{ $t('slider.w5') }}</h3>
         <p>&copy; <a
             href="https://unsplash.com/@fabioha?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">fabio</a>
@@ -58,22 +63,33 @@ const balance = ref(0)
   <q-page class="flex flex-center">
     <div class="collumn text-center">
       <div v-if="user.sk.length > 0" style="width: 75vw">
-        <img :alt="$t('title')" src="/logo.png" class="logo" style="width: 50%" />
-        <h1>{{ balance }} ѣ</h1>
-        <div class="row flex-center" style="width: 100%">
+        <h1 class="h-balance">{{ balance }} ѣ</h1>
+        <div class="row flex-center q-gutter-sm" style="width: 100%">
           <q-btn push color="primary" size="l" to="/ask" label="Попросить" />
-          <q-btn push color="primary" size="l" @click="signup" label="Получить" />
-          <q-btn push color="primary" size="l" @click="signup" label="Потратить" />
+          <q-btn push color="primary" size="l" to="/earn" label="Получить" />
+          <q-btn push color="primary" size="l" to="/spend" label="Потратить" />
         </div>
-        <q-input v-model="name" label="Имя" placeholder="На балансе должно быть более 100ѣ"
-          variant="underlined"></q-input>
-        <q-input :rules="rules" v-model="file" show-size accept="image/png, image/jpeg" placeholder="Pick a cover"
-          prepend-icon="mdi-camera" label="Добавьте обложку" hint="На балансе должно быть более 500ѣ"
-          @change="i2b"></q-input>
-        <q-input type="textarea" label="Описание" v-model="desc" no-resize
+        <figure class="qrcode">
+          <vue-qrcode :value="userLink" :options="{
+            width: 250,
+            color: {
+              dark: '#3e007a',
+              light: '#ffffff',
+            },
+          }">
+          </vue-qrcode>
+          <img class="qrcode__image" src="../../public/icons/icon-qr.png" />
+        </figure>
+        <div class="row flex-center q-gutter-sm" style="width: 100%">
+          <q-btn round color="primary" icon="refresh" size="l" />
+          <q-btn round color="primary" icon="content_copy" size="l" />
+          <q-btn round color="primary" icon="chat_bubble" size="l" />
+        </div>
+        <q-input label="Имя" placeholder="На балансе должно быть более 100ѣ" variant="underlined"></q-input>
+        <q-input placeholder="Pick a cover" label="Добавьте обложку" hint="На балансе должно быть более 500ѣ"></q-input>
+        <q-input type="textarea" label="Описание" no-resize
           hint="Для хранения описания держите на балансе более 250ѣ"></q-input>
-        <div class="q-mt-md"><q-btn push :disable="disabled" color="primary" size="xl" @click="signup"
-            label="Отправить" /></div>
+        <div class="q-mt-md q-mb-lg"><q-btn color="primary" size="xl" @click="send" label="Отправить" /></div>
       </div>
       <div v-else>
         <img :alt="$t('title')" src="/logo.svg" class="logo" />
@@ -107,6 +123,20 @@ h1 {
   .logo {
     width: 75vw;
   }
+}
+
+.h-balance {
+  color: #ffffff;
+}
+
+.qrcode__image {
+  height: 48px;
+  width: 48px;
+  left: 50%;
+  overflow: hidden;
+  position: absolute;
+  top: 33.5%;
+  transform: translate(-50%, -50%);
 }
 
 .container {
