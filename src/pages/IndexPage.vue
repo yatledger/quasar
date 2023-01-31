@@ -107,6 +107,23 @@ h1 {
   margin-bottom: 1vh
 }
 
+.qrcode {
+  display: inline-block;
+  font-size: 0;
+  margin-bottom: 0;
+  position: relative;
+}
+
+.qrcode__image {
+  height: 48px;
+  left: 50%;
+  top: 50%;
+  overflow: hidden;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 48px;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Sofia+Sans&display=swap');
 
 .logo {
@@ -127,16 +144,6 @@ h1 {
 
 .h-balance {
   color: #ffffff;
-}
-
-.qrcode__image {
-  height: 48px;
-  width: 48px;
-  left: 50%;
-  overflow: hidden;
-  position: absolute;
-  top: 33.5%;
-  transform: translate(-50%, -50%);
 }
 
 .container {
