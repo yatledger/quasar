@@ -82,11 +82,11 @@ const clear = () => {
             <q-item-label caption>{{ $t('menu.clearDesc') }}</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="user.crypt" clickable tag="span" to="userqr">
-          <q-item-section avatar><q-icon name="delete" /></q-item-section>
+        <q-item to="/help" clickable tag="span">
+          <q-item-section avatar><q-icon name="help" /></q-item-section>
           <q-item-section>
-            <q-item-label>{{ $t('menu.userQr') }}</q-item-label>
-            <q-item-label caption>{{ $t('menu.userQrDesc') }}</q-item-label>
+            <q-item-label>{{ $t('menu.help') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.helpDesc') }}</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -97,13 +97,13 @@ const clear = () => {
     <q-page-container>
       <router-view />
     </q-page-container>
-    <q-footer elevated>
+    <q-footer elevated v-if="user.sk.length > 0">
       <q-toolbar class="flex flex-center q-pa-sm">
-        <q-btn round size="lg" icon="account_box" to="#contacts"></q-btn>
-        <q-btn round size="lg" icon="sync_alt" to="#tx"></q-btn>
+        <q-btn round size="lg" icon="account_box" to="/friends"></q-btn>
+        <q-btn round size="lg" icon="sync_alt" to="/tx"></q-btn>
         <q-btn round size="lg" icon="qr_code_scanner" to="/qr"></q-btn>
-        <q-btn round size="lg" icon="language" to="#history"></q-btn>
-        <q-btn round size="lg" icon="manage_accounts" to="#settings"></q-btn>
+        <q-btn round size="lg" icon="language" to="/global"></q-btn>
+        <q-btn round size="lg" icon="manage_accounts" to="/profile"></q-btn>
       </q-toolbar>
     </q-footer>
   </q-layout>

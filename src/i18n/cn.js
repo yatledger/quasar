@@ -10,8 +10,8 @@ export default {
     clearDesc: '清除设备上的痕迹',
     code: 'Github',
     codeDesc: '存储库',
-    userQr: '二维码',
-    userQrDesc: '你的二维码'
+    help: 'FAQ',
+    helpDesc: 'About'
   },
   sign: {
     t1: '嗨！ 欢迎来到Yat，价值交换系统。 我已经为你想出了一个独特的助记符短语--把它当作你的数字签名，这是识别你自己所必需的。 我没有存储它，因此无法恢复。 现在只有你知道它，所以在纸上仔细写下来，或者至少通过点击它并将其放在某个地方来复制它。',

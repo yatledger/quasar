@@ -6,11 +6,7 @@ import VueQrcode from '@chenfengyuan/vue-qrcode'
 const user = userStore()
 const enter = ref(true)
 const balance = ref(0)
-const userLink = 'yat.li/user/' + user.pk
-
-const send = () => {
-  return true
-}
+const userLink = ref('yat.li/user/' + user.pk)
 </script>
 
 <template>
@@ -78,18 +74,13 @@ const send = () => {
             },
           }">
           </vue-qrcode>
-          <img class="qrcode__image" src="../../public/icons/icon-qr.png" />
+          <img class="qrcode__image" src="/icons/icon-qr.png" />
         </figure>
         <div class="row flex-center q-gutter-sm" style="width: 100%">
           <q-btn round color="primary" icon="refresh" size="l" />
           <q-btn round color="primary" icon="content_copy" size="l" />
           <q-btn round color="primary" icon="chat_bubble" size="l" />
         </div>
-        <q-input label="Имя" placeholder="На балансе должно быть более 100ѣ" variant="underlined"></q-input>
-        <q-input placeholder="Pick a cover" label="Добавьте обложку" hint="На балансе должно быть более 500ѣ"></q-input>
-        <q-input type="textarea" label="Описание" no-resize
-          hint="Для хранения описания держите на балансе более 250ѣ"></q-input>
-        <div class="q-mt-md q-mb-lg"><q-btn color="primary" size="xl" @click="send" label="Отправить" /></div>
       </div>
       <div v-else>
         <img :alt="$t('title')" src="/logo.svg" class="logo" />
