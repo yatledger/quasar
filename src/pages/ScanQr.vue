@@ -1,20 +1,21 @@
 <template>
-  <div justify="center" align="center" style="width: 100%">
-    <h1>Отсканировать QR-код</h1>
-    <p class="text-red">{{ error }}</p>
-    {{ result }}
-    <qrcode-stream class="qr_scan" @decode="onDecode" @init="onInit" />
+  <div justify="center" align="center" style="width: 100%; word-wrap: break-word; overflow: hidden;">
+
+    <h1> Отсканировать QR-код</h1>
+    <p class="error">{{ error }}</p>{{ result }}
+    <qrcode-stream @decode="onDecode" @init="onInit" />
   </div>
 </template>
 
 <script>
-import { QrcodeStream } from 'vue3-qrcode-reader'
+import { QrcodeStream } from "vue3-qrcode-reader";
+
 
 export default {
 
   components: { QrcodeStream },
 
-  data: () => {
+  data() {
     return {
       result: '',
       error: ''
@@ -22,42 +23,45 @@ export default {
   },
 
   methods: {
-    onDecode: (result) => {
+    onDecode(result) {
       console.log(result)
       const url = new URL(result)
       console.log(url.pathname)
       this.$router.push(url.pathname)
+
     },
 
-    // eslint-disable-next-line space-before-function-paren
     async onInit(promise) {
+
       try {
         await promise
       } catch (error) {
         if (error.name === 'NotAllowedError') {
-          this.error = 'Разрешите доступ к камере'
+          this.error = "Разрешите доступ к камере"
         } else if (error.name === 'NotFoundError') {
-          this.error = 'К устройству не подключена камера'
+          this.error = "К устройству не подключена камера"
         } else if (error.name === 'NotSupportedError') {
-          this.error = 'Используйте HTTPS'
+          this.error = "Используйте HTTPS"
         } else if (error.name === 'NotReadableError') {
-          this.error = 'Используется в другом приложении'
+          this.error = "Используется в другом приложении"
         } else if (error.name === 'OverconstrainedError') {
-          this.error = 'Камера не поддерживается'
+          this.error = "Камера не поддерживается"
         } else if (error.name === 'StreamApiNotSupportedError') {
-          this.error = 'Используйте новейший браузер'
+          this.error = "Используйте новейший браузер"
         } else if (error.name === 'InsecureContextError') {
-          this.error = 'Незащищённый канал'
+          this.error = 'Незащищённый канал';
         } else {
-          this.error = `Ошибка камеры (${error.name})`
+          this.error = `Ошибка камеры (${error.name})`;
         }
       }
     }
   }
-
 }
 </script>
 
-<style>
-
+<style scoped>
+.error {
+  font-weight: bold;
+  color: red;
+}
 </style>
