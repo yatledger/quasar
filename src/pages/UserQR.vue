@@ -1,39 +1,67 @@
 <template>
-  <figure class="qrcode">
-    <vue-qrcode :value="url" :options="{
-      width: 250, color: {
-        dark: '#3e007a',
-        light: '#ffffff',
-      },
-    }"></vue-qrcode>
-    <img class="qrcode__image" src="../../public/icons/icon-qr.png" />
-  </figure>
+  <div justify="center" align="center" style="width: 100%; word-wrap: break-word; overflow: hidden;">
+
+    <h1> Отсканировать QR-код</h1>
+    <p class="error">{{ error }}</p>{{ result}}
+    <qrcode-stream @decode="onDecode" @init="onInit" />
+  </div>
 </template>
 
-<script setup>
-import VueQrcode from '@chenfengyuan/vue-qrcode'
-import { userStore } from 'src/stores/user'
+<script>
+import { QrcodeStream} from "vue3-qrcode-reader";
 
-const user = userStore()
-console.log(user.pk)
-const url = user.pk
+
+export default {
+
+  components: { QrcodeStream },
+
+  data () {
+    return {
+      result: '',
+      error: ''
+    }
+  },
+
+  methods: {
+    onDecode (result) {
+      console.log(result)
+      const url = new URL(result)
+      console.log(url.pathname)
+      this.$router.push(url.pathname)
+
+    },
+
+    async onInit (promise) {
+
+      try {
+        await promise
+      } catch (error) {
+        if (error.name === 'NotAllowedError') {
+          this.error = "Разрешите доступ к камере"
+        } else if (error.name === 'NotFoundError') {
+          this.error = "К устройству не подключена камера"
+        } else if (error.name === 'NotSupportedError') {
+          this.error = "Используйте HTTPS"
+        } else if (error.name === 'NotReadableError') {
+          this.error = "Используется в другом приложении"
+        } else if (error.name === 'OverconstrainedError') {
+          this.error = "Камера не поддерживается"
+        } else if (error.name === 'StreamApiNotSupportedError') {
+          this.error = "Используйте новейший браузер"
+        } else if (error.name === 'InsecureContextError') {
+          this.error = 'Незащищённый канал';
+        } else {
+          this.error = `Ошибка камеры (${error.name})`;
+        }
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>
-.qrcode {
-  display: inline-block;
-  font-size: 0;
-  margin-bottom: 0;
-  position: relative;
-}
-
-.qrcode__image {
-  height: 48px;
-  left: 50%;
-  overflow: hidden;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 48px;
+.error {
+  font-weight: bold;
+  color: red;
 }
 </style>
