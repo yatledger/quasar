@@ -1,8 +1,9 @@
 <script setup>
-import { useQuery } from 'villus'
+import { useQuery } from '@vue/apollo-composable'
+import { gql } from '@apollo/client/core'
 
-const { data } = useQuery({
-  query: `{
+const { data } = useQuery(gql`
+  query getTx {
     tx (
         amount: -1000,
         skip: 25,
@@ -14,8 +15,8 @@ const { data } = useQuery({
       msg
       time
     }
-  }`
-})
+  }
+`)
 
 console.log(data)
 </script>

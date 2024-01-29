@@ -1,0 +1,12 @@
+{
+  "@quasar/testing-unit-jest": {
+    "options": [
+      "majestic"
+    ]
+  },
+  "@quasar/testing": {
+    "harnesses": [
+      "unit-jest@alpha"
+    ]
+  }
+}

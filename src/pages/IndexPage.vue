@@ -3,6 +3,7 @@ import signin from 'components/SignIn.vue'
 import { ref } from 'vue'
 import { userStore } from 'stores/user'
 import VueQrcode from '@chenfengyuan/vue-qrcode'
+
 const user = userStore()
 const enter = ref(true)
 const balance = ref(0)
