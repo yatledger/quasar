@@ -1,3 +1,3 @@
 <template>
-  restore!
+  <h1>Spend</h1>
 </template>

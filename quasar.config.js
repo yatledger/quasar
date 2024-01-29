@@ -10,7 +10,7 @@
 
 const { configure } = require('quasar/wrappers')
 const path = require('path')
-const fs = require('fs')
+// const fs = require('fs')
 
 module.exports = configure(function (/* ctx */) {
   return {
@@ -30,7 +30,8 @@ module.exports = configure(function (/* ctx */) {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli/boot-files
     boot: [
-      'i18n'
+      'i18n',
+      'apollo'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css

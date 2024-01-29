@@ -5,7 +5,8 @@
     "vue.volar",
     "wayou.vscode-todo-highlight",
     "eamodio.gitlens",
-    "Gruntfuggly.todo-tree"
+    "Gruntfuggly.todo-tree",
+    //"apollographql.vscode-apollo"
   ],
   "unwantedRecommendations": [
     "octref.vetur",
