@@ -18,24 +18,25 @@
     "concurrently:dev:jest": "concurrently \"quasar dev\" \"jest --watch\""
   },
   "dependencies": {
+    "@apollo/client": "^3.8.6",
     "@chenfengyuan/vue-qrcode": "^2.0.0",
     "@quasar/extras": "^1.16.9",
     "@scure/base": "^1.1.5",
     "@scure/bip39": "^1.2.2",
+    "@vue/apollo-composable": "^4.0.0",
     "check-password-strength": "^2.0.7",
+    "graphql": "^16.8.1",
     "idb": "^7.1.1",
     "lodash.clonedeep": "^4.5.0",
     "pinia": "^2.1.7",
     "qrcode": "^1.5.3",
+    "qrcode-generator": "^1.4.4",
     "quasar": "^2.14.3",
     "tweetnacl": "^1.0.3",
     "vue": "^3.4.15",
     "vue-i18n": "^9.9.0",
     "vue-router": "^4.2.5",
-    "vue3-qrcode-reader": "^0.0.1",
-    "@apollo/client": "^3.8.6",
-    "@vue/apollo-composable": "^4.0.0",
-    "graphql": "^16.8.1"
+    "vue3-qrcode-reader": "^0.0.1"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^3.4.0",
@@ -57,6 +58,7 @@
     "eslint-plugin-vue": "^9.20.1",
     "fake-indexeddb": "^4.0.2",
     "majestic": "^1.8.1",
+    "typescript": "^5.0.4",
     "workbox-build": "^6.6.0",
     "workbox-cacheable-response": "^6.5.4",
     "workbox-core": "^6.5.4",

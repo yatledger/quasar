@@ -7,17 +7,32 @@ const routes: RouteRecordRaw[] = [
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: 'sign', component: () => import('pages/SignUp.vue') },
-      { path: 'remember', component: () => import('pages/RestoreFromMnemonic.vue') },
+      {
+        path: 'remember',
+        component: () => import('pages/RestoreFromMnemonic.vue')
+      },
       { path: 'qr', component: () => import('src/pages/ScanQr.vue') },
       { path: 'help', component: () => import('src/pages/HelpPage.vue') },
       { path: 'global', component: () => import('src/pages/TxGlobal.vue') },
       { path: 'myqr', component: () => import('src/pages/user/UserQR.vue') },
-      { path: 'friends', component: () => import('src/pages/user/UserFriends.vue') },
+      {
+        path: 'friends',
+        component: () => import('src/pages/user/UserFriends.vue')
+      },
       { path: 'tx', component: () => import('src/pages/user/UserTx.vue') },
-      { path: 'profile', component: () => import('src/pages/user/UserProfile.vue') },
+      {
+        path: 'profile',
+        component: () => import('src/pages/user/UserProfile.vue')
+      },
       { path: 'ask', component: () => import('src/pages/landing/AskPage.vue') },
-      { path: 'earn', component: () => import('src/pages/landing/EarnPage.vue') },
-      { path: 'spend', component: () => import('src/pages/landing/SpendPage.vue') }
+      {
+        path: 'earn',
+        component: () => import('src/pages/landing/EarnPage.vue')
+      },
+      {
+        path: 'spend',
+        component: () => import('src/pages/landing/SpendPage.vue')
+      }
     ]
   },
 

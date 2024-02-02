@@ -1,63 +1,52 @@
 <template>
-  <div justify="center" align="center" style="width: 100%">
-    <h1>Отсканировать QR-код</h1>
-    <p class="text-red">{{ error }}</p>
-    {{ result }}
-    <qrcode-stream class="qr_scan" @decode="onDecode" @init="onInit" />
-  </div>
+  <q-page>
+    <q-page-container>
+      <div class="q-pa-md">
+        <q-btn @click="scanQRCode" label="Сканировать Qr-код" color="primary" />
+        <div v-if="scannedResult">
+          <p>Scanned Result:</p>
+          <p>{{ scannedResult }}</p>
+        </div>
+      </div>
+    </q-page-container>
+  </q-page>
 </template>
 
 <script>
-import { QrcodeStream } from 'vue3-qrcode-reader'
 
 export default {
-
-  components: { QrcodeStream },
-
-  data: () => {
+  // eslint-disable-next-line space-before-function-paren
+  data() {
     return {
-      result: '',
-      error: ''
+      scannedResult: null
     }
   },
-
   methods: {
-    onDecode: (result) => {
-      console.log(result)
-      const url = new URL(result)
-      console.log(url.pathname)
-      this.$router.push(url.pathname)
-    },
-
     // eslint-disable-next-line space-before-function-paren
-    async onInit(promise) {
-      try {
-        await promise
-      } catch (error) {
-        if (error.name === 'NotAllowedError') {
-          this.error = 'Разрешите доступ к камере'
-        } else if (error.name === 'NotFoundError') {
-          this.error = 'К устройству не подключена камера'
-        } else if (error.name === 'NotSupportedError') {
-          this.error = 'Используйте HTTPS'
-        } else if (error.name === 'NotReadableError') {
-          this.error = 'Используется в другом приложении'
-        } else if (error.name === 'OverconstrainedError') {
-          this.error = 'Камера не поддерживается'
-        } else if (error.name === 'StreamApiNotSupportedError') {
-          this.error = 'Используйте новейший браузер'
-        } else if (error.name === 'InsecureContextError') {
-          this.error = 'Незащищённый канал'
-        } else {
-          this.error = `Ошибка камеры (${error.name})`
+    scanQRCode() {
+      // Use the cordova-plugin-qrscanner API to scan QR code
+      window.cordova.plugins.barcodeScanner.scan(
+        (result) => {
+          this.scannedResult = result.text
+        },
+        (error) => {
+          alert('Scanning failed: ' + error)
+        },
+        {
+          preferFrontCamera: false, // iOS and Android
+          showFlipCameraButton: true, // iOS and Android
+          showTorchButton: true, // iOS and Android
+          torchOn: false, // Android, launch with the torch switched on (if available)
+          saveHistory: true, // Android, save scan history (default false)
+          prompt: 'Place a barcode inside the scan area', // Android
+          resultDisplayDuration: 0, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+          formats: 'QR_CODE,PDF_417', // default: all but PDF_417 and RSS_EXPANDED
+          orientation: 'portrait', // Android only (portrait|landscape), default unset so it rotates with the device
+          disableAnimations: true, // iOS
+          disableSuccessBeep: false // iOS and Android
         }
-      }
+      )
     }
   }
-
 }
 </script>
-
-<style>
-
-</style>

@@ -89,6 +89,20 @@ const clear = () => {
             <q-item-label caption>{{ $t('menu.helpDesc') }}</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item to="/qr" clickable tag="span">
+          <q-item-section avatar><q-icon name="help" /></q-item-section>
+          <q-item-section>
+            <q-item-label>{{ $t('menu.qr1') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.qrDesc1') }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/myqr" clickable tag="span">
+          <q-item-section avatar><q-icon name="help" /></q-item-section>
+          <q-item-section>
+            <q-item-label>{{ $t('menu.qr2') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.qrDesc2') }}</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
     <q-dialog v-model="enter" persistent>

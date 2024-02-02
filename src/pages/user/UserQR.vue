@@ -1,39 +1,39 @@
 <template>
-  <figure class="qrcode">
-    <vue-qrcode :value="url" :options="{
-      width: 250, color: {
-        dark: '#3e007a',
-        light: '#ffffff',
-      },
-    }"></vue-qrcode>
-    <img class="qrcode__image" src="../../public/icons/icon-qr.png" />
-  </figure>
+  <div>
+    <q-input outlined v-model="qrCodetext" label="Outlined" />
+    <q-btn color="primary" label="Сгенерировать Qr-код" @click="genQr" />
+    <img v-if="show" :src="qrCodeDataURL" alt="QR Code">
+  </div>
 </template>
 
-<script setup>
-import VueQrcode from '@chenfengyuan/vue-qrcode'
-import { userStore } from 'src/stores/user'
+<script>
+import QRCode from 'qrcode-generator'
 
-const user = userStore()
-console.log(user.pk)
-const url = user.pk
+export default {
+  // eslint-disable-next-line space-before-function-paren
+  data() {
+    return {
+      qrCodetext: '',
+      qrCodeDataURL: '',
+      show: false
+    }
+  },
+  methods: {
+    // eslint-disable-next-line space-before-function-paren
+    genQr() {
+      // Создание экземпляра генератора QR-кода
+      const qr = QRCode(0, 'M')
+      qr.addData(this.qrCodetext)
+      qr.make()
+
+      // Получение данных в формате Data URL
+      const qrCodeDataURL = qr.createDataURL(10, 0)
+
+      // Обновление состояния компонента для отображения QR-кода
+      this.qrCodeDataURL = qrCodeDataURL
+
+      this.show = true
+    }
+  }
+}
 </script>
-
-<style scoped>
-.qrcode {
-  display: inline-block;
-  font-size: 0;
-  margin-bottom: 0;
-  position: relative;
-}
-
-.qrcode__image {
-  height: 48px;
-  left: 50%;
-  overflow: hidden;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 48px;
-}
-</style>
