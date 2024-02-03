@@ -8,6 +8,17 @@ const user = userStore()
 const enter = ref(true)
 const balance = ref(0)
 const userLink = ref('yat.li/user/' + user.pk)
+const copyToClipboard = async () => {
+  try {
+    // TODO: Дописать откуда брать хэш
+    const textToCopy = 'Live button'
+    await navigator.clipboard.writeText(textToCopy)
+
+    console.log('Текст скопирован в буфер обмена:', textToCopy)
+  } catch (err) {
+    console.error('Ошибка при копировании в буфер обмена:', err)
+  }
+}
 </script>
 
 <template>
@@ -79,8 +90,7 @@ const userLink = ref('yat.li/user/' + user.pk)
         </figure>
         <div class="row flex-center q-gutter-sm" style="width: 100%">
           <q-btn round color="primary" icon="refresh" size="l" />
-          // TODO: added copy button
-          <q-btn round color="primary" icon="content_copy" size="l" />
+          <q-btn round color="primary" icon="content_copy" size="l" @click="copyToClipboard" />
           <q-btn round color="primary" icon="chat_bubble" size="l" />
         </div>
       </div>
