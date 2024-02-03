@@ -79,6 +79,7 @@ const userLink = ref('yat.li/user/' + user.pk)
         </figure>
         <div class="row flex-center q-gutter-sm" style="width: 100%">
           <q-btn round color="primary" icon="refresh" size="l" />
+          // TODO: added copy button
           <q-btn round color="primary" icon="content_copy" size="l" />
           <q-btn round color="primary" icon="chat_bubble" size="l" />
         </div>
