@@ -1,24 +1,40 @@
 <script setup>
 import signin from 'components/SignIn.vue'
+import VueQrcode from '@chenfengyuan/vue-qrcode'
 import { ref } from 'vue'
 import { userStore } from 'stores/user'
-import VueQrcode from '@chenfengyuan/vue-qrcode'
+import { ApolloClient, gql, InMemoryCache } from '@apollo/client/core'
+import { useQuery } from '@vue/apollo-composable'
 
 const user = userStore()
 const enter = ref(true)
 const balance = ref(0)
 const userLink = ref('yat.li/user/' + user.pk)
-const copyToClipboard = async () => {
-  try {
-    // TODO: Дописать откуда брать хэш
-    const textToCopy = 'Live button'
-    await navigator.clipboard.writeText(textToCopy)
 
-    console.log('Текст скопирован в буфер обмена:', textToCopy)
-  } catch (err) {
-    console.error('Ошибка при копировании в буфер обмена:', err)
+const client = new ApolloClient({
+  uri: 'http://localhost:9696/',
+  cache: new InMemoryCache()
+})
+
+const GET_FAKE_ADDRESS = gql`
+  query {
+    fakeAddress
+  }
+`
+const { result } = useQuery(GET_FAKE_ADDRESS, null, { client })
+
+const copyToClipboard = async () => {
+  console.log('click copyButton')
+  if (result.value && result.value.fakeAddress) {
+    try {
+      await navigator.clipboard.writeText(result.value.fakeAddress)
+      console.log('Адрес скопирован в буфер обмена:', result.value.fakeAddress)
+    } catch (err) {
+      console.error('Ошибка при копировании в буфер обмена:', err)
+    }
   }
 }
+
 </script>
 
 <template>
