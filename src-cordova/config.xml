@@ -9,4 +9,7 @@
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-navigation href="about:*" />
+    <platform name="ios">
+        <preference name="ScrollEnabled" value="true" />
+    </platform>
 </widget>

@@ -14,15 +14,23 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@red-mobile/cordova-plugin-barcodescanner": "^9.1.0",
-    "cordova-android": "^12.0.1"
+    "cordova-android": "^12.0.1",
+    "cordova-ios": "^7.0.1",
+    "cordova-plugin-camera": "^7.0.0",
+    "cordova-plugin-ionic-webview": "^5.0.1"
   },
   "cordova": {
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ],
     "plugins": {
       "@red-mobile/cordova-plugin-barcodescanner": {
         "ANDROIDX_LEGACY_SUPPORT_V4_VERSION": "1.0.0"
+      },
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-camera": {
+        "ANDROIDX_CORE_VERSION": "1.6.+"
       }
     }
   }

@@ -10,7 +10,7 @@
 
 const { configure } = require('quasar/wrappers')
 const path = require('path')
-// const fs = require('fs')
+const fs = require('fs')
 
 module.exports = configure(function (/* ctx */) {
   return {
@@ -92,10 +92,10 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
-      // https: {
-      //   key: fs.readFileSync('keys/localhost-key.pem'),
-      //   cert: fs.readFileSync('keys/localhost.pem')
-      // },
+      https: {
+        key: fs.readFileSync('keys/localhost-key.pem'),
+        cert: fs.readFileSync('keys/localhost.pem')
+      },
       host: '0.0.0.0', // TODO: Opening Dev Server to the Public
       /* https://quasar.dev/quasar-cli-vite/opening-dev-server-to-public */
       open: false, // opens browser window automatically
