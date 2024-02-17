@@ -18,6 +18,7 @@ export default {
     t2: 'And to interact with me and the rest of the participants, you already have your public address, which was transferred directly from the digital signature',
     t3: 'It remains only to enter and remember a strong',
     copy: 'Phrase phrase is copied',
+    pwd: 'Password is copied',
     protect: 'To protect the signature',
     pwd0: 'Too weak password',
     pwd1: 'Weak password',
@@ -39,6 +40,8 @@ export default {
   ok: 'Ok',
   characters: 'Numbers, letters, special characters',
   next: 'Continue',
+  get: 'Get',
+  send: 'Send',
   slider: {
     w1: 'openness',
     w2: 'immutability',
