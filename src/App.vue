@@ -14,9 +14,27 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+h1 {
+  font-family: 'Roboto Slab', serif;
+  font-size: 30px;
+  font-weight: normal;
+  margin-bottom: 1vh;
+  line-height: 1.5;
+}
+
 h2 {
   font-family: 'Roboto Slab', serif;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: normal;
   margin-bottom: 1vh
 }

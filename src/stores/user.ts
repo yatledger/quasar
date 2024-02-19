@@ -4,12 +4,12 @@ import db from 'boot/db'
 
 // TODO: !!STATE!!
 export const userStore = defineStore('user', () => {
-  const crypt = ref('')
+  const crypt = ref('');
   /* const raw = async () => {
-    const result = await db.get('settings', 'seed')
-    return result
-  } */
-  ;(async () => {
+      const result = await db.get('settings', 'seed')
+      return result
+    } */
+  (async () => {
     const r = await db.get('settings', 'seed')
     if (r !== undefined || typeof r !== 'undefined') {
       crypt.value = r

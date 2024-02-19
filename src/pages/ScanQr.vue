@@ -1,11 +1,11 @@
 <template>
-  <q-page>
+  <div class="qr">
     <p class="decode-result">
       Last result: <b>{{ result }}</b>
     </p>
     <q-btn color="primary" label="Сканировать QR-код" @click="scan"></q-btn>
-    <div id="reader" width="600px"></div>
-  </q-page>
+    <div id="reader"></div>
+  </div>
 </template>
 <script>
 
@@ -54,3 +54,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#reader {
+  width: 400px;
+}
+</style>
