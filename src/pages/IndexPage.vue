@@ -67,6 +67,7 @@ const userLink = ref('yat.li/user/' + user.pk)
               <q-btn push color="primary" size="l" to="/earn" :label="$t('get')" class="q-mb-md q-mb-sm" />
               <q-btn push color="primary" size="l" to="/send" :label="$t('send')" class="q-mb-md q-mb-sm" />
         </div>
+        <div class="row flex-center" style="width: 100%">
         <figure class="qrcode">
           <vue-qrcode :value="userLink" :options="{
             width: 250,
@@ -78,6 +79,7 @@ const userLink = ref('yat.li/user/' + user.pk)
           </vue-qrcode>
           <img class="qrcode__image" src="/icons/icon-qr.png" />
         </figure>
+        </div>
         <div class="row flex-center q-gutter-sm" style="width: 100%">
         <!--  <q-btn round color="primary" icon="refresh" size="l" />
           <q-btn round color="primary" icon="content_copy" size="l" />

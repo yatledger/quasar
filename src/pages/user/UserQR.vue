@@ -6,17 +6,17 @@
         light: '#ffffff',
       },
     }"></vue-qrcode>
-    <img class="qrcode__image" src="../../public/icons/icon-qr.png" />
+    <img class="qrcode__image" src="icons/icon-qr.png" />
   </figure>
 </template>
 
 <script setup>
 import VueQrcode from '@chenfengyuan/vue-qrcode'
-import { userStore } from 'src/stores/user'
+import { userStore } from 'stores/user'
 
 const user = userStore()
 console.log(user.pk)
-const url = user.pk
+const url = user.pk ? user.pk : "no data"
 </script>
 
 <style scoped>
