@@ -1,5 +1,5 @@
-import { useQuery } from "@vue/apollo-composable";
-import gql from "graphql-tag";
+import { useQuery } from '@vue/apollo-composable'
+import gql from 'graphql-tag'
 
 const useFetchData = () => {
   const getAllUsers = () => {
@@ -14,9 +14,9 @@ const useFetchData = () => {
           contacts
         }
       }
-    `;
-    return useQuery(getDataQuery);
-  };
+    `
+    return useQuery(getDataQuery)
+  }
 
   const getUserById = (id: number) => {
     const getDataQuery = gql`
@@ -30,9 +30,9 @@ const useFetchData = () => {
           contacts
         }
       }
-    `;
-    return useQuery(getDataQuery, { id });
-  };
+    `
+    return useQuery(getDataQuery, { id })
+  }
 
   const getAllTransactions = (userId: number) => {
     const getDataQuery = gql`
@@ -53,9 +53,9 @@ const useFetchData = () => {
           created_at
         }
       }
-    `;
-    return useQuery(getDataQuery, { userId });
-  };
+    `
+    return useQuery(getDataQuery, { userId })
+  }
 
   const getTransactionById = (id: number) => {
     const getDataQuery = gql`
@@ -76,9 +76,9 @@ const useFetchData = () => {
           created_at
         }
       }
-    `;
-    return useQuery(getDataQuery, { id });
-  };
+    `
+    return useQuery(getDataQuery, { id })
+  }
 
   const getUserTransactions = (userId: number) => {
     const getDataQuery = gql`
@@ -99,9 +99,9 @@ const useFetchData = () => {
           created_at
         }
       }
-    `;
-    return useQuery(getDataQuery, { userId });
-  };
+    `
+    return useQuery(getDataQuery, { userId })
+  }
 
   const allUserContacts = (userId: number) => {
     const getDataQuery = gql`
@@ -113,11 +113,11 @@ const useFetchData = () => {
           description
         }
       }
-    `;
-    const transactions = useQuery(getDataQuery, { userId });
+    `
+    const transactions = useQuery(getDataQuery, { userId })
 
-    return transactions;
-  };
+    return transactions
+  }
 
   return {
     getAllUsers,
@@ -126,7 +126,7 @@ const useFetchData = () => {
     getTransactionById,
     getAllTransactions,
     allUserContacts,
-  };
-};
+  }
+}
 
-export default useFetchData;
+export default useFetchData
