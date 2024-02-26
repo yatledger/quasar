@@ -278,18 +278,13 @@ const columns = [
 
   /* specifying max-width so the example can
     highlight the sticky column on any browser window */
-  max-width: 1920px
-
-  td:first-child
-    /* bg color is important for td; just specify one */
-    background-color: #00b4ff
+  max-width: 2560px
 
   tr th
     position: sticky
     /* higher than z-index for td below */
-    z-index: 2
-    /* bg color is important; just specify one */
-    background: #00b4ff
+    z-index: 10
+    background-color: red
 
   /* this will be the loading indicator */
   thead tr:last-child th
