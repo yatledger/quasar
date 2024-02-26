@@ -28,4 +28,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 
-.gitignore
+/.gitignore
