@@ -11,13 +11,16 @@ export default {
     code: 'Github',
     codeDesc: 'Repository',
     help: 'FAQ',
-    helpDesc: 'About'
+    helpDesc: 'About',
+    transaction: 'Transactions',
+    transactionDesc: 'Get transactions'
   },
   sign: {
     t1: 'Hi! Welcome to Yat, the value exchange system. I have already come up with a unique mnemonic phrase for you - consider it your digital signature, necessary to identify yourself. I do not have it stored and therefore cannot be restored. Now only you know it, so write it down carefully on paper or at least copy it by clicking on it and put it somewhere.',
     t2: 'And to interact with me and the rest of the participants, you already have your public address, which was transferred directly from the digital signature',
     t3: 'It remains only to enter and remember a strong',
     copy: 'Phrase phrase is copied',
+    pwd: 'Password is copied',
     protect: 'To protect the signature',
     pwd0: 'Too weak password',
     pwd1: 'Weak password',
@@ -39,6 +42,8 @@ export default {
   ok: 'Ok',
   characters: 'Numbers, letters, special characters',
   next: 'Continue',
+  get: 'Get',
+  send: 'Send',
   slider: {
     w1: 'openness',
     w2: 'immutability',

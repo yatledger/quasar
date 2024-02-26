@@ -89,6 +89,13 @@ const clear = () => {
             <q-item-label caption>{{ $t('menu.helpDesc') }}</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item to="/tx" clickable tag="span">
+          <q-item-section avatar><q-icon name="wallet" /></q-item-section>
+          <q-item-section>
+            <q-item-label>{{ $t('menu.transaction') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.transactionDesc') }}</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
     <q-dialog v-model="enter" persistent>
@@ -99,11 +106,11 @@ const clear = () => {
     </q-page-container>
     <q-footer elevated v-if="user.sk.length > 0">
       <q-toolbar class="flex flex-center q-pa-sm">
-        <q-btn round size="lg" icon="account_box" to="/friends"></q-btn>
-        <q-btn round size="lg" icon="sync_alt" to="/tx"></q-btn>
+        <!--<q-btn round size="lg" icon="account_box" to="/friends"></q-btn>
+        <q-btn round size="lg" icon="sync_alt" to="/tx"></q-btn>-->
         <q-btn round size="lg" icon="qr_code_scanner" to="/qr"></q-btn>
-        <q-btn round size="lg" icon="language" to="/global"></q-btn>
-        <q-btn round size="lg" icon="manage_accounts" to="/profile"></q-btn>
+        <!--<q-btn round size="lg" icon="language" to="/global"></q-btn>
+        <q-btn round size="lg" icon="manage_accounts" to="/profile"></q-btn>-->
       </q-toolbar>
     </q-footer>
   </q-layout>

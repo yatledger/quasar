@@ -62,10 +62,12 @@ const userLink = ref('yat.li/user/' + user.pk)
       <div v-if="user.sk.length > 0" style="width: 75vw">
         <h1 class="h-balance">{{ balance }} ѣ</h1>
         <div class="row flex-center q-gutter-sm" style="width: 100%">
-          <q-btn push color="primary" size="l" to="/ask" label="Попросить" />
-          <q-btn push color="primary" size="l" to="/earn" label="Получить" />
-          <q-btn push color="primary" size="l" to="/spend" label="Потратить" />
+         <!-- <q-btn push color="primary" size="l" to="/ask" label="Попросить" />
+              <q-btn push color="primary" size="l" to="/spend" label="Потратить" /> -->
+              <q-btn push color="primary" size="l" to="/earn" :label="$t('get')" class="q-mb-md q-mb-sm" />
+              <q-btn push color="primary" size="l" to="/send" :label="$t('send')" class="q-mb-md q-mb-sm" />
         </div>
+        <div class="row flex-center" style="width: 100%">
         <figure class="qrcode">
           <vue-qrcode :value="userLink" :options="{
             width: 250,
@@ -77,10 +79,12 @@ const userLink = ref('yat.li/user/' + user.pk)
           </vue-qrcode>
           <img class="qrcode__image" src="/icons/icon-qr.png" />
         </figure>
+        </div>
         <div class="row flex-center q-gutter-sm" style="width: 100%">
-          <q-btn round color="primary" icon="refresh" size="l" />
+        <!--  <q-btn round color="primary" icon="refresh" size="l" />
           <q-btn round color="primary" icon="content_copy" size="l" />
           <q-btn round color="primary" icon="chat_bubble" size="l" />
+        -->
         </div>
       </div>
       <div v-else>

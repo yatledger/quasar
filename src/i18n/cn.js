@@ -11,13 +11,16 @@ export default {
     code: 'Github',
     codeDesc: '存储库',
     help: 'FAQ',
-    helpDesc: 'About'
+    helpDesc: '关于',
+    transaction: 'Transactions',
+    transactionDesc: '获取交易'
   },
   sign: {
     t1: '嗨！ 欢迎来到Yat，价值交换系统。 我已经为你想出了一个独特的助记符短语--把它当作你的数字签名，这是识别你自己所必需的。 我没有存储它，因此无法恢复。 现在只有你知道它，所以在纸上仔细写下来，或者至少通过点击它并将其放在某个地方来复制它。',
     t2: '并与我和其他参与者互动，你已经有了你的公共地址，这是直接从数字签名转移',
     t3: '它仍然只是进入并记住一个强大的',
     copy: '短语 短语被复制',
+    pwd: '密码已复制',
     protect: '保护签名',
     pwd0: '密码太弱',
     pwd1: '密码强度低',
@@ -39,6 +42,8 @@ export default {
   ok: '好的',
   characters: '数字, 信, 特殊字符',
   next: '继续',
+  get: '得到',
+  send: '发送',
   slider: {
     w1: '开放性',
     w2: '不变性',

@@ -58,6 +58,8 @@ const pwd = ref('')
 const pwdRef = ref(null)
 const pk = ref('')
 const isPwd = ref(true)
+const isCopedSeed = ref(false)
+const isCopedPwd = ref(false)
 const mn = ref('')
 let seed = ''
 let keys = ''
@@ -106,10 +108,19 @@ const hint = computed(() => pwd.value ? passwordStrength(pwd.value, pwdOptions).
 
 const disabled = computed(() => pwd.value.length < 7)
 
-const copy = (txt) => {
+const copySign = (txt) => {
   copyToClipboard(txt)
     .then(() => {
       Notify.create(t('sign.copy'))
+    })
+    .catch(() => {
+      // fail
+    })
+}
+const copyPwd = (txt) => {
+  copyToClipboard(txt)
+    .then(() => {
+      Notify.create(t('sign.pwd'))
     })
     .catch(() => {
       // fail
@@ -123,9 +134,15 @@ const copy = (txt) => {
     <div class="collumn q-pa-sm text-center" v-if="!user.seed">
       <p class="text-justify text-body1">{{ $t("sign.t1") }}</p>
       <!--TODO: copy-->
-      <p><q-card class="text-h4" @click="copy(mn)"><q-card-section>{{ mn }}</q-card-section></q-card></p>
+      <p><q-card class="text-h4" @click="copySign(mn)"><q-card-section>{{ mn }}
+            <q-icon :name="!isCopedSeed ? 'content_copy' : 'done'" class="cursor-pointer" @click="isCopedSeed = !isCopedSeed" />
+          </q-card-section></q-card></p>
       <p class="text-justify text-body1">{{ $t("sign.t2") }}:</p>
-      <p><q-card class="inline-block q-pa-xs text-caption">{{ pk }}</q-card></p>
+      <p>
+        <q-card class="inline-block q-pa-xs text-h4" @click="copyPwd(pk)">{{ pk }}
+          <q-icon :name="!isCopedPwd ? 'content_copy' : 'done'" class="cursor-pointer" @click="isCopedPwd = !isCopedPwd" />
+        </q-card>
+      </p>
       <p class="text-left text-body1">{{ $t("sign.t3") }}</p>
       <q-input ref="pwdRef" v-model="pwd" filled counter :type="isPwd ? 'password' : 'text'"
         :placeholder="$t('characters')" :hint="hint ? hint : $t('sign.protect')" :label="$t('password')" lazy-rules
