@@ -204,7 +204,7 @@ const initialTransactions = [
 
 const { data, error } = useQuery(gql`
   query getTx {
-    tx(amount: -1000, skip: 25, limit: 5) {
+    tx(amount: -1000, skip: 25, limit: 15) {
       amount
       credit
       debit
@@ -264,50 +264,37 @@ const columns = [
 </script>
 
 <template>
-  <div class="q-pa-md">
-    <q-table class="my-sticky-header-column-table" style="height: calc(100vh - 100px)" flat bordered title="Транзакции"
+  <div class="q-pa-md my-padding">
+    <q-table class=" my-sticky-dynamic" style="height: calc(100vh - 100px)" flat bordered title="Транзакции"
       :rows="transactions" :columns="columns" row-key="time">
     </q-table>
   </div>
 </template>
 
 <style lang="sass">
-.my-sticky-header-column-table
-  /* height or max-height is important */
-  height: 310px
+.my-sticky-dynamic
+  .q-table__top,
+  .q-table__bottom,
+  thead tr:first-child th /* bg color is important for th; just specify one */
+    background-color: $dark
 
-  /* specifying max-width so the example can
-    highlight the sticky column on any browser window */
-  max-width: 2560px
-
-  tr th
+  thead tr th
     position: sticky
-    /* higher than z-index for td below */
-    z-index: 10
-    background-color: red
-
+    z-index: 1
   /* this will be the loading indicator */
   thead tr:last-child th
     /* height of all previous header rows */
     top: 48px
-    /* highest z-index */
-    z-index: 3
   thead tr:first-child th
     top: 0
-    z-index: 1
-  tr:first-child th:first-child
-    /* highest z-index */
-    z-index: 3
-
-  td:first-child
-    z-index: 1
-
-  td:first-child, th:first-child
-    position: sticky
-    left: 0
 
   /* prevent scrolling behind sticky top row on focus */
   tbody
     /* height of all previous header rows */
     scroll-margin-top: 48px
+
+.my-padding
+  @media (max-width: $breakpoint-sm-max)
+    padding-left: 0 !important
+    padding-right: 0 !important
 </style>
