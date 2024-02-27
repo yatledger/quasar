@@ -5,211 +5,59 @@ import { gql } from '@apollo/client/core'
 
 const initialTransactions = [
   {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:01:00Z'
+    fromUser: {
+      id: 1,
+      name: 'Alice',
+      avatar: 'yatb-s1.png',
+      wallet: 'wallet_A'
+    },
+    toUser: {
+      id: 2,
+      name: 'Bob',
+      avatar: 'yatb-s1.png',
+      wallet: 'wallet_B'
+    },
+    amount: 0.0025, // Биткоины, например
+    credit: 'BTC',
+    debit: 'ETH',
+    msg: 'Payment for services',
+    time: '2024-02-19T12:30:00'
   },
   {
-    amount: -50,
-    credit: 'Another Credit',
-    debit: 'Another Debit',
-    msg: 'Another Message',
-    time: '2022-02-20T12:15:00Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:02:01Z'
-  },
-  {
-    amount: -50,
-    credit: 'Another Credit',
-    debit: 'Another Debit',
-    msg: 'Another Message',
-    time: '2022-02-20T12:15:01Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:11:00Z'
-  },
-  {
-    amount: -50,
-    credit: 'Another Credit',
-    debit: 'Another Debit',
-    msg: 'Another Message',
-    time: '2022-02-20T12:15:02Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:00:01Z'
-  },
-  {
-    amount: -50,
-    credit: 'Another Credit',
-    debit: 'Another Debit',
-    msg: 'Another Message',
-    time: '2022-02-20T12:15:03Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:00:02Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:00:03Z'
-  },
-  {
-    amount: -50,
-    credit: 'Another Credit',
-    debit: 'Another Debit',
-    msg: 'Another Message',
-    time: '2022-02-20T12:15:04Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:00:04Z'
-  },
-  {
-    amount: -50,
-    credit: 'Another Credit',
-    debit: 'Another Debit',
-    msg: 'Another Message',
-    time: '2022-02-20T12:15:05Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:00:05Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:00:06Z'
-  },
-  {
-    amount: -50,
-    credit: 'Another Credit',
-    debit: 'Another Debit',
-    msg: 'Another Message',
-    time: '2022-02-20T12:15:06Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:00:07Z'
-  },
-  {
-    amount: -50,
-    credit: 'Another Credit',
-    debit: 'Another Debit',
-    msg: 'Another Message',
-    time: '2022-02-20T12:15:07Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:00:08Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:00:09Z'
-  },
-  {
-    amount: -50,
-    credit: 'Another Credit',
-    debit: 'Another Debit',
-    msg: 'Another Message',
-    time: '2022-02-20T12:15:08Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:00:10Z'
-  },
-  {
-    amount: -50,
-    credit: 'Another Credit',
-    debit: 'Another Debit',
-    msg: 'Another Message',
-    time: '2022-02-20T12:15:09Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:00:11Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:00:12Z'
-  },
-  {
-    amount: -50,
-    credit: 'Another Credit',
-    debit: 'Another Debit',
-    msg: 'Another Message',
-    time: '2022-02-20T12:15:10Z'
-  },
-  {
-    amount: 100,
-    credit: 'Some Credit',
-    debit: 'Some Debit',
-    msg: 'Some Message',
-    time: '2022-02-20T12:00:13Z'
-  },
-  {
-    amount: -50,
-    credit: 'Another Credit',
-    debit: 'Another Debit',
-    msg: 'Another Message',
-    time: '2022-02-20T12:15:11Z'
+    fromUser: {
+      id: 3,
+      name: 'Charlie',
+      avatar: 'yatb-s1.png',
+      wallet: 'wallet_C'
+    },
+    toUser: {
+      id: 4,
+      name: 'David',
+      avatar: 'yatb-s1.png',
+      wallet: 'wallet_D'
+    },
+    amount: 1.5, // Эфириумы, например
+    credit: 'ETH',
+    debit: 'BTC',
+    msg: 'Product purchase',
+    time: '2024-02-19T14:45:00'
   }
 ]
 
 const { data, error } = useQuery(gql`
-  query getTx {
+query getTx {
     tx(amount: -1000, skip: 25, limit: 15) {
       amount
       credit
       debit
       msg
       time
+      fromUser {
+        avatar
+      }
+      toUser {
+        avatar
+      }
     }
   }
 `)
@@ -226,11 +74,18 @@ if (data && data.tx) {
 
 const columns = [
   {
+    name: 'avatars',
+    label: 'Avatars',
+    align: 'left',
+    field: 'avatars'
+  },
+  {
     name: 'amount',
     label: 'Amount',
     align: 'left',
     field: 'amount',
-    sortable: true
+    sortable: true,
+    format: (val) => Math.round(val).toString() // Преобразование в целое число
   },
   {
     name: 'credit',
@@ -258,7 +113,8 @@ const columns = [
     label: 'Time',
     align: 'right',
     field: 'time',
-    sortable: true
+    sortable: true,
+    format: (val) => new Date(val).toLocaleString('en-US', { month: 'short', year: 'numeric' })
   }
 ]
 </script>
@@ -267,6 +123,16 @@ const columns = [
   <div class="q-pa-md my-padding">
     <q-table class=" my-sticky-dynamic" style="height: calc(100vh - 100px)" flat bordered title="Транзакции"
       :rows="transactions" :columns="columns" row-key="time">
+      <template v-slot:body-cell-avatars="props">
+        <q-avatar>
+          <img :src="'https://cdn.quasar.dev/img/avatar.png'" alt="from"
+            style="width: 20px; height: 20px; border-radius: 50%;">
+        </q-avatar>
+        <q-avatar>
+          <img :src="'/assets/' + props.row.toUser.avatar" alt="to"
+            style="width: 20px; height: 20px; border-radius: 50%;">
+        </q-avatar>
+      </template>
     </q-table>
   </div>
 </template>
@@ -293,7 +159,7 @@ const columns = [
     /* height of all previous header rows */
     scroll-margin-top: 48px
 
-.my-padding
+  .my-padding
   @media (max-width: $breakpoint-sm-max)
     padding-left: 0 !important
     padding-right: 0 !important
