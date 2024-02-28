@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { gql } from '@apollo/client/core'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const initialTransactions = [
   {
@@ -379,13 +381,13 @@ if (data && data.tx) {
 const columns = [
   {
     name: 'fromUserAvatars',
-    label: 'From',
+    label: t('columns.fromUserAvatars'),
     align: 'left',
     field: 'fromUser.avatar'
   },
   {
     name: 'amount',
-    label: 'Amount',
+    label: t('columns.amount'),
     align: 'center',
     field: 'amount',
     sortable: true,
