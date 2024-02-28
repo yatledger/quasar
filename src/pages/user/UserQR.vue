@@ -16,7 +16,7 @@ import { userStore } from 'stores/user'
 
 const user = userStore()
 console.log(user.pk)
-const url = user.pk ? user.pk : "no data"
+const url = user.pk ? user.pk : 'no data'
 </script>
 
 <style scoped>
