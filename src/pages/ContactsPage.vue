@@ -15,7 +15,10 @@
 </template>
 
 <script setup>
+import { useQuasar } from 'quasar'
 import { ref } from 'vue'
+
+const $q = useQuasar()
 
 const contacts = ref([
   {
@@ -32,19 +35,20 @@ function plus() {
       id: contacts.value[contacts.value.length - 1] + 1,
       name
     })
+    $q.notify({
+      type: 'positive',
+      message: 'Создан новый контакт'
+    })
   }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, space-before-function-paren
 function rm(id) {
   contacts.value = contacts.value.filter((contact) => contact.id !== id)
-  if (name) {
-    contacts.value.push({
-      id: contacts.value[contacts.value.length - 1] + 1,
-      name: 'Иван',
-      addr: 78
-    })
-  }
+  $q.notify({
+    type: 'negative',
+    message: 'Контакт удален'
+  })
 }
 
 </script>
