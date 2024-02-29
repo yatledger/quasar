@@ -55,7 +55,7 @@ export default {
     fromUserAvatars: 'Отправитель',
     amount: 'Сумма',
     toUserAvatars: 'Получатель',
-    Ticket: 'Билет',
+    ticket: 'Билет',
     msg: 'Сообщение',
     time: 'Время'
   }

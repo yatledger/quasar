@@ -55,7 +55,7 @@ export default {
     fromUserAvatars: 'From',
     amount: 'Amount',
     toUserAvatars: 'To',
-    Ticket: 'Ticket',
+    ticket: 'Ticket',
     msg: 'Message',
     time: 'Time'
   }

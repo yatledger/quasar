@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { gql } from '@apollo/client/core'
 import { useI18n } from 'vue-i18n'
@@ -378,7 +378,7 @@ if (data && data.tx) {
   transactions.value = data.tx
 }
 
-const columns = [
+const columns = computed(() => [
   {
     name: 'fromUserAvatars',
     label: t('columns.fromUserAvatars'),
@@ -395,37 +395,38 @@ const columns = [
   },
   {
     name: 'toUserAvatars',
-    label: 'To',
+    label: t('columns.toUserAvatars'),
     align: 'center',
     field: 'toUser.avatar'
   },
   {
     name: 'Ticket',
-    label: 'Ticket',
+    label: t('columns.ticket'),
     align: 'center',
     field: 'ticket'
   },
   {
     name: 'msg',
-    label: 'Message',
+    label: t('columns.msg'),
     align: 'right',
     field: 'msg',
     sortable: true
   },
   {
     name: 'time',
-    label: 'Time',
+    label: t('columns.time'),
     align: 'right',
     field: 'time',
     sortable: true,
     format: (val) => new Date(val).toLocaleString('en-US', { month: 'short', year: 'numeric' })
   }
-]
+])
+
 </script>
 
 <template>
   <div class="q-pa-md my-padding">
-    <q-table class=" my-sticky-dynamic" style="height: calc(100vh - 100px)" flat bordered dense dark title="Транзакции"
+    <q-table class=" my-sticky-dynamic" style="height: calc(100vh - 100px)" flat bordered dense dark
       :rows="transactions" :columns="columns" row-key="time" :rows-per-page-options="[10, 15, 20, 25, 50, 0]">
       <template v-slot:body-cell-fromUserAvatars="props">
         <q-td :props="props">
