@@ -52,5 +52,8 @@ export default {
     w3: '可证明性',
     w4: '保护',
     w5: '可靠性'
+  },
+  titles: {
+    topUsersTitle: '与会者排名'
   }
 }

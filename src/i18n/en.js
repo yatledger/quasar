@@ -52,5 +52,8 @@ export default {
     w3: 'provability',
     w4: 'security',
     w5: 'reliability'
+  },
+  titles: {
+    topUsersTitle: 'Ranking of participants'
   }
 }
