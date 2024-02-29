@@ -50,5 +50,13 @@ export default {
     w3: 'provability',
     w4: 'security',
     w5: 'reliability'
+  },
+  columns: {
+    fromUserAvatars: 'From',
+    amount: 'Amount',
+    toUserAvatars: 'To',
+    Ticket: 'Ticket',
+    msg: 'Message',
+    time: 'Time'
   }
 }
