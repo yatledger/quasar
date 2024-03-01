@@ -2,8 +2,9 @@
 import { ref } from 'vue'
 
 const user = ref({
-  name: 'YAT USER',
-  email: 'YAT_USER@MAIL.COM'
+  name: 'user name',
+  nikname: 'nickname',
+  address: 'TXfguX46BGYTqcLo8CNLRZaa58xyErsQRB'
 })
 
 const send = () => {
@@ -12,25 +13,28 @@ const send = () => {
 </script>
 
 <template>
-  <q-page class="column-container overflow-y-hidden">
+  <q-page class="container overflow-y-hidden shadow-10">
     <q-card class="column">
       <q-card-section>
-        <div class="column">
+        <div class="user-data">
           <q-avatar size="80px" class="shadow-10">
             <img src="https://cdn.quasar.dev/img/avatar.png">
           </q-avatar>
-          <div class="column">
-            <p>{{ user.name }}</p>
-            <p>{{ user.email }}</p>
+          <div class="left">
+            <p class="name">{{ user.name }} <q-icon name="edit" class="hoverable" /></p>
+            <p class="email">{{ user.nikname }} <q-icon name="edit" class="hoverable" /></p>
+            <p class="address">{{ user.address }} <q-icon name="content_copy" class="hoverable" /></p>
           </div>
         </div>
       </q-card-section>
       <q-card-actions class="column">
         <div class="row">
-          <q-btn color="primary" label="Вход" @click="login" />
+          <q-btn color="primary" label="Login" @click="login" />
           <q-btn color="primary" label="Выход" @click="logout" />
         </div>
-        <q-btn color="primary" label="Вход" @click="login" />
+        <q-btn color="primary" label="Вход" @click="login">
+          <q-icon name="login" />
+        </q-btn>
         <q-btn color="primary" label="Выход" @click="logout" />
         <q-btn color="primary" label="Поддержка" @click="support" />
         <q-btn color="primary" label="Настройки" @click="settings" />
@@ -43,16 +47,31 @@ const send = () => {
   </q-page>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .column {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px 0;
+  justify-content: center;
+  padding: 14px 0;
 }
 
-.column-container {
-  padding: 6px 60px;
+.user-data {
+  display: flex;
+  gap: 12px;
+  background-color: $dark-page;
+  padding: 26px;
+  border-radius: 16px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.container {
+  padding: 4px 60px;
   max-height: 100dvh;
 }
 
@@ -63,6 +82,24 @@ const send = () => {
 
 .ma-auto {
   margin: 0 auto;
+}
+
+.name,
+.email,
+.address {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.hoverable:hover {
+  color: $accent;
+}
+
+.hoverable:active {
+  color: $accent;
 }
 </style>
 
