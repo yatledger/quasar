@@ -50,5 +50,13 @@ export default {
     w3: 'доказуемость',
     w4: 'безопасность',
     w5: 'надёжность'
+  },
+  columns: {
+    fromUserAvatars: 'Отправитель',
+    amount: 'Сумма',
+    toUserAvatars: 'Получатель',
+    ticket: 'Билет',
+    msg: 'Сообщение',
+    time: 'Время'
   }
 }
