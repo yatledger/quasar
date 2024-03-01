@@ -14,65 +14,69 @@ const send = () => {
 
 <template>
   <q-page class="container overflow-y-hidden shadow-10">
-    <q-card class="column">
-      <q-card-section>
-        <div class="user-data">
-          <q-avatar size="80px" class="shadow-10">
-            <img src="https://cdn.quasar.dev/img/avatar.png">
-          </q-avatar>
-          <div class="left">
-            <p class="name">{{ user.name }} <q-icon name="edit" class="hoverable" /></p>
-            <p class="email">{{ user.nikname }} <q-icon name="edit" class="hoverable" /></p>
-            <p class="address">{{ user.address }} <q-icon name="content_copy" class="hoverable" /></p>
+    <div class="content">
+      <q-card class="q-pa-md">
+        <q-card-section>
+          <div class="user-data shadow-21">
+            <q-avatar size="80px" class="shadow-10">
+              <img src="https://cdn.quasar.dev/img/avatar.png">
+            </q-avatar>
+            <div class="left">
+              <p class="name">{{ user.name }} <q-icon name="edit" class="hoverable" /></p>
+              <p class="email">{{ user.nikname }} <q-icon name="edit" class="hoverable" /></p>
+              <p class="address">{{ user.address }} <q-icon name="content_copy" class="hoverable" /></p>
+            </div>
           </div>
-        </div>
-      </q-card-section>
-      <q-card-actions class="column">
-        <div class="row">
-          <q-btn color="primary" label="Login" @click="login" />
-          <q-btn color="primary" label="Выход" @click="logout" />
-        </div>
-        <q-btn color="primary" label="Вход" @click="login">
-          <q-icon name="login" />
-        </q-btn>
-        <q-btn color="primary" label="Выход" @click="logout" />
-        <q-btn color="primary" label="Поддержка" @click="support" />
-        <q-btn color="primary" label="Настройки" @click="settings" />
-        <q-btn color="primary" label="Аккаунт секьюрити" @click="security" />
-      </q-card-actions>
-      <div class="q-mt-md q-mb-lg ma-auto column pa-10">
-        <q-btn color="primary" size="lg" @click="send" label="Отправить" class="shadow-10" />
-      </div>
-    </q-card>
+        </q-card-section>
+        <q-card-actions class="btn-block">
+          <q-btn color="primary" class="btn-user" label="Поддержка" @click="support" />
+          <q-btn color="primary" class="btn-user shadow-21" @click="send" label="Отправить" />
+          <q-btn color="primary" class="btn-user" label="Настройки" @click="settings" />
+        </q-card-actions>
+      </q-card>
+    </div>
   </q-page>
 </template>
 
 <style scoped lang="scss">
-.column {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 14px 0;
+  margin: 0 auto;
+  padding: 4px 60px;
+  max-height: 100dvh;
+
+  .content {
+    display: flex;
+  }
+
+  .btn-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 14px 0;
+
+    .btn-user {
+      max-width: 112px;
+      width: 100%;
+    }
+  }
 }
 
 .user-data {
   display: flex;
   gap: 12px;
-  background-color: $dark-page;
+  background-color: $primary;
   padding: 26px;
-  border-radius: 16px;
+  border-radius: 8px;
 }
 
 .left {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-
-.container {
-  padding: 4px 60px;
-  max-height: 100dvh;
 }
 
 .row {
