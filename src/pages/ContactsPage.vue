@@ -1,6 +1,8 @@
 <template>
   <div justify="center" align="center" style="width: 100%; word-wrap: break-word; overflow: hidden;">
-    <h1>Контакты</h1>
+    <q-item class=" justify-center items-center q-ma-md">
+      <q-item class="text-h6">{{ $t('titles.contacts') }}</q-item>
+    </q-item>
 
     <q-card flat v-for="contact in contacts" :key="contact.id" style="background-color: #110030;" class="q-mb-sm">
       <q-card-section horizontal>
@@ -10,7 +12,7 @@
       </q-card-section>
     </q-card>
 
-    <q-btn icon="person_add" @click="plus" />
+    <q-btn class="q-ma-sm" icon="person_add" @click="plus" />
   </div>
 </template>
 
