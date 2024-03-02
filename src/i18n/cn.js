@@ -14,6 +14,8 @@ export default {
     helpDesc: '关于',
     transaction: 'Transactions',
     transactionDesc: '获取交易',
+    contacts: '联系方式',
+    contactsDesc: '查看联系人',
     topUsers: '与会者排名',
     topUsersDesc: '在第一批中找到自己！'
   },
