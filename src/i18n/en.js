@@ -15,7 +15,9 @@ export default {
     transaction: 'Transactions',
     transactionDesc: 'Get transactions',
     contacts: 'Contacts',
-    contactsDesc: 'Get contacts'
+    contactsDesc: 'Get contacts',
+    topUsers: 'Ranking of participants',
+    topUsersDesc: 'Find yourself among the first ones!'
   },
   sign: {
     t1: 'Hi! Welcome to Yat, the value exchange system. I have already come up with a unique mnemonic phrase for you - consider it your digital signature, necessary to identify yourself. I do not have it stored and therefore cannot be restored. Now only you know it, so write it down carefully on paper or at least copy it by clicking on it and put it somewhere.',
@@ -52,13 +54,5 @@ export default {
     w3: 'provability',
     w4: 'security',
     w5: 'reliability'
-  },
-  columns: {
-    fromUserAvatars: 'From',
-    amount: 'Amount',
-    toUserAvatars: 'To',
-    ticket: 'Ticket',
-    msg: 'Message',
-    time: 'Time'
   }
 }

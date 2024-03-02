@@ -103,6 +103,13 @@ const clear = () => {
             <q-item-label caption>{{ $t('menu.contactsDesc') }}</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item to="/topUsers" clickable tag="span">
+          <q-item-section avatar><q-icon name="emoji_events" /></q-item-section>
+          <q-item-section>
+            <q-item-label>{{ $t('menu.topUsers') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.topUsersDesc') }}</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
     <q-dialog v-model="enter" persistent>
