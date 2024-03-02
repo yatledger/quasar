@@ -1,10 +1,9 @@
 <script setup >
 import { defineProps } from 'vue'
 
-const props = defineProps({
+defineProps({
   user: Object
 })
-console.log(props)
 
 const getBadgeColor = (value) => value < 4 ? 'yellow-7' : 'teal-7'
 
