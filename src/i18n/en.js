@@ -15,7 +15,7 @@ export default {
     transaction: 'Transactions',
     transactionDesc: 'Get transactions',
     contacts: 'Contacts',
-    contactsDesc: 'Get contacts',
+    contactsDesc: 'View contacts',
     topUsers: 'Ranking of participants',
     topUsersDesc: 'Find yourself among the first ones!'
   },
@@ -54,5 +54,8 @@ export default {
     w3: 'provability',
     w4: 'security',
     w5: 'reliability'
+  },
+  titles: {
+    topUsersTitle: 'Ranking of participants'
   }
 }
