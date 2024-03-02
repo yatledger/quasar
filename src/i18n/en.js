@@ -56,6 +56,7 @@ export default {
     w5: 'reliability'
   },
   titles: {
-    topUsersTitle: 'Ranking of participants'
+    topUsersTitle: 'Ranking of participants',
+    contacts: 'Contacts'
   }
 }

@@ -56,6 +56,7 @@ export default {
     w5: '可靠性'
   },
   titles: {
-    topUsersTitle: '与会者排名'
+    topUsersTitle: '与会者排名',
+    contacts: '联系方式'
   }
 }
