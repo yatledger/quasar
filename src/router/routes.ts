@@ -6,6 +6,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
+      { path: 'contacts', component: () => import('pages/ContactsPage.vue') },
       { path: 'sign', component: () => import('pages/SignUp.vue') },
       { path: 'remember', component: () => import('pages/RestoreFromMnemonic.vue') },
       { path: 'qr', component: () => import('src/pages/ScanQr.vue') },
@@ -19,7 +20,8 @@ const routes: RouteRecordRaw[] = [
       { path: 'crypto', component: () => import('src/pages/user/UserCrypto.vue') },
       { path: 'ask', component: () => import('src/pages/landing/AskPage.vue') },
       { path: 'earn', component: () => import('src/pages/landing/EarnPage.vue') },
-      { path: 'spend', component: () => import('src/pages/landing/SpendPage.vue') }
+      { path: 'spend', component: () => import('src/pages/landing/SpendPage.vue') },
+      { path: 'topUsers', component: () => import('src/pages/topUsers/TopUsersPage.vue') }
     ]
   },
 

@@ -69,7 +69,7 @@ const clear = () => {
         </q-item>
         <q-separator />
         <q-item v-if="!user.crypt" clickable tag="a" to="/sign">
-          <q-item-section avatar><q-icon name="perm_identity" /></q-item-section>
+          <q-item-section avatar><q-icon name="stream" /></q-item-section>
           <q-item-section>
             <q-item-label>{{ $t('menu.sign') }}</q-item-label>
             <q-item-label caption>{{ $t('menu.signDesc') }}</q-item-label>
@@ -94,6 +94,20 @@ const clear = () => {
           <q-item-section>
             <q-item-label>{{ $t('menu.transaction') }}</q-item-label>
             <q-item-label caption>{{ $t('menu.transactionDesc') }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/contacts" clickable tag="span">
+          <q-item-section avatar><q-icon name="people_alt" /></q-item-section>
+          <q-item-section>
+            <q-item-label>{{ $t('menu.contacts') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.contactsDesc') }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/topUsers" clickable tag="span">
+          <q-item-section avatar><q-icon name="emoji_events" /></q-item-section>
+          <q-item-section>
+            <q-item-label>{{ $t('menu.topUsers') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.topUsersDesc') }}</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
