@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
     <q-table
-      title="Транзакции"
+      :title="$t('menu.transaction')"
       :rows="records"
       :columns="columns"
       row-key="name"
@@ -10,6 +10,10 @@
 </template>
 
 <script setup>
+defineOptions({
+  name: 'UserTxHistory'
+})
+
 defineProps({
   records: {
     required: true,
