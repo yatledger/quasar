@@ -34,7 +34,8 @@ module.exports = configure(function (/* ctx */) {
       'apollo',
       'db',
       'crypt',
-      'utils'
+      'utils',
+      'fetch'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
