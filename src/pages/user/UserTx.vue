@@ -6,7 +6,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import UserHistoryTx from '../../components/UserTxHistory.vue'
+import UserHistoryTx from 'components/UserTxHistory.vue'
 
 defineOptions({
   name: 'UserTx'
