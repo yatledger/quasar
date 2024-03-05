@@ -58,5 +58,6 @@ export default {
   titles: {
     topUsersTitle: 'Рейтинг участников',
     contacts: 'Контакты'
-  }
+  },
+  import: 'Экспорт/импорт'
 }

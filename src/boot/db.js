@@ -3,7 +3,6 @@ import { openDB } from 'idb'
 
 export default boot(({ app }) => {
   const _db = openDB('yat', 1, {
-    // eslint-disable-next-line space-before-function-paren
     upgrade (db) {
       db.createObjectStore('settings')
       const contacts = db.createObjectStore('contacts', {
@@ -30,14 +29,20 @@ export default boot(({ app }) => {
     async keys (store) {
       return (await _db).getAllKeys(store)
     },
-    async addContact (name, addr) {
-      return (await _db).add('contacts', {
-        name,
-        addr
-      })
+    async addContact (content) {
+      return (await _db).add('contacts', content)
+    },
+    async setContacts (contacts) {
+      const d = await _db
+      for (let i = 0; i < contacts.length; i++) {
+        await d.add('contacts', contacts[i])
+      }
     },
     async getContacts () {
       return (await _db).getAllFromIndex('contacts', 'name')
+    },
+    async deleteContact (id) {
+      return (await _db).delete('contacts', id)
     }
   }
 

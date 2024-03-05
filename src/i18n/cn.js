@@ -58,5 +58,6 @@ export default {
   titles: {
     topUsersTitle: '与会者排名',
     contacts: '联系方式'
-  }
+  },
+  import: '出口/进口'
 }
