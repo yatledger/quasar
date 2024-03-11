@@ -1,6 +1,6 @@
 <!-- eslint-disable space-before-function-paren -->
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { QrcodeStream } from 'vue-qrcode-reader'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -29,23 +29,43 @@ function onDetect(detectedData) {
   result.value = JSON.stringify(detectedData.map((code) => code.rawValue))
 }
 
-const switchCamera = () => {
+const switchCamera = async () => {
   if (devices.value.length > 1 && devices.value !== null) {
-    selectedCamIndex.value = (selectedCamIndex.value + 1) % devices.value.length
-    selectedDevice.value = devices.value[selectedCamIndex.value]
+    if (selectedCamIndex.value === 0) {
+      selectedCamIndex.value = await (selectedCamIndex.value + 1) % devices.value.length
+    } else {
+      selectedCamIndex.value = await 0
+    }
+    selectedDevice.value = await devices.value[selectedCamIndex.value]
   }
 }
 
-onMounted(async () => {
-  devices.value = (await navigator.mediaDevices.enumerateDevices()).filter(
-    ({ kind }) => kind === 'videoinput'
-  )
+/* onBeforeMount(async () => {
+  const allCams = await navigator.mediaDevices.enumerateDevices()
+  devices.value = [...allCams.filter(({ kind }) => kind === 'videoinput')]
 
   if (devices.value.length > 0) {
-    selectedCamIndex.value = devices.value.length - 1
+    const selectId = await devices.value.length - 1
+    selectedCamIndex.value = selectId
     selectedDevice.value = devices.value[selectedCamIndex.value]
   }
   console.log(devices)
+}) */
+
+onBeforeMount(async () => {
+  try {
+    const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true })
+    const track = mediaStream.getVideoTracks()[0]
+    const devicesList = await navigator.mediaDevices.enumerateDevices()
+    devices.value = devicesList.filter(device => device.kind === 'videoinput')
+    if (devices.value.length > 0) {
+      selectedDevice.value = devices.value.at(-1)
+    }
+    track.stop()
+  } catch (error) {
+    console.error('Error accessing media devices:', error)
+    error.value = 'Error accessing media devices'
+  }
 })
 
 function paintOutline(detectedCodes, ctx) {
@@ -163,34 +183,31 @@ function onError(err) {
       </q-item>
     </q-section>
     <q-section>
-      <q-item-section class="row wrap justify-center items-center content-center"
+      <div class="row wrap justify-center items-center content-center"
         style="width: 40vh; height: 40vh; border-radius: 20px; border: 6px solid #E9E9E9; margin: 0 auto; margin-bottom: 30px; position: relative;">
         <qrcode-stream style="position: relative; z-index: -1;" :constraints="selectedDevice"
           :track="trackFunctionSelected.value" @error="onError" @detect="onDetect" v-if="selectedDevice !== null">
           <q-section v-if="!detectedCode"
             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-            <q-spinner-grid color="primary" size="2em" />
+            <q-spinner-grid color="primary" size="2rem" />
             <q-tooltip :offset="[0, 8]" />
           </q-section>
-          <q-section style="position: absolute; bottom: 2%; right: 2%;">
-            <q-avatar clickable v-ripple @click="switchCamera" color="primary" size="40px"
-              icon="cameraswitch"></q-avatar>
-          </q-section>
-
         </qrcode-stream>
-      </q-item-section>
-      <q-section>
-
-        <q-section class="decode-result">
-          Last result: <b>{{ result }}</b>
+        <q-section style="position: absolute; bottom: 2%; right: 2%;">
+          <q-avatar clickable v-ripple @click="switchCamera" size="60px" icon="cameraswitch"></q-avatar>
         </q-section>
-      </q-section>
-      <q-section class="row q-pa-md q-flex justify-around items-center" style="width: 40vh; margin: 0 auto;">
+      </div>
+      <q-item-section>
+
+        <q-item class="decode-result">
+          Last result: <b>{{ result }}</b>
+        </q-item>
+      </q-item-section>
+      <q-item-section class="row q-pa-md q-flex justify-around items-center" style="width: 40vh; margin: 0 auto;">
         <q-btn rounded clickable class="" label="Отменить" />
         <q-btn rounded clickable class="" label="Отправить" />
-      </q-section>
+      </q-item-section>
     </q-section>
-    <q-avatar clickable v-ripple @click="switchCamera" color="primary" size="40px" icon="cameraswitch"></q-avatar>
     <q-section>
       <q-item-section v-if="!error" class="error">{{ error }}</q-item-section>
     </q-section>
