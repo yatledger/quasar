@@ -32,12 +32,6 @@ export default boot(({ app }) => {
     async addContact (content) {
       return (await _db).add('contacts', content)
     },
-    async setContacts (contacts) {
-      const d = await _db
-      for (let i = 0; i < contacts.length; i++) {
-        await d.add('contacts', contacts[i])
-      }
-    },
     async getContacts () {
       return (await _db).getAllFromIndex('contacts', 'name')
     },

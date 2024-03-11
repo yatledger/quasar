@@ -9,9 +9,10 @@ export const contactStore = defineStore('contact', () => {
     return await $db.getContacts()
   }
 
-  async function setContacts (contacts: { name: string, add: string, id: number }[]) {
+  async function setContacts (contacts: { name: string, addr: string, id: number }[]) {
     for (const contact of contacts) {
-      await $db.addContact(contact)
+      const { name, addr } = contact
+      await $db.addContact({ name, addr })
     }
   }
 
