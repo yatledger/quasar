@@ -59,5 +59,8 @@ export default {
     topUsersTitle: 'Ranking of participants',
     contacts: 'Contacts'
   },
-  import: 'Export/Import'
+  import: 'Export/Import',
+  dowloadJson: 'Download JSON-file',
+  uploadJson: 'JSON-file',
+  placeholder: 'Find '
 }

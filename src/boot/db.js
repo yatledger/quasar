@@ -14,11 +14,37 @@ export default boot(({ app }) => {
   })
 
   const db = {
+    async hasContact (name, addr) {
+      let cursor = await (await _db).transaction('contacts').store.openCursor()
+
+      while (cursor) {
+        if (cursor.value.name === name || cursor.value.addr === addr) return true
+
+        cursor = await cursor.continue()
+      }
+
+      return false
+    },
+    async getContactsByName (name) {
+      let cursor = await (await _db).transaction('contacts').store.openCursor()
+
+      const res = []
+      while (cursor) {
+        if (cursor.value.name.includes(name)) {
+          res.push(cursor.value)
+        }
+
+        cursor = await cursor.continue()
+      }
+
+      return res
+    },
+
     async get (store, key) {
       return (await _db).get(store, key)
     },
-    async set (store, key, val) {
-      return (await _db).put(store, val, key)
+    async set (store, val) {
+      return (await _db).put(store, val)
     },
     async delete (store, key) {
       return (await _db).delete(store, key)

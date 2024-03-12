@@ -1,5 +1,5 @@
 import { boot } from 'quasar/wrappers'
-import ky from 'ky'
+// import ky from 'ky'
 
 export default boot(({ app }) => {
   const srv = import.meta.env.VITE_REST_SERVER
@@ -22,7 +22,7 @@ export default boot(({ app }) => {
     },
     async send (q) {
       try {
-        const res = await fetch(srv + "send/", {
+        const res = await fetch(srv + 'send/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

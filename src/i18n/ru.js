@@ -59,5 +59,8 @@ export default {
     topUsersTitle: 'Рейтинг участников',
     contacts: 'Контакты'
   },
-  import: 'Экспорт/импорт'
+  import: 'Экспорт/импорт',
+  dowloadJson: 'Скачать JSON-файл',
+  uploadJson: 'JSON-файл',
+  placeholder: 'Поиск'
 }

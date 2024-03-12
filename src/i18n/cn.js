@@ -59,5 +59,7 @@ export default {
     topUsersTitle: '与会者排名',
     contacts: '联系方式'
   },
-  import: '出口/进口'
+  import: '出口/进口',
+  dowloadJson: 'Скачать JSON-файл',
+  uploadJson: 'JSON-файл'
 }
