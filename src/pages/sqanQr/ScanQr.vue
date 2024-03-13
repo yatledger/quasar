@@ -7,6 +7,25 @@ import { useRoute, useRouter } from 'vue-router'
 const fromValue = { id: 5, nickName: 'Семен', publicKey: 'rEFgH77tJcYPAe2tdPwUPEZ6TS3vvgTmvNUZcfr9JnfU1sTq5i5Xo9BX55L', avatar: 'https://img.goodfon.ru/original/2048x2048/6/c5/zak-efron-aktere-paren-foto.jpg' }
 const toValue = { id: 7, nickName: 'Vika', publicKey: '3vvgTmvNUAe2tdPwUPEZ6TSZcfr9JnfU1sTq5i5XorEFgH77tJcYP9BX55L', avatar: 'https://sun6-22.userapi.com/s/v1/if1/Kx0oxhQzfzd4-V1EiwtJIqbzg3r5IjfLnVnqkXOcbV02dLx9FlmKmxOiZaWhcEEJiCrttjZY.jpg?size=1600x1600&quality=96&crop=482,0,1600,1600&ava=1' }
 
+// DEMO transtion
+const transactionSum = '18'
+const yatSymbol = '\u0462'
+const transactionDemo = () => `${transactionSum} ${yatSymbol}`
+// END
+
+const transactionDate = () => {
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
+  }
+  const currentDate = new Date()
+  return currentDate.toLocaleString('ru-RU', options)
+}
+
 const route = useRoute()
 const router = useRouter()
 
@@ -17,19 +36,22 @@ const error = ref('')
 const result = ref('')
 const selectedCamIndex = ref(null)
 const detectedCode = ref(false)
-const confirmTransaction = ref(false)
+const isShowModal = ref(false)
 const isShowRunCamSpinner = ref(false)
-
-previousPage.value = route.params.from || '/'
+const showScanConfirmation = ref(false)
+const paused = ref(false)
 
 const goBack = () => {
   router.push(previousPage.value)
 }
 
-function onDetect(detectedData) {
+const onDetect = async (detectedData) => {
   if (detectedData) {
     detectedCode.value = true
-    confirmTransaction.value = true
+    isShowModal.value = true
+    paused.value = true
+    await timeout(500)
+    paused.value = false
   }
   result.value = JSON.stringify(detectedData.map((code) => code.rawValue))
 }
@@ -45,12 +67,26 @@ const switchCamera = async () => {
   }
 }
 
-const onReady = () => {
-  isShowRunCamSpinner.value = false
+const timeout = (ms) => {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, ms)
+  })
+}
+
+const onCameraOn = () => {
+  if (!isShowModal.value) {
+    showScanConfirmation.value = false
+    isShowRunCamSpinner.value = false
+  }
+}
+
+const onCameraOff = () => {
+  showScanConfirmation.value = true
 }
 
 onMounted(async () => {
   try {
+    previousPage.value = route.params.from || '/'
     isShowRunCamSpinner.value = true
     const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true })
     const track = mediaStream.getVideoTracks()[0]
@@ -66,6 +102,12 @@ onMounted(async () => {
     error.value = 'Error accessing media devices'
   }
 })
+
+const clickBtn = () => {
+  result.value = ''
+  detectedCode.value = false
+  isShowModal.value = false
+}
 
 function paintOutline(detectedCodes, ctx) {
   for (const detectedCode of detectedCodes) {
@@ -122,7 +164,7 @@ const trackFunctionOptions = [
 ]
 const trackFunctionSelected = ref(trackFunctionOptions[1])
 
-function onError(err) {
+const onError = (err) => {
   error.value = `[${err.name}]: `
 
   if (err.name === 'NotAllowedError') {
@@ -160,7 +202,7 @@ function onError(err) {
 
 <template>
   <q-section class="q-pa-md">
-    <q-section style="width: 40vh; height: 40vh; margin: 0 auto;">
+    <q-section style="width: 350px; height: 350px; margin: 0 auto;">
       <q-item clickable v-ripple rounded style="width: 70px; height: 70px;"
         class="row q-pa-md q-flex justify-center items-center" @click="goBack">
         <q-avatar size="70px" icon="arrow_back" />
@@ -168,9 +210,10 @@ function onError(err) {
     </q-section>
     <q-section>
       <div class="row wrap justify-center items-center content-center"
-        style="width: 40vh; height: 40vh; border-radius: 20px; border: 6px solid #E9E9E9; margin: 0 auto; margin-bottom: 30px; position: relative;">
-        <qrcode-stream @camera-on="onReady" style="position: relative; z-index: -1;" :constraints="selectedDevice"
-          :track="trackFunctionSelected.value" @error="onError" @detect="onDetect" v-if="selectedDevice !== null">
+        style="width: 350px; height: 350px; border-radius: 20px; border: 6px solid #E9E9E9; margin: 0 auto; margin-bottom: 30px; position: relative;">
+        <qrcode-stream :paused="paused" @camera-on="onCameraOn" @camera-off="onCameraOff"
+          style="position: relative; z-index: -1;" :constraints="selectedDevice" :track="trackFunctionSelected.value"
+          @error="onError" @detect="onDetect" v-if="selectedDevice !== null">
           <q-section v-if="isShowRunCamSpinner"
             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
             <q-spinner-grid color="primary" size="2rem" />
@@ -182,38 +225,27 @@ function onError(err) {
             icon="cameraswitch"></q-avatar>
         </q-section>
       </div>
-      <!-- <q-item-section>
-        <q-item class="decode-result">
-          Last result: <b>{{ result }}</b>
-        </q-item>
-      </q-item-section> -->
     </q-section>
     <q-section>
       <q-item-section v-if="!error" class="error">{{ error }}</q-item-section>
     </q-section>
   </q-section>
-  <q-dialog persistent v-model="confirmTransaction">
-    <q-card>
-      <q-card-section class="row items-center">
-        <q-avatar>
-          <img :src="fromValue.avatar" alt="transction-from" />
-        </q-avatar>
-        <q-item>
-          <p>{{ fromValue.nickName }}</p>
-        </q-item>
-      </q-card-section>
-      <q-card-section class="row items-center">
-        <q-avatar>
-          <img :src="toValue.avatar" alt="transction-to" />
-        </q-avatar>
-        <q-item>
-          <p>{{ toValue.nickName }}</p>
-        </q-item>
-      </q-card-section>
 
+  <q-dialog persistent v-model="isShowModal">
+    <q-card style="width: 100%;">
+      <p style="text-align: center; margin: 10px;">DEMO TRANSACTION</p>
+      <q-card-section class="row items-center">
+        <div class="q-pa-sm">
+          <q-timeline color="secondary">
+            <q-timeline-entry :subtitle="fromValue.nickName" :avatar="fromValue.avatar" />
+            <q-timeline-entry :title="transactionDemo()" :subtitle="transactionDate() " icon="south" />
+            <q-timeline-entry :subtitle="toValue.nickName" :avatar="toValue.avatar" />
+          </q-timeline>
+        </div>
+      </q-card-section>
       <q-card-actions align="right">
-        <q-btn flat label="Cancel" color="primary" v-close-popup />
-        <q-btn flat label="Turn on Wifi" color="primary" v-close-popup />
+        <q-btn @click="clickBtn" label="Cancel" color="negative" v-close-popup style="margin-right: 30px;" />
+        <q-btn @click="clickBtn" flat label="Turn on Wifi" color="primary" v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>
