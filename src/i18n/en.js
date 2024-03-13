@@ -59,22 +59,6 @@ export default {
     topUsersTitle: 'Ranking of participants',
     contacts: 'Contacts'
   },
-
-  help: {
-    t1: 'It is an open, unchangeable, provable ledger; a system that allows you to transparently monitor the movements of funds within yourself',
-    t2: 'Free access to transaction history.',
-    t3: 'Each subsequent transaction bears the imprint of the previous one, which is an insurmountable obstacle to changing the content of the last one.',
-    t4: 'Transactions are algorithmically signed by the sender, which eliminates the possibility of falsification.'
-  },
-
-  userTxHistory: {
-    date: 'Date',
-    from: 'From',
-    to: 'To',
-    amount: 'Amount',
-    type: 'Type',
-  },
-
   import: 'Export/Import',
   dowloadJson: 'Download JSON-file',
   uploadJson: 'JSON-file',
@@ -97,6 +81,5 @@ export default {
       p1: 'Each successive transaction bears the imprint of the previous one, which is an insurmountable obstacle to changing the content of the latter.',
       p2: 'Transactions are algorithmically signed by the sender, eliminating the possibility of tampering.'
     }
-
   }
 }
