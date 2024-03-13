@@ -1,25 +1,21 @@
 <template>
   <section>
-    <UserHistoryTx :records="records" :columns="columns" />
+    <UserHistoryTx :records="records" :columns="columns"/>
   </section>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import UserHistoryTx from 'components/UserTxHistory.vue'
-
-const { t } = useI18n()
 
 defineOptions({
   name: 'UserTx'
 })
-
 const columns = ref([
   {
     name: 'date',
     required: true,
-    label: t('userTxHistory.date'),
+    label: 'Дата',
     align: 'left',
     field: 'date',
     format: val => `${val}`,
@@ -28,26 +24,26 @@ const columns = ref([
   {
     name: 'walletFrom',
     align: 'center',
-    label: t('userTxHistory.from'),
+    label: 'От кого',
     field: 'walletFrom',
     sortable: true
   },
   {
     name: 'walletTo',
     align: 'center',
-    label: t('userTxHistory.to'),
+    label: 'Куда',
     field: 'walletTo',
     sortable: true
   },
   {
     name: 'amount',
-    label: t('userTxHistory.amount'),
+    label: 'Сумма',
     field: 'amount',
     sortable: true
   },
   {
     name: 'type',
-    label: t('userTxHistory.type'),
+    label: 'Тип',
     field: 'type',
     sortable: true
   }
