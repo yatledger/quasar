@@ -59,7 +59,27 @@ export default {
     topUsersTitle: '与会者排名',
     contacts: '联系方式'
   },
+
   import: '出口/进口',
   dowloadJson: 'Скачать JSON-файл',
-  uploadJson: 'JSON-файл'
+  uploadJson: 'JSON-файл',
+  aboutPlatform: {
+    bannerTexts: {
+      banner1: '我们为什么可靠 ...'
+    },
+    navHeaderItems: {
+      openness: '开放性',
+      free: '免费',
+      security: '安全'
+    },
+    opennessText: {
+      p1: '它是一个开放的、不可更改的、可证明的分类账。',
+      p2: '一个能让您透明地监控自己内部资金流动的系统。'
+    },
+    freeText: '免费查阅交易历史。',
+    securityText: {
+      p1: '每一笔连续的交易都带有前一笔交易的印记，这是改变后一笔交易内容不可逾越的障碍。',
+      p2: '交易由发送方通过算法签名，消除了篡改的可能性。'
+    }
+  }
 }
