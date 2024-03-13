@@ -3,14 +3,28 @@
 import { ref, onMounted } from 'vue'
 import { QrcodeStream } from 'vue-qrcode-reader'
 import { useRoute, useRouter } from 'vue-router'
+import { useQuasar } from 'quasar'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+const $q = useQuasar()
+
+const succesNotification = () => {
+  $q.notify({
+    type: 'positive',
+    message: t('transactionMessage.successfull'),
+    color: 'secondary',
+    position: 'bottom',
+    timeout: 1500
+  })
+}
 
 const fromValue = { id: 5, nickName: 'Семен', publicKey: 'rEFgH77tJcYPAe2tdPwUPEZ6TS3vvgTmvNUZcfr9JnfU1sTq5i5Xo9BX55L', avatar: 'https://img.goodfon.ru/original/2048x2048/6/c5/zak-efron-aktere-paren-foto.jpg' }
 const toValue = { id: 7, nickName: 'Vika', publicKey: '3vvgTmvNUAe2tdPwUPEZ6TSZcfr9JnfU1sTq5i5XorEFgH77tJcYP9BX55L', avatar: 'https://sun6-22.userapi.com/s/v1/if1/Kx0oxhQzfzd4-V1EiwtJIqbzg3r5IjfLnVnqkXOcbV02dLx9FlmKmxOiZaWhcEEJiCrttjZY.jpg?size=1600x1600&quality=96&crop=482,0,1600,1600&ava=1' }
 
 // DEMO transtion
 const transactionSum = '18'
-const yatSymbol = '\u0462'
-const transactionDemo = () => `${transactionSum} ${yatSymbol}`
+const transactionDemo = () => `${transactionSum} ${t('title')}`
 // END
 
 const transactionDate = () => {
@@ -103,10 +117,17 @@ onMounted(async () => {
   }
 })
 
-const clickBtn = () => {
+const cancelClick = () => {
   result.value = ''
   detectedCode.value = false
   isShowModal.value = false
+}
+
+const confirmClick = () => {
+  result.value = ''
+  detectedCode.value = false
+  isShowModal.value = false
+  succesNotification()
 }
 
 function paintOutline(detectedCodes, ctx) {
@@ -238,14 +259,14 @@ const onError = (err) => {
         <div class="q-pa-sm">
           <q-timeline color="secondary">
             <q-timeline-entry :subtitle="fromValue.nickName" :avatar="fromValue.avatar" />
-            <q-timeline-entry :title="transactionDemo()" :subtitle="transactionDate() " icon="south" />
+            <q-timeline-entry :title="transactionDemo()" :subtitle="transactionDate()" icon="south" />
             <q-timeline-entry :subtitle="toValue.nickName" :avatar="toValue.avatar" />
           </q-timeline>
         </div>
       </q-card-section>
       <q-card-actions align="right">
-        <q-btn @click="clickBtn" label="Cancel" color="negative" v-close-popup style="margin-right: 30px;" />
-        <q-btn @click="clickBtn" flat label="Turn on Wifi" color="primary" v-close-popup />
+        <q-btn @click="cancelClick" :label="$t('cancel')" color="negative" v-close-popup style="margin-right: 30px;" />
+        <q-btn @click="confirmClick" flat :label="$t('send')" color="primary" v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>
