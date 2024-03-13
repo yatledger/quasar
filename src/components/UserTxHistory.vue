@@ -1,36 +1,22 @@
 <template>
-    <table>
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Дата</th>
-                <th>От кого</th>
-                <th>Куда</th>
-                <th>Сумма</th>
-                <th>Тип</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr v-for="(record, idx) of records" :key="record.id">
-                <td>{{ idx + 1 }}</td>
-                <td>{{ record.date }}</td>
-                <td>{{ record.walletFrom }}</td>
-                <td>{{ record.walletTo }}</td>
-                <td>{{ record.ammount }}</td>
-                <td>{{ record.type }}</td>
-            </tr>
-        </tbody>
-    </table>
+  <div class="q-pa-md">
+    <q-table :title="$t('menu.transaction')" :rows="records" :columns="columns" row-key="name" />
+  </div>
 </template>
 
-<script>
-export default {
-  props: {
-    records: {
-      required: true,
-      type: Array
-    }
+<script setup>
+defineOptions({
+  name: 'UserTxHistory'
+})
+
+defineProps({
+  records: {
+    required: true,
+    type: Array
+  },
+  columns: {
+    required: true,
+    type: Array
   }
-}
+})
 </script>

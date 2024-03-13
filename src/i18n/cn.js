@@ -10,9 +10,9 @@ export default {
     clearDesc: '清除设备上的痕迹',
     code: 'Github',
     codeDesc: '存储库',
-    help: 'FAQ',
+    help: '常见问题',
     helpDesc: '关于',
-    transaction: 'Transactions',
+    transaction: '交易事项',
     transactionDesc: '获取交易',
     contacts: '联系方式',
     contactsDesc: '查看联系人',
@@ -60,6 +60,21 @@ export default {
     contacts: '联系方式'
   },
 
+  help: {
+    t1: '它是一个开放的，不变的，可证明的分类账;一个系统，允许您透明地监控自己内部的资金流动',
+    t2: '免费访问交易历史记录.',
+    t3: '每个后续交易都带有前一个的印记，这是改变最后一个内容的不可逾越的障碍.',
+    t4: '交易由发送者在算法上签名，这消除了伪造的可能性.'
+  },
+
+  userTxHistory: {
+    date: '日期',
+    from: '从哪里来',
+    to: '哪里',
+    amount: '金额',
+    type: '类型'
+  },
+  
   import: '出口/进口',
   dowloadJson: 'Скачать JSON-файл',
   uploadJson: 'JSON-файл',
