@@ -10,7 +10,7 @@ export default {
     clearDesc: 'Удалить следы на устройстве',
     code: 'Github',
     codeDesc: 'Репозиторий',
-    help: 'FAQ',
+    help: 'Часто задаваемые вопросы',
     helpDesc: 'О системе',
     transaction: 'Транзакции',
     transactionDesc: 'Просмотреть транзакции',
