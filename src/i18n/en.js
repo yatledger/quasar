@@ -59,6 +59,10 @@ export default {
     topUsersTitle: 'Ranking of participants',
     contacts: 'Contacts'
   },
+  import: 'Export/Import',
+  dowloadJson: 'Download JSON-file',
+  uploadJson: 'JSON-file',
+  placeholder: 'Find ',
   aboutPlatform: {
     bannerTexts: {
       banner1: "Why we're reliable..."

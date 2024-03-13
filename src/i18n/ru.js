@@ -59,6 +59,10 @@ export default {
     topUsersTitle: 'Рейтинг участников',
     contacts: 'Контакты'
   },
+  import: 'Экспорт/импорт',
+  dowloadJson: 'Скачать JSON-файл',
+  uploadJson: 'JSON-файл',
+  placeholder: 'Поиск',
   aboutPlatform: {
     bannerTexts: {
       banner1: 'Почему c нами надежно...'
