@@ -58,5 +58,8 @@ export default {
   titles: {
     topUsersTitle: 'Рейтинг участников',
     contacts: 'Контакты'
+  },
+  transactionMessage: {
+    successfull: 'Транзакция выполнена'
   }
 }

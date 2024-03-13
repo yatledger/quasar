@@ -58,5 +58,8 @@ export default {
   titles: {
     topUsersTitle: 'Ranking of participants',
     contacts: 'Contacts'
+  },
+  transactionMessage: {
+    successfull: 'Transaction completed'
   }
 }

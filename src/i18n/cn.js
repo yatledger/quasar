@@ -58,5 +58,8 @@ export default {
   titles: {
     topUsersTitle: '与会者排名',
     contacts: '联系方式'
+  },
+  transactionMessage: {
+    successfull: '交易完成'
   }
 }
