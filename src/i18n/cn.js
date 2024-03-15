@@ -60,6 +60,9 @@ export default {
     contacts: '联系方式'
   },
 
+  transactionMessage: {
+    successfull: '交易完成'
+  },
   import: '出口/进口',
   dowloadJson: 'Скачать JSON-файл',
   uploadJson: 'JSON-файл',

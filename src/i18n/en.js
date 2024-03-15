@@ -59,6 +59,9 @@ export default {
     topUsersTitle: 'Ranking of participants',
     contacts: 'Contacts'
   },
+  transactionMessage: {
+    successfull: 'Transaction completed'
+  },
   import: 'Export/Import',
   dowloadJson: 'Download JSON-file',
   uploadJson: 'JSON-file',

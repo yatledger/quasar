@@ -59,6 +59,9 @@ export default {
     topUsersTitle: 'Рейтинг участников',
     contacts: 'Контакты'
   },
+  transactionMessage: {
+    successfull: 'Транзакция выполнена',
+  },
   import: 'Экспорт/импорт',
   dowloadJson: 'Скачать JSON-файл',
   uploadJson: 'JSON-файл',
