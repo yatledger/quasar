@@ -61,5 +61,28 @@ export default {
   },
   transactionMessage: {
     successfull: 'Transaction completed'
+  },
+  import: 'Export/Import',
+  dowloadJson: 'Download JSON-file',
+  uploadJson: 'JSON-file',
+  placeholder: 'Find ',
+  aboutPlatform: {
+    bannerTexts: {
+      banner1: "Why we're reliable..."
+    },
+    navHeaderItems: {
+      openness: 'Openness',
+      free: 'Free',
+      security: 'Safety'
+    },
+    opennessText: {
+      p1: 'It is an open unchangeable provable ledger.',
+      p2: 'A system that allows you to transparently monitor the movement of funds within yourself.'
+    },
+    freeText: 'Free access to transaction history.',
+    securityText: {
+      p1: 'Each successive transaction bears the imprint of the previous one, which is an insurmountable obstacle to changing the content of the latter.',
+      p2: 'Transactions are algorithmically signed by the sender, eliminating the possibility of tampering.'
+    }
   }
 }
