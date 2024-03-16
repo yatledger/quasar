@@ -47,9 +47,15 @@ const getBadgeClasses = (value) => (
       </q-item-section>
     </q-item-section>
     <q-fab class="self-center" color="primary" text-color="white" icon="more_vert" direction="left">
-      <q-fab-action color="primary" text-color="white" @click="onClick" icon="mail" />
+      <q-fab-action color="primary" text-color="white" @click="onClick" icon="forum" />
       <q-fab-action color="primary" text-color="white" @click="onClick" icon="person_add_alt" />
-      <q-fab-action color="primary" text-color="white" @click="onClick" icon="payment" />
+      <q-fab-action class="yat-icon" color="primary" text-color="white" @click="onClick" icon="currency_ruble" />
     </q-fab>
   </q-item>
 </template>
+
+<style scoped>
+.yat-icon {
+  transform: scaleY(-1);
+}
+</style>
