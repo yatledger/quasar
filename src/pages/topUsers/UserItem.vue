@@ -46,7 +46,7 @@ const getBadgeClasses = (value) => (
         </q-item-label>
       </q-item-section>
     </q-item-section>
-    <q-fab class="self-center" color="primary" text-color="white" icon="chevron_left" direction="left">
+    <q-fab class="self-center" color="primary" text-color="white" icon="more_vert" direction="left">
       <q-fab-action color="primary" text-color="white" @click="onClick" icon="mail" />
       <q-fab-action color="primary" text-color="white" @click="onClick" icon="person_add_alt" />
       <q-fab-action color="primary" text-color="white" @click="onClick" icon="payment" />
