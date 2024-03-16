@@ -60,7 +60,7 @@ export default {
     contacts: 'Контакты'
   },
   transactionMessage: {
-    successfull: 'Транзакция выполнена',
+    successfull: 'Транзакция выполнена'
   },
   import: 'Экспорт/импорт',
   dowloadJson: 'Скачать JSON-файл',
