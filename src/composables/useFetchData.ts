@@ -125,7 +125,7 @@ const useFetchData = () => {
     getUserTransactions,
     getTransactionById,
     getAllTransactions,
-    allUserContacts,
+    allUserContacts
   }
 }
 
