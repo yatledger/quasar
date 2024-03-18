@@ -33,10 +33,16 @@ const user = computed(() => {
                   class="hoverable"
                 />
               </p>
+              <p class="user-field">{{ user.addr }}
+                <q-icon
+                  name="edit"
+                  class="hoverable"
+                />
+              </p>
               <p class="user-field">{{ user.desc }}
                 <q-icon class="hoverable" />
               </p>
-              <p class="user-field">{{ user.addr }}
+              <p class="user-field">{{ user.sign }}
                 <q-icon
                   name="content_copy"
                   class="hoverable"
