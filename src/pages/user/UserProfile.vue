@@ -1,44 +1,90 @@
 <script setup>
-import { ref } from 'vue'
+import { computed } from 'vue'
+import useFetchData from 'src/composables/useFetchData'
+//
+const { getUserById } = useFetchData()
+const { result } = getUserById(1)
 
-const user = ref({
-  name: 'user name',
-  nikname: 'nickname',
-  address: 'TXfguX46BGYTqcLo8CNLRZaa58xyErsQRB'
+const user = computed(() => {
+  return result.value?.getUser
 })
 
-const send = () => {
-  return true
-}
 </script>
 
 <template>
   <q-page class="container overflow-y-hidden shadow-10">
-    <div class="content">
+    <div
+      class="content"
+      v-if="user"
+    >
       <q-card class="q-pa-md">
         <q-card-section>
           <div class="user-data shadow-21">
-            <q-avatar size="80px" class="shadow-10">
-              <img src="https://cdn.quasar.dev/img/avatar.png">
+            <q-avatar
+              size="80px"
+              class="shadow-10"
+            >
+              <img :src="user.cover">
             </q-avatar>
             <div class="left">
-              <p class="name">{{ user.name }} <q-icon name="edit" class="hoverable" /></p>
-              <p class="email">{{ user.nikname }} <q-icon name="edit" class="hoverable" /></p>
-              <p class="address">{{ user.address }} <q-icon name="content_copy" class="hoverable" /></p>
+              <p class="user-field">{{ user.name }}
+                <q-icon
+                  name="edit"
+                  class="hoverable"
+                />
+              </p>
+              <p class="user-field">{{ user.addr }}
+                <q-icon
+                  name="edit"
+                  class="hoverable"
+                />
+              </p>
+              <p class="user-field">{{ user.desc }}
+                <q-icon class="hoverable" />
+              </p>
+              <p class="user-field">{{ user.sign }}
+                <q-icon
+                  name="content_copy"
+                  class="hoverable"
+                />
+              </p>
             </div>
           </div>
         </q-card-section>
         <q-card-actions class="btn-block">
-          <q-btn color="primary" class="btn-user" label="Поддержка" @click="support" />
-          <q-btn color="primary" class="btn-user shadow-21" @click="send" label="Отправить" />
-          <q-btn color="primary" class="btn-user" label="Настройки" @click="settings" />
+          <q-btn
+            color="primary"
+            class="btn-user"
+            label="Поддержка"
+            @click="support"
+          />
+          <q-btn
+            color="primary"
+            class="btn-user shadow-21"
+            @click="send"
+            label="Отправить"
+          />
+          <q-btn
+            color="primary"
+            class="btn-user"
+            label="Настройки"
+            @click="settings"
+          />
         </q-card-actions>
       </q-card>
     </div>
+    <q-spinner
+      v-else
+      color="primary"
+      size="3em"
+    />
   </q-page>
 </template>
 
-<style scoped lang="scss">
+<style
+  scoped
+  lang="scss"
+>
 .container {
   display: flex;
   flex-direction: column;
@@ -88,9 +134,7 @@ const send = () => {
   margin: 0 auto;
 }
 
-.name,
-.email,
-.address {
+.user-field {
   display: flex;
   gap: 14px;
   align-items: center;

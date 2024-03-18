@@ -16,12 +16,15 @@
 </template>
 
 <script setup>
-import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
-import useFetchData from 'src/composables/useFetchData'
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import useFetchData from 'src/composables/useFetchData'
+//
+const { t } = useI18n()
+
 const { getMyTransactions } = useFetchData()
 const { result } = getMyTransactions()
+
 const records = computed(() => {
   return result.value?.getAllTx
 })

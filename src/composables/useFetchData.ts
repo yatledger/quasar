@@ -20,18 +20,17 @@ const useFetchData = () => {
 
   const getUserById = (id: number) => {
     const getDataQuery = gql`
-      query getUserById($id: ID!) {
-        user(id: $id) {
-          id
+      query MyQuery {
+        getUser(Id: ${id}) {
           name
-          image
-          balance
-          description
-          contacts
+          cover
+          desc
+          addr
+          sign
         }
       }
     `
-    return useQuery(getDataQuery, { id })
+    return useQuery(getDataQuery)
   }
 
   const getMyTransactions = () => {
