@@ -1,105 +1,45 @@
 <template>
   <h5>Транзакции</h5>
   <section>
-    <UserHistoryTx :records="records" />
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>time</th>
+          <th>debit</th>
+          <th>credit</th>
+          <th>amount</th>
+          <th>sign</th>
+          <th>msg</th>
+          <th>hash</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr v-for="(record, idx) of records" :key="record.id">
+          <td>{{ idx + 1 }}</td>
+          <td>{{ record.time }}</td>
+          <td>{{ record.debit }}</td>
+          <td>{{ record.credit }}</td>
+          <td>{{ record.amount }}</td>
+          <td>{{ record.sign }}</td>
+          <td>{{ record.msg }}</td>
+          <td>{{ record.hash }}</td>
+
+        </tr>
+      </tbody>
+    </table>
   </section>
 </template>
 
-<script>
-import UserHistoryTx from '../../components/UserTxHistory.vue'
+<script setup>
+import useFetchData from 'src/composables/useFetchData'
+import { computed } from 'vue'
+const { getAllUserTransactions } = useFetchData()
 
-export default {
-  name: 'UserTx',
-  data: () => ({
-    records: [
-      {
-        date: '21.01.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 999.01,
-        type: 'Deposit'
-      },
-      {
-        date: '21.02.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 21140.25,
-        type: 'Withdrawal'
-      },
-      {
-        date: '21.01.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 9919.01,
-        type: 'Deposit'
-      },
-      {
-        date: '21.02.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 140.25,
-        type: 'Withdrawal'
-      },
-      {
-        date: '21.01.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 467.01,
-        type: 'Deposit'
-      },
-      {
-        date: '21.02.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 9812,
-        type: 'Withdrawal'
-      },
-      {
-        date: '21.01.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 999.01,
-        type: 'Deposit'
-      },
-      {
-        date: '21.02.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 21140.25,
-        type: 'Withdrawal'
-      },
-      {
-        date: '21.01.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 999.01,
-        type: 'Deposit'
-      },
-      {
-        date: '21.02.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 21140.25,
-        type: 'Withdrawal'
-      },
-      {
-        date: '21.01.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 999.01,
-        type: 'Deposit'
-      },
-      {
-        date: '21.02.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 21140.25,
-        type: 'Withdrawal'
-      }
-    ]
-  }),
-  components: {
-    UserHistoryTx
-  }
-}
+const { result } = getAllUserTransactions()
+const records = computed(() => {
+  return result.value?.getAllTx
+})
 </script>

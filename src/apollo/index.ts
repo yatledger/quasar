@@ -4,7 +4,7 @@ import type { BootFileParams } from '@quasar/app-vite'
 
 // https://github.com/quasarframework/app-extension-apollo
 
-export /* async */ function getClientOptions (
+export /* async */ function getClientOptions(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
   /* {app, router, ...} */ options?: Partial<BootFileParams<any>>
 ) {
@@ -12,7 +12,7 @@ export /* async */ function getClientOptions (
     uri:
       process.env.GRAPHQL_URI ||
       // Change to your graphql endpoint.
-      'http://127.0.0.1:9696/graphql'
+      'https://yat.vit.ooo/graphql'
   })
 
   return <ApolloClientOptions<unknown>>Object.assign(
