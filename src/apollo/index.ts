@@ -12,7 +12,7 @@ export /* async */ function getClientOptions (
     uri:
       process.env.GRAPHQL_URI ||
       // Change to your graphql endpoint.
-      'http://127.0.0.1:9696/graphql'
+      'https://yat.vit.ooo/graphql'
   })
 
   return <ApolloClientOptions<unknown>>Object.assign(

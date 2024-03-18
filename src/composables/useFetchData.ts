@@ -34,27 +34,21 @@ const useFetchData = () => {
     return useQuery(getDataQuery, { id })
   }
 
-  const getAllTransactions = (userId: number) => {
+  const getMyTransactions = () => {
     const getDataQuery = gql`
-      query getTransactions($userId: ID!) {
-        allTransactions(userId: $userId) {
-          id
-          amount
+      query MyQuery {
+        getAllTx {
+          credit
           debit
-          message
-          sender {
-            id
-            name
-          }
-          recipient {
-            id
-            name
-          }
-          created_at
+          amount
+          sign
+          hash
+          msg
+          time
         }
       }
     `
-    return useQuery(getDataQuery, { userId })
+    return useQuery(getDataQuery)
   }
 
   const getTransactionById = (id: number) => {
@@ -124,8 +118,8 @@ const useFetchData = () => {
     getUserById,
     getUserTransactions,
     getTransactionById,
-    getAllTransactions,
-    allUserContacts,
+    getMyTransactions,
+    allUserContacts
   }
 }
 
