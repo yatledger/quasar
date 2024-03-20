@@ -5,6 +5,7 @@ import { QrcodeStream } from 'vue-qrcode-reader'
 import { useRoute, useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
+import RepeatRequest from './RepeatRequest.vue'
 
 const { t } = useI18n()
 const $q = useQuasar()
@@ -54,6 +55,7 @@ const isShowModal = ref(false)
 const isShowRunCamSpinner = ref(false)
 const showScanConfirmation = ref(false)
 const paused = ref(false)
+const accessCamera = ref('')
 
 const goBack = () => {
   router.push(previousPage.value)
@@ -98,23 +100,69 @@ const onCameraOff = () => {
   showScanConfirmation.value = true
 }
 
-onMounted(async () => {
+const onError = (err) => {
+  error.value = `[${err.name}]: `
+
+  /* const errorType = {
+    NotAllowedError: () => (accessCamera.value = 'blocked'),
+    NotFoundError: '',
+    NotSupportedError: '',
+    NotReadableError: '',
+    OverconstrainedError: '',
+    StreamApiNotSupportedError: '',
+    InsecureContextError: ''
+  }
+
+  return errorType[err.name] */
+
+  if (err.name === 'NotAllowedError') {
+    accessCamera.value = 'lock'
+    error.value += 'you need to grant camera access permission'
+  } else if (err.name === 'NotFoundError') {
+    error.value += 'no camera on this device'
+  } else if (err.name === 'NotSupportedError') {
+    error.value += 'secure context required (HTTPS, localhost)'
+  } else if (err.name === 'NotReadableError') {
+    error.value += 'is the camera already in use?'
+  } else if (err.name === 'OverconstrainedError') {
+    error.value += 'installed cameras are not suitable'
+  } else if (err.name === 'StreamApiNotSupportedError') {
+    error.value += 'Stream API is not supported in this browser'
+  } else if (err.name === 'InsecureContextError') {
+    error.value +=
+      'Camera access is only permitted in secure context. Use HTTPS or localhost rather than HTTP.'
+  } else if (err === 'Permission denied') {
+    error.value = 'Permission denied'
+  } else {
+    error.value += err.message
+  }
+}
+
+const requestCameraAccess = async () => {
   try {
-    previousPage.value = route.params.from || '/'
+    accessCamera.value = ''
     isShowRunCamSpinner.value = true
-    const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true })
+    const mediaStream = await navigator.mediaDevices.getUserMedia({ video: { userGesture: true } })
+    mediaStream.disableCameraStorage = true
     const track = mediaStream.getVideoTracks()[0]
     const devicesList = await navigator.mediaDevices.enumerateDevices()
     devices.value = devicesList.filter(device => device.kind === 'videoinput')
     if (devices.value.length > 0) {
       selectedDevice.value = devices.value.at(-1)
     }
-    track.stop()
-  } catch (error) {
+    if (result.value) {
+      track.stop()
+    }
+  } catch (err) {
+    onError(err)
     isShowRunCamSpinner.value = false
-    console.error('Error accessing media devices:', error)
-    error.value = 'Error accessing media devices'
+    console.log(accessCamera.value)
   }
+}
+
+onMounted(async () => {
+  previousPage.value = route.params.from || '/'
+  await requestCameraAccess()
 })
 
 const cancelClick = () => {
@@ -184,29 +232,6 @@ const trackFunctionOptions = [
   { text: 'bounding box', value: paintBoundingBox }
 ]
 const trackFunctionSelected = ref(trackFunctionOptions[1])
-
-const onError = (err) => {
-  error.value = `[${err.name}]: `
-
-  if (err.name === 'NotAllowedError') {
-    error.value += 'you need to grant camera access permission'
-  } else if (err.name === 'NotFoundError') {
-    error.value += 'no camera on this device'
-  } else if (err.name === 'NotSupportedError') {
-    error.value += 'secure context required (HTTPS, localhost)'
-  } else if (err.name === 'NotReadableError') {
-    error.value += 'is the camera already in use?'
-  } else if (err.name === 'OverconstrainedError') {
-    error.value += 'installed cameras are not suitable'
-  } else if (err.name === 'StreamApiNotSupportedError') {
-    error.value += 'Stream API is not supported in this browser'
-  } else if (err.name === 'InsecureContextError') {
-    error.value +=
-      'Camera access is only permitted in secure context. Use HTTPS or localhost rather than HTTP.'
-  } else {
-    error.value += err.message
-  }
-}
 </script>
 
 <style scoped>
@@ -247,8 +272,10 @@ const onError = (err) => {
         </q-section>
       </div>
     </q-section>
+    <RepeatRequest v-if="accessCamera === 'lock'" :clickHandle="requestCameraAccess" />
+
     <q-section>
-      <q-item-section v-if="!error" class="error">{{ error }}</q-item-section>
+      <q-item-section v-if="error" class="error">{{ error }}</q-item-section>
     </q-section>
   </q-section>
 
@@ -256,13 +283,13 @@ const onError = (err) => {
     <q-card style="width: 100%;">
       <p style="text-align: center; margin: 10px;">DEMO TRANSACTION</p>
       <q-card-section class="row items-center">
-        <div class="q-pa-sm">
+        <q-section class="q-pa-sm">
           <q-timeline color="secondary">
             <q-timeline-entry :subtitle="fromValue.nickName" :avatar="fromValue.avatar" />
             <q-timeline-entry :title="transactionDemo()" :subtitle="transactionDate()" icon="south" />
             <q-timeline-entry :subtitle="toValue.nickName" :avatar="toValue.avatar" />
           </q-timeline>
-        </div>
+        </q-section>
       </q-card-section>
       <q-card-actions align="right">
         <q-btn @click="cancelClick" :label="$t('cancel')" color="negative" v-close-popup style="margin-right: 30px;" />
