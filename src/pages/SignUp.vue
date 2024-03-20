@@ -115,6 +115,8 @@ const disabled = computed(() => pwd.value.length < 7)
 const copySign = (txt) => {
   copyToClipboard(txt)
     .then(() => {
+      isCopedSeed.value = true
+      isCopedPwd.value = false
       Notify.create(t('sign.copy'))
     })
     .catch(() => {
@@ -124,6 +126,8 @@ const copySign = (txt) => {
 const copyPwd = (txt) => {
   copyToClipboard(txt)
     .then(() => {
+      isCopedPwd.value = true
+      isCopedSeed.value = false
       Notify.create(t('sign.pwd'))
     })
     .catch(() => {
@@ -145,14 +149,12 @@ const copyPwd = (txt) => {
       <p class="text-justify text-body1">{{ $t("sign.t1") }}</p>
       <!--TODO: copy-->
       <p><q-card class="text-h4" @click="copySign(mn)"><q-card-section>{{ mn }}
-            <q-icon :name="!isCopedSeed ? 'content_copy' : 'done'" class="cursor-pointer"
-              @click="isCopedSeed = !isCopedSeed" />
+            <q-icon :name="!isCopedSeed ? 'content_copy' : 'done'" class="cursor-pointer" />
           </q-card-section></q-card></p>
       <p class="text-justify text-body1">{{ $t("sign.t2") }}:</p>
       <p>
         <q-card class="inline-block q-pa-xs text-h4 public-key" @click="copyPwd(pk)">{{ pk }}
-          <q-icon :name="!isCopedPwd ? 'content_copy' : 'done'" class="cursor-pointer"
-            @click="isCopedPwd = !isCopedPwd" />
+          <q-icon :name="!isCopedPwd ? 'content_copy' : 'done'" class="cursor-pointer" />
         </q-card>
       </p>
       <p class="text-left text-body1">{{ $t("sign.t3") }}</p>
