@@ -267,7 +267,7 @@ const trackFunctionSelected = ref(trackFunctionOptions[1])
       <div class="row wrap justify-center items-center content-center"
         style="width: 350px; height: 350px; border-radius: 20px; border: 6px solid #E9E9E9; margin: 0 auto; margin-bottom: 30px; position: relative;">
 
-        <qrcode-stream :paused="paused" @camera-on="onCameraOn" @camera-off="onCameraOff"
+        <qrcode-stream class="qrcode-stream-video" :paused="paused" @camera-on="onCameraOn" @camera-off="onCameraOff"
           style="position: relative; z-index: -1;" :constraints="selectedDevice" :track="trackFunctionSelected.value"
           @error="onError" @detect="onDetect" v-if="selectedDevice !== null">
           <q-section v-if="isShowRunCamSpinner"
@@ -299,3 +299,9 @@ const trackFunctionSelected = ref(trackFunctionOptions[1])
   <modalTx :fromValue="fromValue" :toValue="toValue" :confirmClick="confirmClick" :cancelClick="cancelClick"
     :transactionDate="transactionDate" :transactionDemo="transactionDemo" v-model="isShowModalTx" />
 </template>
+
+<style scoped>
+.qrcode-stream-video {
+  transform: scaleX(-1);
+}
+</style>
