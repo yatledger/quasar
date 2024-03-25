@@ -287,11 +287,11 @@ const trackFunctionSelected = ref(trackFunctionOptions[1])
       style="max-width: 90%; margin: 0 auto;">
       <q-chip class="q-mb-md" clickable @click="reloadPage" size="md">
         <q-avatar icon="restart_alt" color="primary" text-color="white" />
-        Перезагрузить страницу
+        {{ $t('buttons.reloadPage') }}
       </q-chip>
       <q-chip clickable @click="requestCameraAccess" size="md">
         <q-avatar icon="photo_camera" color="primary" text-color="white" />
-        Запросить доступ к камере
+        {{ $t('buttons.requestCameraAccess') }}
       </q-chip>
     </div>
   </q-section>
