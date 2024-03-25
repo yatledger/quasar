@@ -291,7 +291,7 @@ const trackFunctionSelected = ref(trackFunctionOptions[1])
       </q-chip>
       <q-chip clickable @click="requestCameraAccess" size="md">
         <q-avatar icon="photo_camera" color="primary" text-color="white" />
-        Запрос доступа к камере
+        Запросить доступ к камере
       </q-chip>
     </div>
   </q-section>
