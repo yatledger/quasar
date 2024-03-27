@@ -6,7 +6,7 @@ module.exports = {
   client: {
     service: {
       name: 'my-service',
-      url: 'http://127.0.0.1:9696/graphql'
+      url: 'https://yat.vit.ooo/graphql'
     },
     // Files processed by the extension
     includes: ['src/**/*.vue', 'src/**/*.js', 'src/**/*.ts']

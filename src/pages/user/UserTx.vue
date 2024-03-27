@@ -1,105 +1,72 @@
 <template>
-  <h5>Транзакции</h5>
-  <section>
-    <UserHistoryTx :records="records" />
-  </section>
+  <q-table
+    class=" my-sticky-dynamic"
+    style="height: calc(100vh - 100px)"
+    flat
+    :title="$t('menu.transaction')"
+    bordered
+    dense
+    :dark="$q.dark.isActive"
+    :rows="records"
+    :columns="columns"
+    row-key="time"
+    :rows-per-page-options="[0]"
+  >
+  </q-table>
 </template>
 
-<script>
-import UserHistoryTx from '../../components/UserTxHistory.vue'
+<script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import useFetchData from 'src/composables/useFetchData'
+//
+const { t } = useI18n()
 
-export default {
-  name: 'UserTx',
-  data: () => ({
-    records: [
-      {
-        date: '21.01.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 999.01,
-        type: 'Deposit'
-      },
-      {
-        date: '21.02.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 21140.25,
-        type: 'Withdrawal'
-      },
-      {
-        date: '21.01.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 9919.01,
-        type: 'Deposit'
-      },
-      {
-        date: '21.02.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 140.25,
-        type: 'Withdrawal'
-      },
-      {
-        date: '21.01.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 467.01,
-        type: 'Deposit'
-      },
-      {
-        date: '21.02.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 9812,
-        type: 'Withdrawal'
-      },
-      {
-        date: '21.01.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 999.01,
-        type: 'Deposit'
-      },
-      {
-        date: '21.02.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 21140.25,
-        type: 'Withdrawal'
-      },
-      {
-        date: '21.01.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 999.01,
-        type: 'Deposit'
-      },
-      {
-        date: '21.02.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 21140.25,
-        type: 'Withdrawal'
-      },
-      {
-        date: '21.01.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 999.01,
-        type: 'Deposit'
-      },
-      {
-        date: '21.02.2024',
-        walletFrom: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        walletTo: 'BvF9EUZntQZBsQmKCadDc8XmarSdLGdRS3LGJuUUsSqv',
-        ammount: 21140.25,
-        type: 'Withdrawal'
-      }
-    ]
-  }),
-  components: {
-    UserHistoryTx
+const { getMyTransactions } = useFetchData()
+const { result } = getMyTransactions()
+
+const records = computed(() => {
+  return result.value?.getAllTx
+})
+
+const columns = [
+  {
+    name: 'amount',
+    label: t('amount'),
+    align: 'center',
+    field: 'amount',
+    sortable: true
+  },
+  {
+    name: 'credit',
+    label: t('credit'),
+    align: 'center',
+    field: 'credit'
+  },
+  {
+    name: 'debit',
+    label: t('debit'),
+    align: 'center',
+    field: 'debit'
+  },
+  {
+    name: 'sign',
+    label: t('sign'),
+    align: 'center',
+    field: 'sign'
+  },
+  {
+    name: 'hash',
+    label: t('hash'),
+    align: 'center',
+    field: 'hash'
+  },
+  {
+    name: 'time',
+    label: t('time'),
+    align: 'right',
+    field: 'time',
+    sortable: true
   }
-}
+]
 </script>

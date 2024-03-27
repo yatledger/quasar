@@ -84,5 +84,23 @@ export default {
       p1: '每一笔连续的交易都带有前一笔交易的印记，这是改变后一笔交易内容不可逾越的障碍。',
       p2: '交易由发送方通过算法签名，消除了篡改的可能性。'
     }
+  },
+  errorMessages: {
+    scanQr: {
+      NotAllowedError: {
+        headerErr: '摄像头的使用未经授权！',
+        textErr: '根据隐私和数据保护政策，浏览器设置必须允许访问！请检查这一点。然后刷新页面，在第二次请求中允许访问设备摄像头。'
+      },
+      NotFoundError: '',
+      NotSupportedError: '',
+      NotReadableError: '',
+      OverconstrainedError: '',
+      StreamApiNotSupportedError: '',
+      InsecureContextError: ''
+    }
+  },
+  buttons: {
+    requestCameraAccess: '请求访问摄像机',
+    reloadPage: '重新载入页面'
   }
 }
