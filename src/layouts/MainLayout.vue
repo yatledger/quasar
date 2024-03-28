@@ -3,8 +3,9 @@ import signin from 'components/SignIn.vue'
 import { ref } from 'vue'
 import { userStore } from 'stores/user'
 import { useRouter } from 'vue-router'
-import db from 'boot/db'
+import { db } from 'boot/db'
 import { useQuasar } from 'quasar'
+import ClearConfirmModal from './ClearConfirmModal.vue'
 
 const router = useRouter()
 const $q = useQuasar()
@@ -15,6 +16,7 @@ const darkToggle = () => {
 
 const leftDrawerOpen = ref(false)
 const enter = ref(false)
+const isClear = ref(false)
 
 const user = userStore()
 
@@ -32,6 +34,8 @@ const exit = () => {
 const clear = () => {
   db.delete('settings', 'seed')
   user.$reset()
+  router.push('/')
+  isClear.value = false
 }
 </script>
 
@@ -78,7 +82,7 @@ const clear = () => {
             <q-item-label caption>{{ $t('menu.signDesc') }}</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="user.crypt" @click="clear" clickable tag="span">
+        <q-item v-if="user.crypt" @click="isClear = true" clickable tag="span">
           <q-item-section avatar><q-icon name="delete" /></q-item-section>
           <q-item-section>
             <q-item-label>{{ $t('menu.clear') }}</q-item-label>
@@ -131,6 +135,7 @@ const clear = () => {
       </q-toolbar>
     </q-footer>
   </q-layout>
+  <ClearConfirmModal v-model="isClear" v-bind:handleConfirm="clear" />
 </template>
 
 <style>
