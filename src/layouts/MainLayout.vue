@@ -2,9 +2,11 @@
 import signin from 'components/SignIn.vue'
 import { ref } from 'vue'
 import { userStore } from 'stores/user'
+import { useRouter } from 'vue-router'
 import db from 'boot/db'
 import { useQuasar } from 'quasar'
 
+const router = useRouter()
 const $q = useQuasar()
 const dark = ref($q.dark.isActive)
 const darkToggle = () => {
@@ -24,6 +26,7 @@ const exit = () => {
   user.pk = ''
   user.sk = ''
   user.seed = ''
+  router.push('/')
 }
 
 const clear = () => {
@@ -118,14 +121,21 @@ const clear = () => {
     <q-page-container>
       <router-view />
     </q-page-container>
-    <q-footer v-if="user.sk.length > 0" class="bg-transparent">
+    <q-footer elevated="" v-if="user.sk.length > 0">
       <q-toolbar class="flex flex-center q-pa-sm justify-evenly">
-        <q-btn color="primary" round size="1rem" icon="account_box" to="/friends"></q-btn>
-        <q-btn color="primary" round size="1rem" icon="sync_alt" to="/tx"></q-btn>
-        <q-btn color="primary" round size="1rem" icon="qr_code_scanner" to="/qr"></q-btn>
-        <q-btn color="primary" round size="1rem" icon="language" to="/global"></q-btn>
-        <q-btn color="primary" round size="1rem" icon="manage_accounts" to="/profile"></q-btn>
+        <q-btn class="custom-button" round size="1rem" icon="account_box" to="/friends"></q-btn>
+        <q-btn class="custom-button" round size="1rem" icon="sync_alt" to="/tx"></q-btn>
+        <q-btn class="custom-button" round size="1rem" icon="qr_code_scanner" to="/qr"></q-btn>
+        <q-btn class="custom-button" round size="1rem" icon="language" to="/global"></q-btn>
+        <q-btn class="custom-button" round size="1rem" icon="manage_accounts" to="/profile"></q-btn>
       </q-toolbar>
     </q-footer>
   </q-layout>
 </template>
+
+<style>
+.custom-button {
+  background-color: #DDDDEB;
+  color: #212235;
+}
+</style>
