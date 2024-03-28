@@ -20,41 +20,34 @@ const useFetchData = () => {
 
   const getUserById = (id: number) => {
     const getDataQuery = gql`
-      query getUserById($id: ID!) {
-        user(id: $id) {
-          id
+      query MyQuery {
+        getUser(Id: ${id}) {
           name
-          image
-          balance
-          description
-          contacts
+          cover
+          desc
+          addr
+          sign
         }
       }
     `
-    return useQuery(getDataQuery, { id })
+    return useQuery(getDataQuery)
   }
 
-  const getAllTransactions = (userId: number) => {
+  const getMyTransactions = () => {
     const getDataQuery = gql`
-      query getTransactions($userId: ID!) {
-        allTransactions(userId: $userId) {
-          id
-          amount
+      query MyQuery {
+        getAllTx {
+          credit
           debit
-          message
-          sender {
-            id
-            name
-          }
-          recipient {
-            id
-            name
-          }
-          created_at
+          amount
+          sign
+          hash
+          msg
+          time
         }
       }
     `
-    return useQuery(getDataQuery, { userId })
+    return useQuery(getDataQuery)
   }
 
   const getTransactionById = (id: number) => {
@@ -124,8 +117,8 @@ const useFetchData = () => {
     getUserById,
     getUserTransactions,
     getTransactionById,
-    getAllTransactions,
-    allUserContacts,
+    getMyTransactions,
+    allUserContacts
   }
 }
 

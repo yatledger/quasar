@@ -5,6 +5,8 @@ import { QrcodeStream } from 'vue-qrcode-reader'
 import { useRoute, useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
+import modalTx from './modalTx.vue'
+import modalErrorMessage from './modalErrorMessage.vue'
 
 const { t } = useI18n()
 const $q = useQuasar()
@@ -47,27 +49,36 @@ const previousPage = ref('')
 const selectedDevice = ref(null)
 const devices = ref([])
 const error = ref('')
+const errorMessage = ref(null)
 const result = ref('')
 const selectedCamIndex = ref(null)
 const detectedCode = ref(false)
-const isShowModal = ref(false)
+const isShowModalTx = ref(false)
+const isShowModalError = ref(false)
 const isShowRunCamSpinner = ref(false)
-const showScanConfirmation = ref(false)
 const paused = ref(false)
+
+const reloadPage = () => {
+  isShowModalError.value = false
+  errorMessage.value = null
+  error.value = null
+  window.location.reload()
+}
 
 const goBack = () => {
   router.push(previousPage.value)
 }
 
 const onDetect = async (detectedData) => {
-  if (detectedData) {
+  if (Array.isArray(detectedData) && detectedData.length > 0) {
     detectedCode.value = true
-    isShowModal.value = true
+    isShowModalTx.value = true
     paused.value = true
-    await timeout(500)
-    paused.value = false
+    result.value = JSON.stringify(detectedData.map((code) => code.rawValue))
+  } else {
+    // Обработка случая, когда detectedData пуст или не массив
+    console.error('Detected data is empty or not an array:', detectedData)
   }
-  result.value = JSON.stringify(detectedData.map((code) => code.rawValue))
 }
 
 const switchCamera = async () => {
@@ -81,52 +92,98 @@ const switchCamera = async () => {
   }
 }
 
-const timeout = (ms) => {
-  return new Promise((resolve) => {
-    window.setTimeout(resolve, ms)
-  })
-}
-
 const onCameraOn = () => {
-  if (!isShowModal.value) {
-    showScanConfirmation.value = false
+  if (!isShowModalTx.value) {
     isShowRunCamSpinner.value = false
   }
 }
 
 const onCameraOff = () => {
-  showScanConfirmation.value = true
+  isShowRunCamSpinner.value = false
 }
 
-onMounted(async () => {
+const onError = (err) => {
+  error.value = `[${err.name}]: `
+
+  /* const errorType = {
+    NotAllowedError: () => (accessCamera.value = 'blocked'),
+    NotFoundError: '',
+    NotSupportedError: '',
+    NotReadableError: '',
+    OverconstrainedError: '',
+    StreamApiNotSupportedError: '',
+    InsecureContextError: ''
+  }
+
+  return errorType[err.name] */
+
+  if (err.name === 'NotAllowedError') {
+    error.value = 'NotAllowedError'
+    isShowModalError.value = true
+    errorMessage.value = {
+      header: t('errorMessages.scanQr.NotAllowedError.headerErr'),
+      text: t('errorMessages.scanQr.NotAllowedError.textErr')
+    }
+  } else if (err.name === 'NotFoundError') {
+    error.value += 'no camera on this device'
+  } else if (err.name === 'NotSupportedError') {
+    error.value += 'secure context required (HTTPS, localhost)'
+  } else if (err.name === 'NotReadableError') {
+    error.value += 'is the camera already in use?'
+  } else if (err.name === 'OverconstrainedError') {
+    error.value += 'installed cameras are not suitable'
+  } else if (err.name === 'StreamApiNotSupportedError') {
+    error.value += 'Stream API is not supported in this browser'
+  } else if (err.name === 'InsecureContextError') {
+    error.value +=
+      'Camera access is only permitted in secure context. Use HTTPS or localhost rather than HTTP.'
+  } else if (err === 'Permission denied') {
+    error.value = 'Permission denied'
+  } else {
+    error.value += err.message
+  }
+}
+
+const requestCameraAccess = async () => {
   try {
-    previousPage.value = route.params.from || '/'
+    isShowModalError.value = false
+    errorMessage.value = null
+    error.value = null
     isShowRunCamSpinner.value = true
-    const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true })
+    const mediaStream = await navigator.mediaDevices.getUserMedia({ video: { userGesture: true } })
+    mediaStream.disableCameraStorage = true
     const track = mediaStream.getVideoTracks()[0]
     const devicesList = await navigator.mediaDevices.enumerateDevices()
     devices.value = devicesList.filter(device => device.kind === 'videoinput')
     if (devices.value.length > 0) {
       selectedDevice.value = devices.value.at(-1)
     }
-    track.stop()
-  } catch (error) {
+    if (result.value) {
+      track.stop()
+    }
+  } catch (err) {
+    onError(err)
     isShowRunCamSpinner.value = false
-    console.error('Error accessing media devices:', error)
-    error.value = 'Error accessing media devices'
   }
+}
+
+onMounted(async () => {
+  previousPage.value = route.params.from || '/'
+  await requestCameraAccess()
 })
 
 const cancelClick = () => {
   result.value = ''
   detectedCode.value = false
-  isShowModal.value = false
+  isShowModalTx.value = false
+  paused.value = false
 }
 
 const confirmClick = () => {
   result.value = ''
   detectedCode.value = false
-  isShowModal.value = false
+  isShowModalTx.value = false
+  paused.value = false
   succesNotification()
 }
 
@@ -184,29 +241,6 @@ const trackFunctionOptions = [
   { text: 'bounding box', value: paintBoundingBox }
 ]
 const trackFunctionSelected = ref(trackFunctionOptions[1])
-
-const onError = (err) => {
-  error.value = `[${err.name}]: `
-
-  if (err.name === 'NotAllowedError') {
-    error.value += 'you need to grant camera access permission'
-  } else if (err.name === 'NotFoundError') {
-    error.value += 'no camera on this device'
-  } else if (err.name === 'NotSupportedError') {
-    error.value += 'secure context required (HTTPS, localhost)'
-  } else if (err.name === 'NotReadableError') {
-    error.value += 'is the camera already in use?'
-  } else if (err.name === 'OverconstrainedError') {
-    error.value += 'installed cameras are not suitable'
-  } else if (err.name === 'StreamApiNotSupportedError') {
-    error.value += 'Stream API is not supported in this browser'
-  } else if (err.name === 'InsecureContextError') {
-    error.value +=
-      'Camera access is only permitted in secure context. Use HTTPS or localhost rather than HTTP.'
-  } else {
-    error.value += err.message
-  }
-}
 </script>
 
 <style scoped>
@@ -232,7 +266,8 @@ const onError = (err) => {
     <q-section>
       <div class="row wrap justify-center items-center content-center"
         style="width: 350px; height: 350px; border-radius: 20px; border: 6px solid #E9E9E9; margin: 0 auto; margin-bottom: 30px; position: relative;">
-        <qrcode-stream :paused="paused" @camera-on="onCameraOn" @camera-off="onCameraOff"
+
+        <qrcode-stream class="qrcode-stream-video" :paused="paused" @camera-on="onCameraOn" @camera-off="onCameraOff"
           style="position: relative; z-index: -1;" :constraints="selectedDevice" :track="trackFunctionSelected.value"
           @error="onError" @detect="onDetect" v-if="selectedDevice !== null">
           <q-section v-if="isShowRunCamSpinner"
@@ -241,33 +276,32 @@ const onError = (err) => {
             <q-tooltip :offset="[0, 8]" />
           </q-section>
         </qrcode-stream>
+
         <q-section style="position: absolute; bottom: 2%; right: 2%;">
           <q-avatar clickable v-ripple @click="switchCamera" size="60px" style="color:indianred;"
             icon="cameraswitch"></q-avatar>
         </q-section>
       </div>
     </q-section>
-    <q-section>
-      <q-item-section v-if="!error" class="error">{{ error }}</q-item-section>
-    </q-section>
+    <div v-if="error === 'NotAllowedError'" class="row q-pa-md q-flex justify-around items-center"
+      style="max-width: 90%; margin: 0 auto;">
+      <q-chip class="q-mb-md" clickable @click="reloadPage" size="md">
+        <q-avatar icon="restart_alt" color="primary" text-color="white" />
+        {{ $t('buttons.reloadPage') }}
+      </q-chip>
+      <q-chip clickable @click="requestCameraAccess" size="md">
+        <q-avatar icon="photo_camera" color="primary" text-color="white" />
+        {{ $t('buttons.requestCameraAccess') }}
+      </q-chip>
+    </div>
   </q-section>
-
-  <q-dialog persistent v-model="isShowModal">
-    <q-card style="width: 100%;">
-      <p style="text-align: center; margin: 10px;">DEMO TRANSACTION</p>
-      <q-card-section class="row items-center">
-        <div class="q-pa-sm">
-          <q-timeline color="secondary">
-            <q-timeline-entry :subtitle="fromValue.nickName" :avatar="fromValue.avatar" />
-            <q-timeline-entry :title="transactionDemo()" :subtitle="transactionDate()" icon="south" />
-            <q-timeline-entry :subtitle="toValue.nickName" :avatar="toValue.avatar" />
-          </q-timeline>
-        </div>
-      </q-card-section>
-      <q-card-actions align="right">
-        <q-btn @click="cancelClick" :label="$t('cancel')" color="negative" v-close-popup style="margin-right: 30px;" />
-        <q-btn @click="confirmClick" flat :label="$t('send')" color="primary" v-close-popup />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
+  <modalErrorMessage v-model="isShowModalError" :errMessage="errorMessage" />
+  <modalTx :fromValue="fromValue" :toValue="toValue" :confirmClick="confirmClick" :cancelClick="cancelClick"
+    :transactionDate="transactionDate" :transactionDemo="transactionDemo" v-model="isShowModalTx" />
 </template>
+
+<style scoped>
+.qrcode-stream-video {
+  transform: scaleX(-1);
+}
+</style>

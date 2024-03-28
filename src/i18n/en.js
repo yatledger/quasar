@@ -84,5 +84,23 @@ export default {
       p1: 'Each successive transaction bears the imprint of the previous one, which is an insurmountable obstacle to changing the content of the latter.',
       p2: 'Transactions are algorithmically signed by the sender, eliminating the possibility of tampering.'
     }
+  },
+  errorMessages: {
+    scanQr: {
+      NotAllowedError: {
+        headerErr: 'Access to the camera was not authorized!',
+        textErr: 'In accordance with the privacy and data protection policy, access in the browser settings must be allowed! Please check this. Then refresh the page and allow access to the device camera in a second request.'
+      },
+      NotFoundError: '',
+      NotSupportedError: '',
+      NotReadableError: '',
+      OverconstrainedError: '',
+      StreamApiNotSupportedError: '',
+      InsecureContextError: ''
+    }
+  },
+  buttons: {
+    requestCameraAccess: 'Request access to the camera',
+    reloadPage: 'Reload the page'
   }
 }

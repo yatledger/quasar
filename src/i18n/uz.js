@@ -90,5 +90,23 @@ export default {
       p1: "Har bir keyingi operatsiya avvalgisining izini o'z ichiga oladi, bu ikkinchisining tarkibini o'zgartirish uchun engib bo'lmaydigan to'siqdir.",
       p2: "Tranzaktsiyalar jo'natuvchi tomonidan algoritmik ravishda imzolanadi, bu esa soxtalashtirish imkoniyatini yo'q qiladi."
     }
+  },
+  errorMessages: {
+    scanQr: {
+      NotAllowedError: {
+        headerErr: 'Kameraga kirishga ruxsat berilmagan!',
+        textErr: "Maxfiylik va ma'lumotlarni himoya qilish siyosatiga muvofiq, brauzer sozlamalarida kirishga ruxsat berilishi kerak! Iltimos, tekshiring. Keyin sahifani yangilang va yana so'ralganda qurilma kamerasiga kirishga ruxsat bering."
+      },
+      NotFoundError: '',
+      NotSupportedError: '',
+      NotReadableError: '',
+      OverconstrainedError: '',
+      StreamApiNotSupportedError: '',
+      InsecureContextError: ''
+    }
+  },
+  buttons: {
+    requestCameraAccess: "Kameraga kirishni so'rang",
+    reloadPage: 'Sahifani qayta yuklash'
   }
 }
