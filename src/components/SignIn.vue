@@ -36,7 +36,7 @@ const signin = async () => {
   user.seed = mn
   console.log(base58.encode(seed))
   console.log(user.pk)
-  router.push('/')
+  router.push('/profile')
 }
 const disabled = computed(() => pwd.value.length < 1)
 </script>

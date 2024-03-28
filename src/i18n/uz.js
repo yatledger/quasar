@@ -108,5 +108,11 @@ export default {
   buttons: {
     requestCameraAccess: "Kameraga kirishni so'rang",
     reloadPage: 'Sahifani qayta yuklash'
+  },
+  confirmMessages: {
+    clearDevice: {
+      clearQuestion: 'Bu qurilmadan hamyonga ruxsat olib tashlansinmi?',
+      info: 'Havotir olmang! Siz har doim mnemonik ibora yoki “ceed” tugmasi yordamida u yoki boshqa qurilmada hamyoningizga kirishni tiklashingiz mumkin.'
+    }
   }
 }

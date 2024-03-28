@@ -102,5 +102,11 @@ export default {
   buttons: {
     requestCameraAccess: '请求访问摄像机',
     reloadPage: '重新载入页面'
+  },
+  confirmMessages: {
+    clearDevice: {
+      clearQuestion: '删除该设备的钱包访问权限？',
+      info: "别担心！您可以使用记忆短语或 'ceed' 密钥在本设备或其他设备上重新访问您的钱包。"
+    }
   }
 }

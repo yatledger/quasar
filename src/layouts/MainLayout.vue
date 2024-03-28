@@ -2,9 +2,12 @@
 import signin from 'components/SignIn.vue'
 import { ref } from 'vue'
 import { userStore } from 'stores/user'
-import db from 'boot/db'
+import { useRouter } from 'vue-router'
+import { db } from 'boot/db'
 import { useQuasar } from 'quasar'
+import ClearConfirmModal from './ClearConfirmModal.vue'
 
+const router = useRouter()
 const $q = useQuasar()
 const dark = ref($q.dark.isActive)
 const darkToggle = () => {
@@ -13,6 +16,7 @@ const darkToggle = () => {
 
 const leftDrawerOpen = ref(false)
 const enter = ref(false)
+const isClear = ref(false)
 
 const user = userStore()
 
@@ -24,11 +28,14 @@ const exit = () => {
   user.pk = ''
   user.sk = ''
   user.seed = ''
+  router.push('/')
 }
 
 const clear = () => {
   db.delete('settings', 'seed')
   user.$reset()
+  router.push('/')
+  isClear.value = false
 }
 </script>
 
@@ -75,7 +82,7 @@ const clear = () => {
             <q-item-label caption>{{ $t('menu.signDesc') }}</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item v-if="user.crypt" @click="clear" clickable tag="span">
+        <q-item v-if="user.crypt" @click="isClear = true" clickable tag="span">
           <q-item-section avatar><q-icon name="delete" /></q-item-section>
           <q-item-section>
             <q-item-label>{{ $t('menu.clear') }}</q-item-label>
@@ -118,14 +125,22 @@ const clear = () => {
     <q-page-container>
       <router-view />
     </q-page-container>
-    <q-footer elevated v-if="user.sk.length > 0">
-      <q-toolbar class="flex flex-center q-pa-sm">
-        <!--<q-btn round size="lg" icon="account_box" to="/friends"></q-btn>
-        <q-btn round size="lg" icon="sync_alt" to="/tx"></q-btn>-->
-        <q-btn round size="lg" icon="qr_code_scanner" to="/qr"></q-btn>
-        <!--<q-btn round size="lg" icon="language" to="/global"></q-btn>
-        <q-btn round size="lg" icon="manage_accounts" to="/profile"></q-btn>-->
+    <q-footer elevated="" v-if="user.sk.length > 0">
+      <q-toolbar class="flex flex-center q-pa-sm justify-evenly">
+        <q-btn class="custom-button" round size="1rem" icon="account_box" to="/friends"></q-btn>
+        <q-btn class="custom-button" round size="1rem" icon="sync_alt" to="/tx"></q-btn>
+        <q-btn class="custom-button" round size="1rem" icon="qr_code_scanner" to="/qr"></q-btn>
+        <q-btn class="custom-button" round size="1rem" icon="language" to="/global"></q-btn>
+        <q-btn class="custom-button" round size="1rem" icon="manage_accounts" to="/profile"></q-btn>
       </q-toolbar>
     </q-footer>
   </q-layout>
+  <ClearConfirmModal v-model="isClear" v-bind:handleConfirm="clear" />
 </template>
+
+<style>
+.custom-button {
+  background-color: #DDDDEB;
+  color: #212235;
+}
+</style>

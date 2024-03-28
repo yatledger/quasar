@@ -7,7 +7,7 @@ import russian from 'boot/wordlists/russian.json'
 import uzbek from 'boot/wordlists/uzbek.json'
 import { wordlist as english } from '@scure/bip39/wordlists/english'
 import { wordlist as chinese } from '@scure/bip39/wordlists/simplified-chinese'
-import db from 'boot/db'
+import { db } from 'boot/db'
 import { generateMnemonic } from '@scure/bip39'
 import { pbkdf2 } from '@noble/hashes/pbkdf2'
 import { sha512 } from '@noble/hashes/sha512'
@@ -102,7 +102,7 @@ const signup = async () => {
   console.log(pk.value)
   user.crypt = seed
   user.seed = mn.value
-  router.push('/')
+  router.push('/profile')
 }
 
 gen(locale.value)

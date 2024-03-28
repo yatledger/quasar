@@ -102,5 +102,11 @@ export default {
   buttons: {
     requestCameraAccess: 'Request access to the camera',
     reloadPage: 'Reload the page'
+  },
+  confirmMessages: {
+    clearDevice: {
+      clearQuestion: 'Remove wallet access from this device?',
+      info: "Don't worry! You can always regain access to your wallet on this or another device using a mnemonic phrase or 'ceed' key."
+    }
   }
 }
