@@ -118,13 +118,13 @@ const clear = () => {
     <q-page-container>
       <router-view />
     </q-page-container>
-    <q-footer elevated v-if="user.sk.length > 0">
-      <q-toolbar class="flex flex-center q-pa-sm">
-        <!--<q-btn round size="lg" icon="account_box" to="/friends"></q-btn>
-        <q-btn round size="lg" icon="sync_alt" to="/tx"></q-btn>-->
-        <q-btn round size="lg" icon="qr_code_scanner" to="/qr"></q-btn>
-        <!--<q-btn round size="lg" icon="language" to="/global"></q-btn>
-        <q-btn round size="lg" icon="manage_accounts" to="/profile"></q-btn>-->
+    <q-footer v-if="user.sk.length > 0" class="bg-transparent">
+      <q-toolbar class="flex flex-center q-pa-sm justify-evenly">
+        <q-btn color="primary" round size="1rem" icon="account_box" to="/friends"></q-btn>
+        <q-btn color="primary" round size="1rem" icon="sync_alt" to="/tx"></q-btn>
+        <q-btn color="primary" round size="1rem" icon="qr_code_scanner" to="/qr"></q-btn>
+        <q-btn color="primary" round size="1rem" icon="language" to="/global"></q-btn>
+        <q-btn color="primary" round size="1rem" icon="manage_accounts" to="/profile"></q-btn>
       </q-toolbar>
     </q-footer>
   </q-layout>
