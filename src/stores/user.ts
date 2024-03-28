@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import db from 'boot/db'
+import { db } from 'boot/db'
 
 // TODO: !!STATE!!
 export const userStore = defineStore('user', () => {
