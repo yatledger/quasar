@@ -102,7 +102,7 @@ const signup = async () => {
   console.log(pk.value)
   user.crypt = seed
   user.seed = mn.value
-  router.push('/')
+  router.push('/profile')
 }
 
 gen(locale.value)
